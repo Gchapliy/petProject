@@ -1,16 +1,22 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: greg
-  Date: 29.05.2019
-  Time: 16:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-Hello
+<a href="/home?language=en_US">English</a>
+<a href="/home?language=ru_RU">Russian</a>
+
+<h3>Locale of ${country} or ${requestScope.country} or <%=request.getAttribute("country")%></h3>
+Format Number: ${fnumber}
+<br>
+Format Currency: ${requestScope.fcurrency}
+<br>
+Format Percent: ${requestScope.fpercent}
+<br>
+Format Date: ${requestScope.fdate}
+<br>
+Format String: ${requestScope.fstring}
+<br>
 </body>
 </html>
