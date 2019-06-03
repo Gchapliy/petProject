@@ -2,6 +2,7 @@ package com.epamTranings.bankSystem.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -11,15 +12,17 @@ import java.util.ResourceBundle;
 
 @WebFilter(filterName="localeFilter")
 public class LocaleFilter implements Filter{
+    private Locale locale;
+    private String language = "en";
+    private String country = "US";
+    private Cookie localeCookie;
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-        Locale locale;
-        String language = "en";
-        String country = "US";
+
         if(request.getParameter("language") != null){
             String[] pLanguage = request.getParameter("language").split("_");
             language = pLanguage[0];
