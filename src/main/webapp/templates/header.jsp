@@ -60,7 +60,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img src="images/logo2.png" alt="" class="img-responsive">
+                <img src="images/logo2new.png" alt="" class="img-responsive">
             </a>
         </div><!--Navbar header End-->
         <nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,6 +72,8 @@
                     <a href="index.html#service" data-scroll >Services</a>
                 </li>
                 <li>
+                    <a href="index.html#service" data-scroll >Login</a>
+                </li>
             </ul>
         </nav>
     </div><!-- /.container-fluid -->
