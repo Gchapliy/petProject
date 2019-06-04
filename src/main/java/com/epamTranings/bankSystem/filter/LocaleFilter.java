@@ -4,26 +4,24 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.util.Date;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
-@WebFilter(filterName="localeFilter")
-public class LocaleFilter implements Filter{
+@WebFilter(filterName = "localeFilter", urlPatterns = {"/*"})
+public class LocaleFilter implements Filter {
     private Locale locale;
     private String language = "en";
     private String country = "US";
     private Cookie localeCookie;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
 
-        if(request.getParameter("language") != null){
+        if (request.getParameter("language") != null) {
             String[] pLanguage = request.getParameter("language").split("_");
             language = pLanguage[0];
             country = pLanguage[1];
@@ -51,8 +49,7 @@ public class LocaleFilter implements Filter{
             //Locale for String
             ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", locale);
             request.setAttribute("fstring", resourceBundle.getString("label.title"));*/
-        }
-        else {
+        } else {
             locale = new Locale(language, country);
         }
 
@@ -60,6 +57,7 @@ public class LocaleFilter implements Filter{
         request.setAttribute("country", country);
         chain.doFilter(request, response);
     }
+
     @Override
     public void destroy() {
     }

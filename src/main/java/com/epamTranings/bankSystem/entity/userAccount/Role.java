@@ -1,9 +1,10 @@
 package com.epamTranings.bankSystem.entity.userAccount;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Role {
+public class Role implements Serializable{
 
     private int roleID;
     private String roleName;

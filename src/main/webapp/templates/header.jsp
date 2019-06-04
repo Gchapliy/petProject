@@ -72,7 +72,7 @@
                     <a href="index.html#service" data-scroll >Services</a>
                 </li>
                 <li>
-                    <a href="index.html#service" data-scroll >Login</a>
+                    <a href="/login" >Login</a>
                 </li>
             </ul>
         </nav>

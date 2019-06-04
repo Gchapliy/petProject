@@ -2,9 +2,10 @@ package com.epamTranings.bankSystem.entity.userAccount;
 
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserAccount {
+public class UserAccount implements Serializable{
     private int userAccountId;
     private String userAccountName;
     private String userAccountGender;
@@ -87,11 +88,9 @@ public class UserAccount {
                 "userAccountId=" + userAccountId +
                 ", userAccountName='" + userAccountName + '\'' +
                 ", userAccountGender='" + userAccountGender + '\'' +
-                ", userAccountEncryptedPassword='" + userAccountEncryptedPassword + '\'' +
                 ", userAccountRole=" + userAccountRole +
                 ", userAccountEmail='" + userAccountEmail + '\'' +
                 ", userAccountPhone='" + userAccountPhone + '\'' +
-                ", userBankAccounts=" + userBankAccounts +
                 '}';
     }
 }

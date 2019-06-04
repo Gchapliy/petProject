@@ -13,24 +13,27 @@ import java.util.Properties;
 
 public class MySQLConnectionUtil {
     final static Logger logger = LogManager.getLogger(MySQLConnectionUtil.class);
-    private static Properties dbProperties;
 
     /**
      * Connection with MySQL db using default parameters
      *
      * @return
      */
-    public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
-        if (initProperties()) {
+    public static Connection getMySQLConnection() {
+        Properties dbProperties = initProperties();
+
+        if (dbProperties != null) {
 
             String hostName = dbProperties.getProperty("hostName");
             String dbName = dbProperties.getProperty("dbName");
             String userName = dbProperties.getProperty("userName");
             String password = dbProperties.getProperty("password");
+            String serverTimeZone = dbProperties.getProperty("serverTimeZone");
 
-            return getMySQLConnection(hostName, dbName, userName, password);
+            return getMySQLConnection(hostName, dbName, userName, password, serverTimeZone);
         }
 
+        logger.error("error while properties were loading");
         return null;
     }
 
@@ -44,14 +47,26 @@ public class MySQLConnectionUtil {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static Connection getMySQLConnection(String hostName, String dbName, String userName, String password) throws ClassNotFoundException, SQLException {
+    public static Connection getMySQLConnection(String hostName, String dbName, String userName, String password, String serverTimeZone) {
 
-        Class.forName("com.mysql.jdbc.Driver");
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            logger.error("error with finding com.mysql.cj.jdbc.Driver");
+            e.printStackTrace();
+        }
 
-        String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName;
+        String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName + serverTimeZone;
 
-        Connection connection = DriverManager.getConnection(connectionURL, userName, password);
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connectionURL, userName, password);
+        } catch (SQLException e) {
+            logger.error("error with connection creation");
+            e.printStackTrace();
+        }
 
+        logger.info("Connection created successfully");
         return connection;
     }
 
@@ -60,14 +75,16 @@ public class MySQLConnectionUtil {
      *
      * @return
      */
-    private static boolean initProperties() {
+    private static Properties initProperties() {
+        Properties dbProperties = new Properties();
         try (InputStream in = MySQLConnectionUtil.class.getClassLoader().getResourceAsStream("db.properties")) {
             dbProperties.load(in);
+            return dbProperties;
         } catch (IOException e) {
-            logger.error("some problems with properties");
+            logger.error("Properties didn't loaded");
             e.printStackTrace();
         }
 
-        return true;
+        return null;
     }
 }
