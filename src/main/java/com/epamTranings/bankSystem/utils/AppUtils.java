@@ -23,8 +23,6 @@ public class AppUtils {
     public static final String ATR_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
     private static final String ATR_NAME_USER_EMAIL = "ATTRIBUTE_FOR_STORE_USER_EMAIL_IN_COOKIE";
 
-    final static Logger logger = LogManager.getLogger(AppUtils.class);
-
     /**
      * Store connection in request attribute.
      * @param request
@@ -32,7 +30,6 @@ public class AppUtils {
      */
     public static void storeConnection(ServletRequest request, Connection conn) {
         request.setAttribute(ATR_NAME_CONNECTION, conn);
-        logger.info("Connection stored in request");
     }
 
     /**
@@ -42,7 +39,6 @@ public class AppUtils {
      */
     public static Connection getStoredConnection(ServletRequest request) {
         Connection conn = (Connection) request.getAttribute(ATR_NAME_CONNECTION);
-        logger.info("Connection loaded from request");
         return conn;
     }
 
@@ -53,7 +49,6 @@ public class AppUtils {
      */
     public static void storeLoginedUser(HttpSession session, UserAccount loginedUserAccount) {
         session.setAttribute("loginedUser", loginedUserAccount);
-        logger.info("UserAccount_" + loginedUserAccount + " stored in session");
     }
 
     /**
@@ -63,7 +58,6 @@ public class AppUtils {
      */
     public static UserAccount getLoginedUser(HttpSession session) {
         UserAccount loginedUser = (UserAccount) session.getAttribute("loginedUser");
-        logger.info("UserAccount_" + loginedUser + "  loaded from session");
         return loginedUser;
     }
 
@@ -77,7 +71,6 @@ public class AppUtils {
         // 1 day (Converted to seconds)
         cookieUserEmail.setMaxAge(24 * 60 * 60);
         response.addCookie(cookieUserEmail);
-        logger.info("UserAccount_" + userAccount + "  stored in cookie");
     }
 
     /**
@@ -106,7 +99,6 @@ public class AppUtils {
         // 0 seconds (This cookie will expire immediately)
         cookieUserEmail.setMaxAge(0);
         response.addCookie(cookieUserEmail);
-        logger.info("userAccount removed from cookie");
     }
 
     /**

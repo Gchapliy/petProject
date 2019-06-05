@@ -1,19 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-
-</head>
+<%@ include file="header.jsp" %>
 <body>
-<div >
 
-    <div >
-        <!-- User store in session with attribute: loginedUser -->
-        Hello <b>${user.userAccountName}</b>
-        <br/>
-        Search <input name="search">
-
+<section id="banner">
+    <div class="container">
+        <div class="row">
+            <div class="blog-header text-center">
+                <h2>Hello ${user.userAccountName}</h2>
+            </div>
+        </div>
     </div>
+</section>
+<div >
 
 </div>
 </body>
-</html>
+<%@ include file="footer.jsp" %>

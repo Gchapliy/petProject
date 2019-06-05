@@ -1,80 +1,52 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<html>
+<!--[if lt IE 7]>      <![endif]-->
+<!--[if IE 7]>          <![endif]-->
+<!--[if IE 8]>          <![endif]-->
+<!--[if gt IE 8]><!-->  <!--<![endif]-->
 <head>
-    <!-- Basic Page Needs
-    ================================================== -->
-    <meta charset="utf-8">
-    <title>Home</title>
-    <meta name="description" content="">
-    <!-- Mobile Specific Metas
-================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- CSS
-    ================================================== -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css"/>
-    <!-- Animation -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css" />
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.css"/>
-    <!-- Pretty Photo -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/prettyPhoto.css"/>
-    <!-- colro style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/red.css"/>
-    <!-- Bx slider -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.bxslider.css"/>
-
-    <!-- Template styles-->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.css" />
-    <!-- REsponsive -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500' rel='stylesheet' type='text/css'>
+    <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
 </head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/flexboxgrid.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css"/>
+<link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500' rel='stylesheet' type='text/css'>
+<body>
 
-<body data-spy="scroll" data-target=".navbar-fixed-top">
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-
-<header id="section_header" class="navbar-fixed-top main-nav" role="navigation">
-    <div class="container">
-        <!-- <div class="row"> -->
-        <div class="navbar-header ">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                <img src="images/logo2new.png" alt="" class="img-responsive">
-            </a>
-        </div><!--Navbar header End-->
-        <nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="index.html#slider_part" data-scroll  class="active">Home </a>
-                </li>
-                <li>
-                    <a href="index.html#service" data-scroll >Services</a>
-                </li>
-                <li>
-                    <a href="/login" >Login</a>
-                </li>
-            </ul>
-        </nav>
-    </div><!-- /.container-fluid -->
-</header>
+<%--HEADER--%>
+<section id="header">
+    <div class="row center-lg center-md center-sm center-xs">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <a href="/">
+                        <img src="${pageContext.request.contextPath}/static/images/logo2.png" alt="" >
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 menu">
+            <div class="row end-lg end-md end-sm end-xs">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <a href="/"><h4 class="menu_btn">Home</h4></a>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <a href="/services"><h4 class="menu_btn">Services</h4></a>
+                </div>
+                <c:if test="${sessionScope.loginedUser != null}">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <a href="/logout"><h4 class="menu_btn">Logout</h4></a>
+                    </div>
+                </c:if>
+                <c:if test="${sessionScope.loginedUser == null}">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <a href="/login"><h4 class="menu_btn">Login</h4></a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </div>
+</section>

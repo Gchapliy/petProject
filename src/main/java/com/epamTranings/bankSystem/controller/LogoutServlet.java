@@ -1,5 +1,9 @@
 package com.epamTranings.bankSystem.controller;
 
+import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,11 +14,15 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet{
 
+    final static Logger logger = LogManager.getLogger(LogoutServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserAccount loginedUser = (UserAccount)req.getSession().getAttribute("loginedUser");
         req.getSession().invalidate();
 
-        // Redrect to Home Page.
+        logger.info("User: " + loginedUser.getUserAccountEmail() + " is logout");
+        // Redirect to Home Page.
         resp.sendRedirect(req.getContextPath() + "/");
     }
 

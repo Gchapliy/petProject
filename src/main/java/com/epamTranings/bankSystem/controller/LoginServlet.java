@@ -4,6 +4,8 @@ import com.epamTranings.bankSystem.dao.UserDAO;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.SecurityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,9 @@ import java.sql.Connection;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
+
+    final static Logger logger = LogManager.getLogger(LoginServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("templates/login.jsp").forward(req, resp);
@@ -56,6 +61,7 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("errorString", errorString);
             req.setAttribute("userEmail", user);
 
+            logger.info("User: " + userEmail + " typed wrong data");
             req.getRequestDispatcher("templates/login.jsp").forward(req, resp);
         }
         // If no error
@@ -73,6 +79,8 @@ public class LoginServlet extends HttpServlet {
             else {
                 AppUtils.deleteUserCookie(resp);
             }
+
+            logger.info("User: " + userEmail + " is login");
 
             // Redirect to userInfo page.
             resp.sendRedirect(req.getContextPath() + "/userPage");
