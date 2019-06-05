@@ -1,8 +1,8 @@
 package com.epamTranings.bankSystem.filter;
 
-import com.epamTranings.bankSystem.dbConnection.ConnectionUtils;
-import com.epamTranings.bankSystem.servlet.MainServlet;
-import com.epamTranings.bankSystem.utils.UserUtils;
+import com.epamTranings.bankSystem.utils.AppUtils;
+import com.epamTranings.bankSystem.utils.dbConnectionUtils.ConnectionUtils;
+import com.epamTranings.bankSystem.controller.MainServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,7 +29,7 @@ public class JDBCFilter implements Filter{
         HttpServletRequest req = (HttpServletRequest) servletRequest;
 
         // Only open connections for the special requests.
-        // (For example, the path to the servlet, JSP, ..)
+        // (For example, the path to the controller, JSP, ..)
         //
         // Avoid open connection for commons request.
         // (For example: image, css, javascript,... )
@@ -42,11 +42,11 @@ public class JDBCFilter implements Filter{
             try {
                 // Create a Connection.
                 conn = ConnectionUtils.getConnection();
-                // Set outo commit to false.
+                // Set auto commit to false.
                 conn.setAutoCommit(false);
 
                 // Store Connection object in attribute of request.
-                UserUtils.storeConnection(servletRequest, conn);
+                AppUtils.storeConnection(servletRequest, conn);
 
                 // Allow request to go forward
                 // (Go to the next filter or target)
@@ -77,22 +77,19 @@ public class JDBCFilter implements Filter{
     }
 
     /**
-     * Check the target of the request is a servlet?
+     * Check the target of the request is a controller?
      * @param request
      * @return
      */
     private boolean needJDBC(HttpServletRequest request){
-        // Servlet Url-pattern: /spath/*
-        //
-        // => /spath
+
         String servletPath = request.getServletPath();
-        // => /abc/mnp
+
         String pathInfo = request.getPathInfo();
 
         String urlPattern = servletPath;
 
         if (pathInfo != null) {
-            // => /spath/*
             urlPattern = servletPath + "/*";
         }
 
@@ -101,7 +98,6 @@ public class JDBCFilter implements Filter{
         Map<String, ? extends ServletRegistration> servletRegistrations = request.getServletContext()
                 .getServletRegistrations();
 
-        // Collection of all servlet in your Webapp.
         Collection<? extends ServletRegistration> values = servletRegistrations.values();
         for (ServletRegistration sr : values) {
             Collection<String> mappings = sr.getMappings();

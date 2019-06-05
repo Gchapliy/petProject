@@ -1,6 +1,5 @@
-package com.epamTranings.bankSystem.dbConnection;
+package com.epamTranings.bankSystem.utils.dbConnectionUtils;
 
-import com.epamTranings.bankSystem.servlet.MainServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

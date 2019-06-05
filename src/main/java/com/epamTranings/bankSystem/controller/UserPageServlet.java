@@ -1,9 +1,8 @@
-package com.epamTranings.bankSystem.servlet;
+package com.epamTranings.bankSystem.controller;
 
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
-import com.epamTranings.bankSystem.utils.UserUtils;
+import com.epamTranings.bankSystem.utils.AppUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ public class UserPageServlet extends HttpServlet{
         HttpSession session = req.getSession();
 
         // Check User has logged on
-        UserAccount loginedUser = UserUtils.getLoginedUser(session);
+        UserAccount loginedUser = AppUtils.getLoginedUser(session);
 
         // Not logged in
         if (loginedUser == null) {

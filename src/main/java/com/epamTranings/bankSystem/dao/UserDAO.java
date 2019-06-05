@@ -38,7 +38,7 @@ public class UserDAO {
                 String accountName = rs.getString("Account_Name");
                 String accountGender = rs.getString("Account_Gender");
                 String accountEncryptedPassword = rs.getString("Account_Encrypted_Password");
-                String accountRole = rs.getString("Account_Role");
+                int accountRole = rs.getInt("Account_Role");
                 String accountPhone = rs.getString("Account_Phone");
 
                 Role userRole = findUserRoleByName(connection, accountRole);
@@ -69,23 +69,23 @@ public class UserDAO {
     /**
      * Find userAccount role in db by role's name
      * @param conn
-     * @param roleName
+     * @param roleId
      * @return
      * @throws SQLException
      */
-    public static Role findUserRoleByName(Connection conn, String roleName) {
+    public static Role findUserRoleByName(Connection conn, int roleId) {
 
         String sql = "Select r.Role_Id, r.Role_Name from Role r" +
-                " where r.Role_Name = ?";
+                " where r.Role_Id = ?";
 
         PreparedStatement pstm = null;
         try {
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, roleName);
+            pstm.setInt(1, roleId);
             ResultSet rs = pstm.executeQuery();
 
             if (rs.next()) {
-                int roleId = rs.getInt("Role_Id");
+                String roleName = rs.getString("Role_Name");
 
                 Role userRole = new Role();
                 userRole.setRoleID(roleId);
@@ -101,7 +101,7 @@ public class UserDAO {
         }
 
 
-        logger.error("userRole with name " + roleName+ " not founded");
+        logger.error("userRole with id " + roleId+ " not founded");
 
         return null;
     }

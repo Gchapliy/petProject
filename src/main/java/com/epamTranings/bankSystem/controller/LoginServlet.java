@@ -1,10 +1,10 @@
-package com.epamTranings.bankSystem.servlet;
+package com.epamTranings.bankSystem.controller;
 
 import com.epamTranings.bankSystem.dao.UserDAO;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
-import com.epamTranings.bankSystem.utils.UserUtils;
+import com.epamTranings.bankSystem.utils.AppUtils;
+import com.epamTranings.bankSystem.utils.SecurityUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -37,17 +36,17 @@ public class LoginServlet extends HttpServlet {
             hasError = true;
             errorString = "Required username and password!";
         } else {
-            Connection conn = UserUtils.getStoredConnection(req);
+            Connection conn = AppUtils.getStoredConnection(req);
                 // Find the user in the DB.
                 user = UserDAO.findUserByEmail(conn, userEmail);
 
-                if (user == null) {
+                if (user == null || !SecurityUtils.checkPassword(user.getUserAccountEncryptedPassword(), password)) {
                     hasError = true;
                     errorString = "User Name or password invalid";
                 }
             }
 
-        // If error, forward to /WEB-INF/views/login.jsp
+        // If error, forward to login.jsp
         if (hasError) {
             user = new UserAccount();
             user.setUserAccountEmail(userEmail);
@@ -55,28 +54,24 @@ public class LoginServlet extends HttpServlet {
 
             // Store information in request attribute, before forward.
             req.setAttribute("errorString", errorString);
-            req.setAttribute("user", user);
+            req.setAttribute("userEmail", user);
 
-            // Forward to /WEB-INF/views/login.jsp
-            RequestDispatcher dispatcher //
-                    = this.getServletContext().getRequestDispatcher("templates/login.jsp");
-
-            dispatcher.forward(req, resp);
+            req.getRequestDispatcher("templates/login.jsp").forward(req, resp);
         }
         // If no error
         // Store user information in Session
-        // And redirect to userInfo page.
+        // And redirect to user page.
         else {
             HttpSession session = req.getSession();
-            UserUtils.storeLoginedUser(session, user);
+            AppUtils.storeLoginedUser(session, user);
 
             // If user checked "Remember me".
             if (remember) {
-                UserUtils.storeUserCookie(resp, user);
+                AppUtils.storeUserCookie(resp, user);
             }
             // Else delete cookie.
             else {
-                UserUtils.deleteUserCookie(resp);
+                AppUtils.deleteUserCookie(resp);
             }
 
             // Redirect to userInfo page.

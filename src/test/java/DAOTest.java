@@ -1,10 +1,8 @@
 import com.epamTranings.bankSystem.dao.UserDAO;
-import com.epamTranings.bankSystem.dbConnection.MySQLConnectionUtil;
+import com.epamTranings.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.sql.Connection;
 
 public class DAOTest {
     private MySQLConnectionUtil connection;

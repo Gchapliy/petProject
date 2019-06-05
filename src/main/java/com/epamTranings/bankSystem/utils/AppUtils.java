@@ -1,6 +1,5 @@
 package com.epamTranings.bankSystem.utils;
 
-import com.epamTranings.bankSystem.dbConnection.MySQLConnectionUtil;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,13 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
-public class UserUtils {
+public class AppUtils {
+
+    private static int REDIRECT_ID = 0;
+
+    private static final Map<Integer, String> id_uri_map = new HashMap<>();
+    private static final Map<String, Integer> uri_id_map = new HashMap<>();
 
     public static final String ATR_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
     private static final String ATR_NAME_USER_EMAIL = "ATTRIBUTE_FOR_STORE_USER_EMAIL_IN_COOKIE";
 
-    final static Logger logger = LogManager.getLogger(UserUtils.class);
+    final static Logger logger = LogManager.getLogger(AppUtils.class);
 
     /**
      * Store connection in request attribute.
@@ -101,5 +107,39 @@ public class UserUtils {
         cookieUserEmail.setMaxAge(0);
         response.addCookie(cookieUserEmail);
         logger.info("userAccount removed from cookie");
+    }
+
+    /**
+     * Store request URI after login
+     * @param session
+     * @param requestUri
+     * @return
+     */
+    public static int storeRedirectAfterLoginUrl(HttpSession session, String requestUri) {
+        Integer id = uri_id_map.get(requestUri);
+
+        if (id == null) {
+            id = REDIRECT_ID++;
+
+            uri_id_map.put(requestUri, id);
+            id_uri_map.put(id, requestUri);
+            return id;
+        }
+
+        return id;
+    }
+
+    /**
+     * Get redirect URI after login
+     * @param session
+     * @param redirectId
+     * @return
+     */
+    public static String getRedirectAfterLoginUrl(HttpSession session, int redirectId) {
+        String url = id_uri_map.get(redirectId);
+        if (url != null) {
+            return url;
+        }
+        return null;
     }
 }
