@@ -1,8 +1,11 @@
 package com.epamTranings.bankSystem.filter;
 
+import com.epamTranings.bankSystem.utils.AppUtils;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -11,7 +14,6 @@ public class LocaleFilter implements Filter {
     private Locale locale;
     private String language = "en";
     private String country = "US";
-    private Cookie localeCookie;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -20,6 +22,8 @@ public class LocaleFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest)  request;
+        HttpServletResponse resp = (HttpServletResponse) response;
 
         if (request.getParameter("language") != null) {
             String[] pLanguage = request.getParameter("language").split("_");
@@ -27,6 +31,8 @@ public class LocaleFilter implements Filter {
             country = pLanguage[1];
             locale = new Locale(language, country);
 
+            AppUtils.storeLocale(resp, locale);
+            request.setAttribute("locale", locale);
           /*  System.out.println("LOCALE " + locale);
             request.setAttribute("country", locale.getDisplayCountry());
 
@@ -50,11 +56,15 @@ public class LocaleFilter implements Filter {
             ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", locale);
             request.setAttribute("fstring", resourceBundle.getString("label.title"));*/
         } else {
-            locale = new Locale(language, country);
+            locale = AppUtils.getStoredLocale(req);
+            if(locale != null)
+                request.setAttribute("locale", locale);
+            else {
+                locale = new Locale(language, country);
+                request.setAttribute("locale", locale);
+            }
         }
 
-        request.setAttribute("language", language);
-        request.setAttribute("country", country);
         chain.doFilter(request, response);
     }
 

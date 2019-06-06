@@ -1,8 +1,6 @@
 package com.epamTranings.bankSystem.utils;
 
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
@@ -11,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AppUtils {
@@ -21,7 +20,8 @@ public class AppUtils {
     private static final Map<String, Integer> uri_id_map = new HashMap<>();
 
     public static final String ATR_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
-    private static final String ATR_NAME_USER_EMAIL = "ATTRIBUTE_FOR_STORE_USER_EMAIL_IN_COOKIE";
+    private static final String ATR_NAME_USER = "ATTRIBUTE_FOR_USER";
+    private static final String ATR_LOCALE = "ATTRIBUTE_FOR_LOCALE";
 
     /**
      * Store connection in request attribute.
@@ -40,6 +40,36 @@ public class AppUtils {
     public static Connection getStoredConnection(ServletRequest request) {
         Connection conn = (Connection) request.getAttribute(ATR_NAME_CONNECTION);
         return conn;
+    }
+
+    /**
+     * Store locale to cookie
+     * @param response
+     * @param locale
+     */
+    public static void storeLocale(HttpServletResponse response, Locale locale){
+        Cookie cookieLocale = new Cookie(ATR_LOCALE, locale.getLanguage() + "_" + locale.getCountry());
+        cookieLocale.setMaxAge(10 * 365 * 24 * 60 * 60);
+        response.addCookie(cookieLocale);
+    }
+
+    /**
+     * Get Locale from Cookie
+     * @param request
+     * @return
+     */
+    public static Locale getStoredLocale(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (ATR_LOCALE.equals(cookie.getName())) {
+                    String[] localeData = cookie.getValue().split("_");
+                    return new Locale(localeData[0], localeData[1]);
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -67,7 +97,7 @@ public class AppUtils {
      * @param userAccount
      */
     public static void storeUserCookie(HttpServletResponse response, UserAccount userAccount) {
-        Cookie cookieUserEmail = new Cookie(ATR_NAME_USER_EMAIL, userAccount.getUserAccountEmail());
+        Cookie cookieUserEmail = new Cookie(ATR_NAME_USER, userAccount.getUserAccountEmail());
         // 1 day (Converted to seconds)
         cookieUserEmail.setMaxAge(24 * 60 * 60);
         response.addCookie(cookieUserEmail);
@@ -82,7 +112,7 @@ public class AppUtils {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (ATR_NAME_USER_EMAIL.equals(cookie.getName())) {
+                if (ATR_NAME_USER.equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }
@@ -95,7 +125,7 @@ public class AppUtils {
      * @param response
      */
     public static void deleteUserCookie(HttpServletResponse response) {
-        Cookie cookieUserEmail = new Cookie(ATR_NAME_USER_EMAIL, null);
+        Cookie cookieUserEmail = new Cookie(ATR_NAME_USER, null);
         // 0 seconds (This cookie will expire immediately)
         cookieUserEmail.setMaxAge(0);
         response.addCookie(cookieUserEmail);

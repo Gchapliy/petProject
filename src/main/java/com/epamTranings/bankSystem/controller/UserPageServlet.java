@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = { "/userPage" })
+@WebServlet(name = "userPage", urlPatterns = { "/userPage" })
 public class UserPageServlet extends HttpServlet{
 
     @Override

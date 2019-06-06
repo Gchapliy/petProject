@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <a href="/">
-                        <img src="${pageContext.request.contextPath}/static/images/logo2.png" alt="" >
+                        <img src="${pageContext.request.contextPath}/static/images/logo.png" alt="" >
                     </a>
                 </div>
             </div>
@@ -31,7 +31,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 menu">
             <div class="row end-lg end-md end-sm end-xs">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <a href="/"><h4 class="menu_btn">Home</h4></a>
+                    <a href="/home"><h4 class="menu_btn">Home</h4></a>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <a href="#services"><h4 class="menu_btn">Services</h4></a>
@@ -46,6 +46,16 @@
                         <a href="/login"><h4 class="menu_btn">Login</h4></a>
                     </div>
                 </c:if>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a href="/home?language=en_US">
+                        <img src="${pageContext.request.contextPath}/static/images/english.png" alt="" >
+                    </a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a href="/home?language=ru_RU">
+                        <img src="${pageContext.request.contextPath}/static/images/russian.png" alt="" >
+                    </a>
+                </div>
             </div>
         </div>
     </div>

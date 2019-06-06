@@ -4,7 +4,7 @@
 
 <%--MAIN PAGE--%>
 <section id="main_page">
-    <div class="banner_text">welcome to banksystem</div>
+    <div class="banner_text">${welcome}</div>
 </section>
 
 <%--SERVICES--%>
