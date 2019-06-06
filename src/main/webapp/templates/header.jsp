@@ -34,7 +34,7 @@
                     <a href="/"><h4 class="menu_btn">Home</h4></a>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <a href="/services"><h4 class="menu_btn">Services</h4></a>
+                    <a href="#services"><h4 class="menu_btn">Services</h4></a>
                 </div>
                 <c:if test="${sessionScope.loginedUser != null}">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
