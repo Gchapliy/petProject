@@ -24,7 +24,7 @@ public class UserPageServlet extends HttpServlet{
         // Not logged in
         if (loginedUser == null) {
             // Redirect to login page.
-            resp.sendRedirect(req.getContextPath() + "templates/login");
+            resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
         // Store info to the request attribute before forwarding.

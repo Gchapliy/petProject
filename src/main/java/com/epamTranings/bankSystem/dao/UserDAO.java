@@ -23,7 +23,7 @@ public class UserDAO {
     public static UserAccount findUserByEmail(Connection connection,
                                        String userEmail) {
 
-        String sql = "Select u.Account_Id, u.Account_Name, u.Account_Gender, u.Account_Encrypted_Password, u.Account_Role, u.Account_Email, u.Account_Phone from UserAccount u" +
+        String sql = "Select u.Account_Id, u.Account_Name, u.Account_Gender, u.Account_Encrypted_Password, u.Account_Role, u.Account_Email, u.Account_Phone from User_Account u" +
                 " where u.Account_Email = ?";
 
 
