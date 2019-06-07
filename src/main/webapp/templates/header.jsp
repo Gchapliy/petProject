@@ -8,7 +8,7 @@
 <head>
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title></title>
+    <title>${title}</title>
 </head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/flexboxgrid.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css"/>
@@ -31,19 +31,19 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 menu">
             <div class="row end-lg end-md end-sm end-xs">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <a href="/home"><h4 class="menu_btn">Home</h4></a>
+                    <a href="/home"><h4 class="menu_btn">${home}</h4></a>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <a href="#services"><h4 class="menu_btn">Services</h4></a>
+                    <a href="#services"><h4 class="menu_btn">${services}</h4></a>
                 </div>
                 <c:if test="${sessionScope.loginedUser != null}">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <a href="/logout"><h4 class="menu_btn">Logout</h4></a>
+                        <a href="/logout"><h4 class="menu_btn">${logout}</h4></a>
                     </div>
                 </c:if>
                 <c:if test="${sessionScope.loginedUser == null}">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <a href="/login"><h4 class="menu_btn">Login</h4></a>
+                        <a href="/login"><h4 class="menu_btn">${login}</h4></a>
                     </div>
                 </c:if>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">

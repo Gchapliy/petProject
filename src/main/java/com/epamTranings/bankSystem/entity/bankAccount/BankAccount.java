@@ -10,8 +10,8 @@ public class BankAccount {
     private Date accountCreateDate;
     private Date accountExpirationDate;
     private UserAccount accountOwner;
-    private int accountInterestRate;
-    private int accountDebt;
+    private double accountInterestRate;
+    private double accountDebt;
     private AccountType accountType;
 
     public int getAccountId() {
@@ -54,7 +54,7 @@ public class BankAccount {
         this.accountOwner = accountOwner;
     }
 
-    public int getAccountInterestRate() {
+    public double getAccountInterestRate() {
         return accountInterestRate;
     }
 
@@ -62,7 +62,7 @@ public class BankAccount {
         this.accountInterestRate = accountInterestRate;
     }
 
-    public int getAccountDebt() {
+    public double getAccountDebt() {
         return accountDebt;
     }
 
