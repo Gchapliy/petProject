@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -31,7 +30,11 @@ public class MainServlet extends HttpServlet {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
-    private void setLocaleAttributes(HttpServletRequest request) throws UnsupportedEncodingException {
+    /**
+     * localization initialising for home page
+     * @param request
+     */
+    private void setLocaleAttributes(HttpServletRequest request) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("home.title"));

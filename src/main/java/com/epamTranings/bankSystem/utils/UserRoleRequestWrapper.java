@@ -18,7 +18,7 @@ import java.security.Principal;
  */
 public class UserRoleRequestWrapper extends HttpServletRequestWrapper{
     private String userEmail;
-    private Role role = null;
+    private Role role;
     private HttpServletRequest realRequest;
 
     public UserRoleRequestWrapper(String userEmail, Role role, HttpServletRequest request) {
