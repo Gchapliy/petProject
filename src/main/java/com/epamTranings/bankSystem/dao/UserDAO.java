@@ -152,6 +152,7 @@ public class UserDAO {
                 bankAccount.setAccountInterestRate(interestRate);
                 bankAccount.setAccountDebt(debt);
                 bankAccount.setAccountType(type);
+                bankAccount.setAccountOwner(userAccount);
 
                 list.add(bankAccount);
             }
