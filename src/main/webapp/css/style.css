@@ -17,7 +17,7 @@ body {
 
 /*HEADER*/
 #header{
-    margin: 20px 0 0 0px;
+    margin: 20px 0 0 0;
 }
 
 .menu_btn{
@@ -126,6 +126,88 @@ a {
     border-color: #cb321f;
     background-color: #cb321f;
     transition: 0.3s;
+}
+
+/*--------------------------------------------------------------------*/
+
+/*LOGIN PAGE*/
+#login{
+    margin: 200px 0 80px 0;
+    font-size: 22px;
+}
+
+.login_row{
+    margin-bottom: 15px;
+}
+
+.login_input{
+    border: solid 1px #EE3B24;
+    border-radius: 5px;
+    margin-left: 10px;
+    min-width: 200px;
+}
+
+.login_input input{
+    border: none;
+    margin: 0 0 0 -11px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login_input input:focus{
+    outline: none;
+}
+
+.login_btn{
+    background: #EE3B24;
+    border: solid 1px #EE3B24;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.login_btn:hover{
+    cursor: pointer;
+    background: #cb321f;
+    border-color: #cb321f;
+}
+
+.login_btn input{
+    border: none;
+    background: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+}
+
+.login_btn input:hover{
+    cursor: pointer;
+}
+
+.register_btn{
+    background-color: #EE3B24;
+    border: solid 1px #EE3B24;
+    border-radius: 5px;
+    max-width: 160px;
+}
+
+.register_btn:hover{
+    background-color: #cb321f;
+    cursor: pointer;
+    border-color: #cb321f;
+}
+
+.register_btn a{
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.error{
+    color: red;
+    font-size: 18px;
 }
 
 /*--------------------------------------------------------------------*/
