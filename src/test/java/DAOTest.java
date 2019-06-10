@@ -25,7 +25,7 @@ public class DAOTest {
     @Test
     public void findBankAccounts(){
         userAccount = userDAO.findUserByEmail(connection.getMySQLConnection(), "grishachapliy1@gmail.com");
-        accounts = userDAO.findUserAccounts(connection.getMySQLConnection(), userAccount);
+        accounts = userDAO.findUserBankAccounts(connection.getMySQLConnection(), userAccount);
         System.out.println(accounts);
     }
 }

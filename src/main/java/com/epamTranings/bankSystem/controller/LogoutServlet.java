@@ -31,7 +31,7 @@ public class LogoutServlet extends HttpServlet{
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleHomePage(req);
 
-        resp.sendRedirect(req.getContextPath() + "/");
+        req.getRequestDispatcher("/home").forward(req,resp);
     }
 
     @Override

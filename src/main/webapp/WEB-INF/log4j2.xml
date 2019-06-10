@@ -8,11 +8,6 @@
             <PatternLayout>
                 <Pattern>"%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"</Pattern>
             </PatternLayout>
-            <DefaultRolloverStrategy max="100">
-                <Delete basePath="D:/work/bankSystem/src/main/webapp/logs">
-                    <IfAccumulatedFileSize exceeds="100 MB" />
-                </Delete>
-            </DefaultRolloverStrategy>
         </File>
     </Appenders>
     <Loggers>

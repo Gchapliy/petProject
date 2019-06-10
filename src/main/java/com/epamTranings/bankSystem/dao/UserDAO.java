@@ -119,11 +119,12 @@ public class UserDAO {
      * @param userAccount
      * @return
      */
-    public static List<BankAccount> findUserAccounts(Connection connection, UserAccount userAccount) {
+    public static List<BankAccount> findUserBankAccounts(Connection connection, UserAccount userAccount) {
 
         String sql = "Select a.Account_Id, a.Account_Balance, a.Account_Create_Date, a.Account_Expiration_Date, " +
-                     "a.Account_Owner, a.Account_Limit, a.Account_Interest_Rate, a.Account_Debt, a.Account_Type " +
-                     "from Bank_Account a where a.Account_Owner=(select u.Account_Id from User_Account u where u.Account_Email=?)";
+                     "a.Account_Owner, a.Account_Limit, a.Account_Interest_Rate, a.Account_Debt, a.Account_Type, " +
+                     "a.Account_Uuid from Bank_Account a " +
+                     "where a.Account_Owner=(select u.Account_Id from User_Account u where u.Account_Email=?)";
 
         List<BankAccount> list = new ArrayList<>();
         BankAccount bankAccount;
@@ -142,6 +143,7 @@ public class UserDAO {
                 int interestRate = rs.getInt("Account_Interest_Rate");
                 double debt = rs.getDouble("Account_Debt");
                 BankAccount.AccountType type = BankAccount.AccountType.values()[rs.getInt("Account_Type")];
+                String uuid = rs.getString("Account_Uuid");
 
                 bankAccount = new BankAccount();
                 bankAccount.setAccountId(id);
@@ -153,6 +155,7 @@ public class UserDAO {
                 bankAccount.setAccountDebt(debt);
                 bankAccount.setAccountType(type);
                 bankAccount.setAccountOwner(userAccount);
+                bankAccount.setAccountUuid(uuid);
 
                 list.add(bankAccount);
             }

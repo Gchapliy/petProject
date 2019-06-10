@@ -1,7 +1,12 @@
 package com.epamTranings.bankSystem.controller;
 
+import com.epamTranings.bankSystem.dao.UserDAO;
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import com.epamTranings.bankSystem.utils.AppUtils;
+import com.epamTranings.bankSystem.utils.LocaleUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +15,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+import java.util.UUID;
 
 @WebServlet(name = "userPage", urlPatterns = { "/userPage" })
 public class UserPageServlet extends HttpServlet{
 
+    final static Logger logger = LogManager.getLogger(UserPageServlet.class);
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LocaleUtils.setLocaleHeaderAndFooter(req);
+
         HttpSession session = req.getSession();
 
         // Check User has logged on
@@ -27,8 +40,21 @@ public class UserPageServlet extends HttpServlet{
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
+
+        Connection connection = AppUtils.getStoredConnection(req);
+        List<BankAccount> bankAccounts = UserDAO.findUserBankAccounts(connection, loginedUser);
+
+        logger.info("found accounts " + bankAccounts);
+
         // Store info to the request attribute before forwarding.
         req.setAttribute("user", loginedUser);
+        if(bankAccounts == null || bankAccounts.size() == 0){
+            req.setAttribute("noAccounts", "noAccounts");
+        }else {
+            req.setAttribute("bankAccounts", bankAccounts);
+        }
+
+        req.setAttribute("test", UUID.randomUUID());
 
         // If the user has logged in, then forward to the page
         req.getRequestDispatcher("templates/userPage.jsp").forward(req, resp);

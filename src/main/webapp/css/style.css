@@ -212,6 +212,45 @@ a {
 
 /*--------------------------------------------------------------------*/
 
+/*USER PAGE*/
+#accounts{
+    margin: 40px 0 10px 0;
+}
+
+#accounts a{
+    color: #6a6a6a;
+}
+
+.user_name{
+    color: #EE3B24;
+}
+
+.account_row{
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.account_sub_row{
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+}
+
+.acc_data{
+    background-color: rgba(238, 59, 36, 0.3);
+}
+
+.acc_data:hover{
+    cursor: pointer;
+    background-color: rgba(238, 59, 36, 0.8);
+    font-weight: bold;
+    color: #262626;
+}
+/*--------------------------------------------------------------------*/
+
 /*FOOTER*/
 .footer_elements{
     height: 200px;

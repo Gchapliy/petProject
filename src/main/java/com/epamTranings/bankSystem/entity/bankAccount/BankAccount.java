@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class BankAccount {
     private int accountId;
+    private String accountUuid;
     private double accountBalance;
     private Date accountCreateDate;
     private Date accountExpirationDate;
@@ -21,6 +22,14 @@ public class BankAccount {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public String getAccountUuid() {
+        return accountUuid;
+    }
+
+    public void setAccountUuid(String accountUuid) {
+        this.accountUuid = accountUuid;
     }
 
     public double getAccountBalance() {
@@ -59,7 +68,7 @@ public class BankAccount {
         return accountInterestRate;
     }
 
-    public void setAccountInterestRate(int accountInterestRate) {
+    public void setAccountInterestRate(double accountInterestRate) {
         this.accountInterestRate = accountInterestRate;
     }
 
@@ -90,7 +99,8 @@ public class BankAccount {
     @Override
     public String toString() {
         return "BankAccount{" +
-                "accountBalance=" + accountBalance +
+                "accountUuid='" + accountUuid + '\'' +
+                ", accountBalance=" + accountBalance +
                 ", accountCreateDate=" + accountCreateDate +
                 ", accountExpirationDate=" + accountExpirationDate +
                 ", accountOwner=" + accountOwner +
