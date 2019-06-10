@@ -1,5 +1,5 @@
 package com.epamTranings.bankSystem.dao;
-
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.userAccount.Role;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import org.apache.logging.log4j.LogManager;
@@ -9,19 +9,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class UserDAO {
     final static Logger logger = LogManager.getLogger(UserDAO.class);
 
     /**
      * Find userAccount data in db by email
+     *
      * @param connection
      * @param userEmail
      * @return
      * @throws SQLException
      */
     public static UserAccount findUserByEmail(Connection connection,
-                                       String userEmail) {
+                                              String userEmail) {
 
         String sql = "Select u.Account_Id, u.Account_Name, u.Account_Gender, u.Account_Encrypted_Password, u.Account_Role, u.Account_Email, u.Account_Phone from User_Account u" +
                 " where u.Account_Email = ?";
@@ -68,6 +74,7 @@ public class UserDAO {
 
     /**
      * Find userAccount role in db by role's name
+     *
      * @param conn
      * @param roleId
      * @return
@@ -101,8 +108,61 @@ public class UserDAO {
         }
 
 
-        logger.error("userRole with id " + roleId+ " not founded");
+        logger.error("userRole with id " + roleId + " not founded");
 
         return null;
+    }
+
+    /**
+     * Find user bank accounts by user Email
+     * @param connection
+     * @param userAccount
+     * @return
+     */
+    public static List<BankAccount> findUserAccounts(Connection connection, UserAccount userAccount) {
+
+        String sql = "Select a.Account_Id, a.Account_Balance, a.Account_Create_Date, a.Account_Expiration_Date, " +
+                     "a.Account_Owner, a.Account_Limit, a.Account_Interest_Rate, a.Account_Debt, a.Account_Type " +
+                     "from Bank_Account a where a.Account_Owner=(select u.Account_Id from User_Account u where u.Account_Email=?)";
+
+        List<BankAccount> list = new ArrayList<>();
+        BankAccount bankAccount;
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, userAccount.getUserAccountEmail());
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("Account_Id");
+                double balance = rs.getDouble("Account_Balance");
+                Date createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Create_Date"));
+                Date expiratingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Expiration_Date"));
+                double limit = rs.getDouble("Account_Limit");
+                int interestRate = rs.getInt("Account_Interest_Rate");
+                double debt = rs.getDouble("Account_Debt");
+                BankAccount.AccountType type = BankAccount.AccountType.values()[rs.getInt("Account_Type")];
+
+                bankAccount = new BankAccount();
+                bankAccount.setAccountId(id);
+                bankAccount.setAccountBalance(balance);
+                bankAccount.setAccountCreateDate(createDate);
+                bankAccount.setAccountExpirationDate(expiratingDate);
+                bankAccount.setAccountLimit(limit);
+                bankAccount.setAccountInterestRate(interestRate);
+                bankAccount.setAccountDebt(debt);
+                bankAccount.setAccountType(type);
+
+                list.add(bankAccount);
+            }
+        } catch (SQLException e) {
+            logger.error("error while find user bank accounts");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            logger.error("error while parse date");
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

@@ -12,6 +12,7 @@ public class BankAccount {
     private UserAccount accountOwner;
     private double accountInterestRate;
     private double accountDebt;
+    private double accountLimit;
     private AccountType accountType;
 
     public int getAccountId() {
@@ -66,8 +67,16 @@ public class BankAccount {
         return accountDebt;
     }
 
-    public void setAccountDebt(int accountDebt) {
+    public void setAccountDebt(double accountDebt) {
         this.accountDebt = accountDebt;
+    }
+
+    public double getAccountLimit() {
+        return accountLimit;
+    }
+
+    public void setAccountLimit(double accountLimit) {
+        this.accountLimit = accountLimit;
     }
 
     public AccountType getAccountType() {
@@ -81,13 +90,13 @@ public class BankAccount {
     @Override
     public String toString() {
         return "BankAccount{" +
-                "accountId=" + accountId +
-                ", accountBalance=" + accountBalance +
+                "accountBalance=" + accountBalance +
                 ", accountCreateDate=" + accountCreateDate +
                 ", accountExpirationDate=" + accountExpirationDate +
                 ", accountOwner=" + accountOwner +
                 ", accountInterestRate=" + accountInterestRate +
                 ", accountDebt=" + accountDebt +
+                ", accountLimit=" + accountLimit +
                 ", accountType=" + accountType +
                 '}';
     }
