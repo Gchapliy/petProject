@@ -22,7 +22,7 @@
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${bankAccount.accountType}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${dateFormat.format(bankAccount.accountCreationDate)}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${dateFormat.format(bankAccount.accountExpirationDate)}</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountBalance)}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountBalance)} ${currency}</div>
             <c:if test="${bankAccount.accountType == depositType || bankAccount.accountType == creditType}">
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountInterestRate)}</div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountDebt)}</div>

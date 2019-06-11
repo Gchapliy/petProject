@@ -270,6 +270,7 @@ a {
 /*BANK ACCOUNT*/
 #bankAccount{
     margin: 80px 0 60px 0;
+
 }
 
 #bankAccount .title{
@@ -285,9 +286,27 @@ a {
 /*BANK ACCOUNT MANAGE INTERFACE*/
 
 #bankAccountManager{
-
+    margin: 40px 0 40px 0;
 }
 
+.accountBtn{
+    background-color: #EE3B24;
+    border: solid 1px #EE3B24;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.accountBtn:hover{
+    background-color: #cb321f;
+    cursor: pointer;
+}
+
+.accountBtn a{
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
 /*--------------------------------------------------------------------*/
 
 /*FOOTER*/

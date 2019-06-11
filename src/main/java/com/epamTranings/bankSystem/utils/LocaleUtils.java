@@ -139,6 +139,7 @@ public class LocaleUtils {
         request.setAttribute("interestRate", resourceBundle.getString("bankAccount.interestRate"));
         request.setAttribute("debt", resourceBundle.getString("bankAccount.debt"));
         request.setAttribute("limit", resourceBundle.getString("bankAccount.limit"));
+        request.setAttribute("currency", resourceBundle.getString("bankAccount.currency"));
     }
 
     /*  System.out.println("LOCALE " + locale);
