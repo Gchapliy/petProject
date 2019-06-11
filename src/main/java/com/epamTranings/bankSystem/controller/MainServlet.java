@@ -1,7 +1,6 @@
 package com.epamTranings.bankSystem.controller;
 
 import com.epamTranings.bankSystem.utils.LocaleUtils;
-import com.epamTranings.bankSystem.utils.UTF8Control;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,13 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 @WebServlet(name = "homePage", urlPatterns = {"/home"})
 public class MainServlet extends HttpServlet {
     final static Logger logger = LogManager.getLogger(MainServlet.class);
-    private static final long serialVersionUID = 1L;
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

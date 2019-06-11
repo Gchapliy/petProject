@@ -1,6 +1,7 @@
 package com.epamTranings.bankSystem.controller;
 
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
 import com.epamTranings.bankSystem.utils.UTF8Control;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +24,9 @@ public class LogoutServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserAccount loginedUser = (UserAccount)req.getSession().getAttribute("loginedUser");
+
         req.getSession().invalidate();
+        AppUtils.deleteUserCookie(resp);
 
         logger.info("User: " + loginedUser.getUserAccountEmail() + " is logout");
         // Redirect to Home Page.

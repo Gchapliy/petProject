@@ -1,5 +1,7 @@
 package com.epamTranings.bankSystem.utils;
 
+import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -13,18 +15,17 @@ public class LocaleUtils {
     public static void setLocaleHeaderAndFooter(HttpServletRequest request){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
+        UserAccount loginedUser = AppUtils.getLoginedUser(request.getSession());
+
+        if(loginedUser != null){
+            request.setAttribute("userName", loginedUser.getUserAccountName());
+        }
+
         //Header locale settings
         request.setAttribute("home", resourceBundle.getString("home.home"));
         request.setAttribute("services", resourceBundle.getString("home.services"));
         request.setAttribute("login", resourceBundle.getString("home.login"));
         request.setAttribute("logout", resourceBundle.getString("home.logout"));
-
-        //Locale settings for login page
-        request.setAttribute("credit_credit1", resourceBundle.getString("home.credit.credit1"));
-        request.setAttribute("credit_credit2", resourceBundle.getString("home.credit.credit2"));
-        request.setAttribute("credit_credit3", resourceBundle.getString("home.credit.credit3"));
-        request.setAttribute("credit_credit4", resourceBundle.getString("home.credit.credit4"));
-        request.setAttribute("join", resourceBundle.getString("home.join"));
 
         //Footer locale settings
         request.setAttribute("footer_menu", resourceBundle.getString("home.footer.menu"));
@@ -85,7 +86,23 @@ public class LocaleUtils {
         if(isRequired) request.setAttribute("error", resourceBundle.getString("login.errorRequired"));
     }
 
-    public static void setLocaleUserPage(HttpServletRequest request){
+    /**
+     * Initiating locale for user page. NoAccounts need if user doesn't have any bank accounts
+     * @param request
+     * @param noAccounts
+     */
+    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
+        request.setAttribute("title", resourceBundle.getString("user.title"));
+
+        //Locale settings for user page
+        request.setAttribute("welcome", resourceBundle.getString("user.welcome"));
+        request.setAttribute("yourAccounts", resourceBundle.getString("user.yourAccounts"));
+        request.setAttribute("accNumber", resourceBundle.getString("user.accNumber"));
+        request.setAttribute("accType", resourceBundle.getString("user.accType"));
+        request.setAttribute("balance", resourceBundle.getString("user.balance"));
+        if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
     }
+
 }

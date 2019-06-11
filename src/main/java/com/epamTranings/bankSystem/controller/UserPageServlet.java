@@ -28,6 +28,7 @@ public class UserPageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
+        LocaleUtils.setLocaleHomePage(req);
 
         HttpSession session = req.getSession();
 
@@ -44,17 +45,21 @@ public class UserPageServlet extends HttpServlet{
         Connection connection = AppUtils.getStoredConnection(req);
         List<BankAccount> bankAccounts = UserDAO.findUserBankAccounts(connection, loginedUser);
 
+        AppUtils.getLoginedUser(session).setUserBankAccounts(bankAccounts);
+
         logger.info("found accounts " + bankAccounts);
 
+        boolean noAccounts = false;
         // Store info to the request attribute before forwarding.
         req.setAttribute("user", loginedUser);
+
         if(bankAccounts == null || bankAccounts.size() == 0){
-            req.setAttribute("noAccounts", "noAccounts");
+            noAccounts = true;
         }else {
             req.setAttribute("bankAccounts", bankAccounts);
         }
 
-        req.setAttribute("test", UUID.randomUUID());
+        LocaleUtils.setLocaleUserPage(req, noAccounts);
 
         // If the user has logged in, then forward to the page
         req.getRequestDispatcher("templates/userPage.jsp").forward(req, resp);

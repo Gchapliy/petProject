@@ -3,6 +3,7 @@ package com.epamTranings.bankSystem.entity.userAccount;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAccount implements Serializable{
@@ -16,6 +17,7 @@ public class UserAccount implements Serializable{
     private List<BankAccount> userBankAccounts;
 
     public UserAccount() {
+        userBankAccounts = new ArrayList<>();
     }
 
     public int getUserAccountId() {
@@ -80,6 +82,14 @@ public class UserAccount implements Serializable{
 
     public void setUserBankAccounts(List<BankAccount> userBankAccounts) {
         this.userBankAccounts = userBankAccounts;
+    }
+
+    public BankAccount getBankAccountByName(String uuid){
+        for (BankAccount account : userBankAccounts) {
+            if(account.getAccountUuid().equals(uuid))return account;
+        }
+
+        return null;
     }
 
     @Override

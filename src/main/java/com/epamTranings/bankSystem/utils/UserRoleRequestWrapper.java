@@ -34,7 +34,7 @@ public class UserRoleRequestWrapper extends HttpServletRequestWrapper{
             return this.realRequest.isUserInRole(role);
         }
 
-        return role.equals(role);
+        return role.equals(this.role.getRoleName());
     }
 
     @Override

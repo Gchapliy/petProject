@@ -42,6 +42,9 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <a href="/logout"><h4 class="menu_btn">${logout}</h4></a>
                     </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <a href="/userPage"><h4 class="menu_btn">${userName}</h4></a>
+                    </div>
                 </c:if>
                 <c:if test="${sessionScope.loginedUser == null}">
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">

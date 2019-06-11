@@ -89,10 +89,15 @@ a {
 
 .service_account a:hover{
     color: #EE3B24;
+}
+
+.service_account:hover{
+    color: #EE3B24;
     -webkit-transform: scale(1.2);
     -ms-transform: scale(1.2);
     transform: scale(1.2);
     transition: 0.3s;
+    box-shadow: 0px 0px 30px 10px rgba(238, 59, 36, 0.3);
 }
 
 .service_account_title{
@@ -214,7 +219,7 @@ a {
 
 /*USER PAGE*/
 #accounts{
-    margin: 40px 0 10px 0;
+    margin: 80px 0 60px 0;
 }
 
 #accounts a{
@@ -225,8 +230,16 @@ a {
     color: #EE3B24;
 }
 
+.account_row_welcome{
+    margin-bottom: 40px;
+    font-size: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #262626;
+}
+
 .account_row{
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     font-size: 20px;
     font-weight: 400;
 }
@@ -235,12 +248,14 @@ a {
     text-transform: uppercase;
     font-weight: 400;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
 }
 
 .acc_data{
     background-color: rgba(238, 59, 36, 0.3);
+    border: solid 1px rgba(238, 59, 36, 0.3);
+    border-radius: 3px;
 }
 
 .acc_data:hover{

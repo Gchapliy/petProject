@@ -10,6 +10,9 @@ public class SecurityConfig {
     // List<String>: urlPatterns.
     private static final Map<String, List<String>> mapConfig = new HashMap<>();
 
+    static {
+        init();
+    }
     /**
      * Initialising map with roles and corresponding to them url patterns
      */
@@ -19,6 +22,11 @@ public class SecurityConfig {
         List<String> urlPatternsAdmin = new ArrayList<>();
 
         urlPatternsAdmin.add("/adminPage");
+        urlPatternsAdmin.add("/userPage");
+        urlPatternsAdmin.add("/standard");
+        urlPatternsAdmin.add("/deposit");
+        urlPatternsAdmin.add("/credit");
+        urlPatternsAdmin.add("/bankAccount");
 
         mapConfig.put(ROLE_ADMIN, urlPatternsAdmin);
 
@@ -26,6 +34,10 @@ public class SecurityConfig {
         List<String> urlPatternsUser = new ArrayList<>();
 
         urlPatternsUser.add("/userPage");
+        urlPatternsUser.add("/standard");
+        urlPatternsUser.add("/deposit");
+        urlPatternsUser.add("/credit");
+        urlPatternsUser.add("/bankAccount");
 
         mapConfig.put(ROLE_USER, urlPatternsUser);
     }

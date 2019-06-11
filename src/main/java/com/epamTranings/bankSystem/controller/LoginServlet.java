@@ -5,7 +5,6 @@ import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
 import com.epamTranings.bankSystem.utils.SecurityUtils;
-import com.epamTranings.bankSystem.utils.UTF8Control;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -42,7 +39,6 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         UserAccount user = null;
-        String errorString = null;
         boolean hasError = false;
         boolean isRequired = false;
         boolean isInvalid = false;
@@ -86,7 +82,6 @@ public class LoginServlet extends HttpServlet {
 
             logger.info("User: " + userEmail + " is login");
 
-            LocaleUtils.setLocaleUserPage(req);
             // Redirect to userInfo page.
             resp.sendRedirect(req.getContextPath() + "/userPage");
         }

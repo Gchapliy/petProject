@@ -65,7 +65,10 @@ public class SecurityFilter implements javax.servlet.Filter {
             boolean hasPermission = SecurityUtils.hasPermission(wrapRequest);
             if (!hasPermission) {
 
-                request.getServletContext().getRequestDispatcher("templates/accessDeniedView.jsp").forward(request, response);
+                    request.getSession().invalidate();
+                    AppUtils.deleteUserCookie(response);
+
+                request.getRequestDispatcher("templates/accessDeniedView.jsp").forward(request, response);
                 return;
             }
         }
