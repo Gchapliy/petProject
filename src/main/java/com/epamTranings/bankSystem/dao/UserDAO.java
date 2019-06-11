@@ -148,7 +148,7 @@ public class UserDAO {
                 bankAccount = new BankAccount();
                 bankAccount.setAccountId(id);
                 bankAccount.setAccountBalance(balance);
-                bankAccount.setAccountCreateDate(createDate);
+                bankAccount.setAccountCreationDate(createDate);
                 bankAccount.setAccountExpirationDate(expiratingDate);
                 bankAccount.setAccountLimit(limit);
                 bankAccount.setAccountInterestRate(interestRate);

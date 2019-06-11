@@ -8,7 +8,7 @@ public class BankAccount {
     private int accountId;
     private String accountUuid;
     private double accountBalance;
-    private Date accountCreateDate;
+    private Date accountCreationDate;
     private Date accountExpirationDate;
     private UserAccount accountOwner;
     private double accountInterestRate;
@@ -40,12 +40,12 @@ public class BankAccount {
         this.accountBalance = accountBalance;
     }
 
-    public Date getAccountCreateDate() {
-        return accountCreateDate;
+    public Date getAccountCreationDate() {
+        return accountCreationDate;
     }
 
-    public void setAccountCreateDate(Date accountCreateDate) {
-        this.accountCreateDate = accountCreateDate;
+    public void setAccountCreationDate(Date accountCreationDate) {
+        this.accountCreationDate = accountCreationDate;
     }
 
     public Date getAccountExpirationDate() {
@@ -101,7 +101,7 @@ public class BankAccount {
         return "BankAccount{" +
                 "accountUuid='" + accountUuid + '\'' +
                 ", accountBalance=" + accountBalance +
-                ", accountCreateDate=" + accountCreateDate +
+                ", accountCreationDate=" + accountCreationDate +
                 ", accountExpirationDate=" + accountExpirationDate +
                 ", accountOwner=" + accountOwner +
                 ", accountInterestRate=" + accountInterestRate +

@@ -1,8 +1,12 @@
 package com.epamTranings.bankSystem.utils;
 
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.NumberFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -40,9 +44,13 @@ public class LocaleUtils {
      * @param request
      */
     public static void setLocaleHomePage(HttpServletRequest request){
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+        Locale locale = (Locale) request.getAttribute("locale");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", locale, new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("home.title"));
+
+        //Locale for Number
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
         //Locale settings for home page
         request.setAttribute("welcome", resourceBundle.getString("home.welcome"));
@@ -53,13 +61,26 @@ public class LocaleUtils {
         request.setAttribute("standard_standard3", resourceBundle.getString("home.standard.standard3"));
         request.setAttribute("standard_standard4", resourceBundle.getString("home.standard.standard4"));
         request.setAttribute("deposit_title", resourceBundle.getString("home.deposit.title"));
+
+        String depositFromPercent = resourceBundle.getString("home.deposit.fromPercent");
+        String depositToPercent = resourceBundle.getString("home.deposit.toPercent");
         request.setAttribute("deposit_deposit1", resourceBundle.getString("home.deposit.deposit1"));
-        request.setAttribute("deposit_deposit2", resourceBundle.getString("home.deposit.deposit2"));
+        request.setAttribute("deposit_deposit2", resourceBundle.getString("home.deposit.deposit2") + " "
+                + numberFormat.format(Double.parseDouble(depositFromPercent)) + "% - " + numberFormat.format(Double.parseDouble(depositToPercent)) + "%");
+
         request.setAttribute("deposit_deposit3", resourceBundle.getString("home.deposit.deposit3"));
         request.setAttribute("deposit_deposit4", resourceBundle.getString("home.deposit.deposit4"));
+
         request.setAttribute("credit_title", resourceBundle.getString("home.credit.title"));
-        request.setAttribute("credit_credit1", resourceBundle.getString("home.credit.credit1"));
-        request.setAttribute("credit_credit2", resourceBundle.getString("home.credit.credit2"));
+        String creditFrom = resourceBundle.getString("home.credit.fromMoney");
+        String to = resourceBundle.getString("home.credit.to");
+        String creditTo = resourceBundle.getString("home.credit.toMoney");
+        String creditPercent = resourceBundle.getString("home.credit.interestRate");
+        String usd = resourceBundle.getString("home.credit.usd");
+
+        request.setAttribute("credit_credit1", resourceBundle.getString("home.credit.credit1") + " " +numberFormat.format(Integer.parseInt(creditFrom))
+                + " " + to + " " + numberFormat.format(Integer.parseInt(creditTo)) + " " + usd);
+        request.setAttribute("credit_credit2", resourceBundle.getString("home.credit.credit2") + " " + numberFormat.format(Integer.parseInt(creditPercent)) + "%");
         request.setAttribute("credit_credit3", resourceBundle.getString("home.credit.credit3"));
         request.setAttribute("credit_credit4", resourceBundle.getString("home.credit.credit4"));
         request.setAttribute("join", resourceBundle.getString("home.join"));
@@ -104,5 +125,41 @@ public class LocaleUtils {
         request.setAttribute("balance", resourceBundle.getString("user.balance"));
         if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
     }
+
+    public static void setLocaleBankAccount(HttpServletRequest request){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        //Locale settings for bank account page
+        request.setAttribute("title", resourceBundle.getString("bankAccount.title"));
+        request.setAttribute("uuid", resourceBundle.getString("bankAccount.uuid"));
+        request.setAttribute("type", resourceBundle.getString("bankAccount.type"));
+        request.setAttribute("balance", resourceBundle.getString("bankAccount.balance"));
+        request.setAttribute("creationDate", resourceBundle.getString("bankAccount.creationDate"));
+        request.setAttribute("expirationDate", resourceBundle.getString("bankAccount.expirationDate"));
+        request.setAttribute("interestRate", resourceBundle.getString("bankAccount.interestRate"));
+        request.setAttribute("debt", resourceBundle.getString("bankAccount.debt"));
+        request.setAttribute("limit", resourceBundle.getString("bankAccount.limit"));
+    }
+
+    /*  System.out.println("LOCALE " + locale);
+            request.setAttribute("country", locale.getDisplayCountry());
+
+            //Locale for Number
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+            request.setAttribute("fnumber", numberFormat.format(1234567));
+
+
+
+            //Locale for Percent
+            NumberFormat numberFormatPercent = NumberFormat.getPercentInstance(locale);
+            request.setAttribute("fpercent", numberFormatPercent.format(12.34));
+
+            //Locale for Date
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
+            request.setAttribute("fdate", dateFormat.format(new Date()));
+
+            //Locale for String
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", locale);
+            request.setAttribute("fstring", resourceBundle.getString("label.title"));*/
 
 }

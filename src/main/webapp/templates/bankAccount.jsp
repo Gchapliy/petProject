@@ -1,15 +1,61 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ include file="header.jsp" %>
 
-<c:forEach items="${bankAccount}" var="account">
-    <a href="/bankAccount?uuid=${account.accountUuid}">
-        <div class="row center-lg center-md center-sm center-xs account_sub_row acc_data">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">${account.accountUuid}</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${account.accountType}</div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${account.accountBalance}</div>
+<%--BANK ACCOUNT--%>
+<section id="bankAccount">
+    <div class="row center-lg center-md center-sm center-xs title">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${uuid}</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${type}</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${creationDate}</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${expirationDate}</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${balance}</div>
+        <c:if test="${bankAccount.accountType == depositType || bankAccount.accountType == creditType}">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${interestRate}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${debt}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${limit}</div>
+        </c:if>
+    </div>
+    <c:if test="${bankAccount != null}">
+        <div class="row center-lg center-md center-sm center-xs">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">${bankAccount.accountUuid}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${bankAccount.accountType}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${dateFormat.format(bankAccount.accountCreationDate)}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${dateFormat.format(bankAccount.accountExpirationDate)}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountBalance)}</div>
+            <c:if test="${bankAccount.accountType == depositType || bankAccount.accountType == creditType}">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountInterestRate)}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountDebt)}</div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(bankAccount.accountLimit)}</div>
+            </c:if>
         </div>
-    </a>
-</c:forEach>
+    </c:if>
+    <div class="row center-lg center-md center-sm center-xs">
+        <h2>${noBankAccount}</h2>
+    </div>
+</section>
+
+<%--BANK ACCOUNT MANAGE INTERFACE--%>
+<section id="bankAccountManager">
+    <div class="row center-lg center-md center-sm center-xs accountBtns">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
+            <a href="/history?uuid=${bankAccount.accountUuid}">
+                operations history
+            </a>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
+            <a href="/paymentTransfers?uuid=${bankAccount.accountUuid}">
+                payment and transfers
+            </a>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
+            <a href="/settings?uuid=${bankAccount.accountUuid}">
+                account settings
+            </a>
+        </div>
+    </div>
+</section>
+
 
 <%@ include file="footer.jsp" %>
 

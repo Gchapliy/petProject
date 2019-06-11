@@ -33,28 +33,6 @@ public class LocaleFilter implements Filter {
 
             AppUtils.storeLocale(resp, locale);
             request.setAttribute("locale", locale);
-          /*  System.out.println("LOCALE " + locale);
-            request.setAttribute("country", locale.getDisplayCountry());
-
-            //Locale for Number
-            NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
-            request.setAttribute("fnumber", numberFormat.format(1234567));
-
-            //Locale for Currency
-            NumberFormat numberFormatCurency = NumberFormat.getCurrencyInstance(locale);
-            request.setAttribute("fcurrency", numberFormatCurency.format(1234567));
-
-            //Locale for Percent
-            NumberFormat numberFormatPercent = NumberFormat.getPercentInstance(locale);
-            request.setAttribute("fpercent", numberFormatPercent.format(12.34));
-
-            //Locale for Date
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
-            request.setAttribute("fdate", dateFormat.format(new Date()));
-
-            //Locale for String
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", locale);
-            request.setAttribute("fstring", resourceBundle.getString("label.title"));*/
         } else {
             locale = AppUtils.getStoredLocale(req);
             if(locale != null)

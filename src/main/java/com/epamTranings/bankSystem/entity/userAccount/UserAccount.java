@@ -84,7 +84,7 @@ public class UserAccount implements Serializable{
         this.userBankAccounts = userBankAccounts;
     }
 
-    public BankAccount getBankAccountByName(String uuid){
+    public BankAccount getBankAccountByUuid(String uuid){
         for (BankAccount account : userBankAccounts) {
             if(account.getAccountUuid().equals(uuid))return account;
         }

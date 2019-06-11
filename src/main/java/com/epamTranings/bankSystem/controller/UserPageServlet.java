@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @WebServlet(name = "userPage", urlPatterns = { "/userPage" })
@@ -56,6 +58,9 @@ public class UserPageServlet extends HttpServlet{
         if(bankAccounts == null || bankAccounts.size() == 0){
             noAccounts = true;
         }else {
+            //Locale for Number
+            NumberFormat numberFormat = NumberFormat.getNumberInstance((Locale) req.getAttribute("locale"));
+            req.setAttribute("numberFormat", numberFormat);
             req.setAttribute("bankAccounts", bankAccounts);
         }
 

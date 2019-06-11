@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flexboxgrid.css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type='text/css'/>
 <body>
 
 <%--HEADER--%>
@@ -24,7 +24,7 @@
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <a href="/">
+                    <a href="/home">
                         <img src="${pageContext.request.contextPath}/images/logo.png" alt="" >
                     </a>
                 </div>
@@ -59,6 +59,11 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                     <a href="/home?language=ru_RU">
                         <img src="${pageContext.request.contextPath}/images/russian.png" alt="" >
+                    </a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a href="/home?language=de_DE">
+                        <img src="${pageContext.request.contextPath}/images/german.png" alt="" >
                     </a>
                 </div>
             </div>

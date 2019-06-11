@@ -264,6 +264,30 @@ a {
     font-weight: bold;
     color: #262626;
 }
+
+/*--------------------------------------------------------------------*/
+
+/*BANK ACCOUNT*/
+#bankAccount{
+    margin: 80px 0 60px 0;
+}
+
+#bankAccount .title{
+    color: #262626;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/*--------------------------------------------------------------------*/
+
+/*BANK ACCOUNT MANAGE INTERFACE*/
+
+#bankAccountManager{
+
+}
+
 /*--------------------------------------------------------------------*/
 
 /*FOOTER*/
