@@ -126,6 +126,10 @@ public class LocaleUtils {
         if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
     }
 
+    /**
+     * Initiating locale for bank account page.
+     * @param request
+     */
     public static void setLocaleBankAccount(HttpServletRequest request){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
@@ -140,6 +144,16 @@ public class LocaleUtils {
         request.setAttribute("debt", resourceBundle.getString("bankAccount.debt"));
         request.setAttribute("limit", resourceBundle.getString("bankAccount.limit"));
         request.setAttribute("currency", resourceBundle.getString("bankAccount.currency"));
+        request.setAttribute("managing", resourceBundle.getString("bankAccount.managing"));
+        request.setAttribute("history", resourceBundle.getString("bankAccount.history"));
+        request.setAttribute("paymentTransfers", resourceBundle.getString("bankAccount.paymentTransfers"));
+        request.setAttribute("settings", resourceBundle.getString("bankAccount.settings"));
+    }
+
+    public static void setLocaleBankAccountHistory(HttpServletRequest request){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        //Locale settings for bank account history page
     }
 
     /*  System.out.println("LOCALE " + locale);

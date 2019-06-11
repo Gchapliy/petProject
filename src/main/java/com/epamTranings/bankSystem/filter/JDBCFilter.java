@@ -2,7 +2,7 @@ package com.epamTranings.bankSystem.filter;
 
 import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.dbConnectionUtils.ConnectionUtils;
-import com.epamTranings.bankSystem.controller.MainServlet;
+import com.epamTranings.bankSystem.controller.HomeServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @WebFilter(filterName = "jdbcFilter", urlPatterns = {"/*"})
 public class JDBCFilter implements Filter{
-    final static Logger logger = LogManager.getLogger(MainServlet.class);
+    final static Logger logger = LogManager.getLogger(HomeServlet.class);
 
 
     @Override

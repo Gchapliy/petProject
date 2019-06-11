@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "homePage", urlPatterns = {"/home"})
-public class MainServlet extends HttpServlet {
-    final static Logger logger = LogManager.getLogger(MainServlet.class);
+public class HomeServlet extends HttpServlet {
+    final static Logger logger = LogManager.getLogger(HomeServlet.class);
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
