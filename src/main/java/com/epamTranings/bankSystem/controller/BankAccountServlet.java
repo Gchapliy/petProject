@@ -53,6 +53,7 @@ public class BankAccountServlet extends HttpServlet {
             req.getRequestDispatcher("templates/404.jsp").forward(req, resp);
         }
 
+        req.setAttribute("link", "userPage");
         req.setAttribute("depositType", BankAccount.AccountType.DEPOSIT);
         req.setAttribute("creditType", BankAccount.AccountType.CREDIT);
         LocaleUtils.setLocaleHeaderAndFooter(req);

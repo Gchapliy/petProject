@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserAccount implements Serializable{
-    private int userAccountId;
     private String userAccountName;
     private String userAccountGender;
     private String userAccountEncryptedPassword;
@@ -18,14 +17,6 @@ public class UserAccount implements Serializable{
 
     public UserAccount() {
         userBankAccounts = new ArrayList<>();
-    }
-
-    public int getUserAccountId() {
-        return userAccountId;
-    }
-
-    public void setUserAccountId(int userAccountId) {
-        this.userAccountId = userAccountId;
     }
 
     public String getUserAccountName() {
@@ -95,7 +86,6 @@ public class UserAccount implements Serializable{
     @Override
     public String toString() {
         return "UserAccount{" +
-                "userAccountId=" + userAccountId +
                 ", userAccountName='" + userAccountName + '\'' +
                 ", userAccountGender='" + userAccountGender + '\'' +
                 ", userAccountRole=" + userAccountRole +

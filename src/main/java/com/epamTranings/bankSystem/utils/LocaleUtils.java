@@ -148,12 +148,28 @@ public class LocaleUtils {
         request.setAttribute("history", resourceBundle.getString("bankAccount.history"));
         request.setAttribute("paymentTransfers", resourceBundle.getString("bankAccount.paymentTransfers"));
         request.setAttribute("settings", resourceBundle.getString("bankAccount.settings"));
+        request.setAttribute("back", resourceBundle.getString("bankAccount.back"));
     }
 
-    public static void setLocaleBankAccountHistory(HttpServletRequest request){
+    public static void setLocaleBankAccountHistory(HttpServletRequest request, boolean noHistory){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for bank account history page
+        request.setAttribute("title", resourceBundle.getString("bankAccount.history.title"));
+        request.setAttribute("subTitle", resourceBundle.getString("bankAccount.history.subTitle"));
+        request.setAttribute("accountFrom", resourceBundle.getString("bankAccount.history.accountFrom"));
+        request.setAttribute("accountTo", resourceBundle.getString("bankAccount.history.accountTo"));
+        request.setAttribute("date", resourceBundle.getString("bankAccount.history.date"));
+        request.setAttribute("target", resourceBundle.getString("bankAccount.history.target"));
+        request.setAttribute("amount", resourceBundle.getString("bankAccount.history.amount"));
+        request.setAttribute("history", resourceBundle.getString("bankAccount.history.history"));
+        request.setAttribute("paymentTransfers", resourceBundle.getString("bankAccount.history.paymentTransfers"));
+        request.setAttribute("settings", resourceBundle.getString("bankAccount.history.settings"));
+        request.setAttribute("currency", resourceBundle.getString("bankAccount.history.currency"));
+        request.setAttribute("back", resourceBundle.getString("bankAccount.history.back"));
+
+        if(noHistory) request.setAttribute("noHistory", resourceBundle.getString("bankAccount.history.noHistory"));
+
     }
 
     /*  System.out.println("LOCALE " + locale);

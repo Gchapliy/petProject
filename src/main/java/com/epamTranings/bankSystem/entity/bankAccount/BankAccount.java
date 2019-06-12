@@ -5,7 +5,6 @@ import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import java.util.Date;
 
 public class BankAccount {
-    private int accountId;
     private String accountUuid;
     private double accountBalance;
     private Date accountCreationDate;
@@ -15,14 +14,6 @@ public class BankAccount {
     private double accountDebt;
     private double accountLimit;
     private AccountType accountType;
-
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
 
     public String getAccountUuid() {
         return accountUuid;

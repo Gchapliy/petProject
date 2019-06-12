@@ -1,16 +1,38 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: greg
-  Date: 11.06.2019
-  Time: 18:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<%@ include file="header.jsp" %>
+
+<%--BANK ACCOUNT HISTORY--%>
+<section id="history">
+    <div class="row center-lg center-md center-sm center-xs title">
+        ${subTitle} ${uuid}
+    </div>
+
+    <div class="row center-lg center-md center-sm center-xs title">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${accountFrom}</div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${accountTo}</div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${date}</div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${target}</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${amount}</div>
+    </div>
+
+    <c:forEach items="${transactionsHistory}" var="transaction">
+        <div class="row center-lg center-md center-sm center-xs">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${transaction.bankAccountFrom.accountUuid}</div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${transaction.bankAccountTo.accountUuid}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${dateFormat.format(transaction.transactionDate)}</div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${transaction.transactionTarget}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(transaction.transactionAmount)} ${currency}</div>
+        </div>
+    </c:forEach>
+
+    <c:if test="${noHistory != null}">
+        <div class="row center-lg center-md center-sm center-xs title">
+            ${noHistory}
+        </div>
+    </c:if>
+</section>
+
+<%@ include file="bankAccountManageInterface.jsp" %>
+
+<%@ include file="footer.jsp" %>

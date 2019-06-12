@@ -38,6 +38,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
 
         BankAccount bankAccount;
         List<BankAccountTransaction> bankAccountTransactions;
+        boolean noHistory = false;
 
         if (bankAccountUuid != null) {
             bankAccount = userAccount.getBankAccountByUuid(bankAccountUuid);
@@ -45,30 +46,30 @@ public class HistoryBankAccountServlet extends HttpServlet {
 
                 logger.info("bank account uuid - " + bankAccountUuid + " found");
 
-                bankAccountTransactions = BankAccountDAO.findBankAccountTransactionsByUuid(AppUtils.getStoredConnection(req), bankAccountUuid);
+                bankAccountTransactions = BankAccountDAO.findBankAccountTransactionsByUuid(AppUtils.getStoredConnection(req), bankAccount);
+
                 if(bankAccountTransactions == null || bankAccountTransactions.size() == 0){
                     logger.info("bank account history - " + bankAccountUuid + " not found");
-                    req.setAttribute("noBankAccountHistory", "bank account history - " + bankAccountUuid + " not found");
                     req.getRequestDispatcher("templates/bankAccountHistory.jsp").forward(req, resp);
                 }
 
-                req.setAttribute("history", bankAccountTransactions);
+                req.setAttribute("uuid", bankAccountUuid);
+                req.setAttribute("transactionsHistory", bankAccountTransactions);
                 req.setAttribute("dateFormat", dateFormat);
                 req.setAttribute("numberFormat", numberFormat);
                 req.setAttribute("bankAccount", bankAccount);
             }
             else {
                 logger.info("bank account uuid - " + bankAccountUuid + " not found");
-                req.setAttribute("noBankAccount", "bank account uuid - " + bankAccountUuid + " not found");
+                noHistory = true;
             }
         } else {
             req.getRequestDispatcher("templates/404.jsp").forward(req, resp);
         }
 
-        req.setAttribute("depositType", BankAccount.AccountType.DEPOSIT);
-        req.setAttribute("creditType", BankAccount.AccountType.CREDIT);
+        req.setAttribute("link", "bankAccount?uuid=" + bankAccountUuid);
         LocaleUtils.setLocaleHeaderAndFooter(req);
-        LocaleUtils.setLocaleBankAccountHistory(req);
+        LocaleUtils.setLocaleBankAccountHistory(req, noHistory);
         req.getRequestDispatcher("templates/bankAccountHistory.jsp").forward(req, resp);
     }
 
