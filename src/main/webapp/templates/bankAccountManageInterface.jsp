@@ -12,6 +12,11 @@
             </a>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
+            <a href="/newBankAccount">
+                ${createAccount}
+            </a>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
             <a href="/history?uuid=${bankAccount.accountUuid}">
                 ${history}
             </a>

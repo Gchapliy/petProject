@@ -3,6 +3,7 @@ package com.epamTranings.bankSystem.utils;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -127,6 +128,22 @@ public class LocaleUtils {
     }
 
     /**
+     * Initiating locale for bank account managing interface
+     * @param request
+     */
+    public static void setLocaleManagingInterface(HttpServletRequest request){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        //Locale settings for managing interface
+        request.setAttribute("managing", resourceBundle.getString("managing.managing"));
+        request.setAttribute("history", resourceBundle.getString("managing.history"));
+        request.setAttribute("paymentTransfers", resourceBundle.getString("managing.paymentTransfers"));
+        request.setAttribute("settings", resourceBundle.getString("managing.settings"));
+        request.setAttribute("back", resourceBundle.getString("managing.back"));
+        request.setAttribute("createAccount", resourceBundle.getString("managing.createAccount"));
+    }
+
+    /**
      * Initiating locale for bank account page.
      * @param request
      */
@@ -144,13 +161,13 @@ public class LocaleUtils {
         request.setAttribute("debt", resourceBundle.getString("bankAccount.debt"));
         request.setAttribute("limit", resourceBundle.getString("bankAccount.limit"));
         request.setAttribute("currency", resourceBundle.getString("bankAccount.currency"));
-        request.setAttribute("managing", resourceBundle.getString("bankAccount.managing"));
-        request.setAttribute("history", resourceBundle.getString("bankAccount.history"));
-        request.setAttribute("paymentTransfers", resourceBundle.getString("bankAccount.paymentTransfers"));
-        request.setAttribute("settings", resourceBundle.getString("bankAccount.settings"));
-        request.setAttribute("back", resourceBundle.getString("bankAccount.back"));
     }
 
+    /**
+     * Initiating locale for bank account history. NoHistory uses when bank account transactions are not exists
+     * @param request
+     * @param noHistory
+     */
     public static void setLocaleBankAccountHistory(HttpServletRequest request, boolean noHistory){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
@@ -162,14 +179,39 @@ public class LocaleUtils {
         request.setAttribute("date", resourceBundle.getString("bankAccount.history.date"));
         request.setAttribute("target", resourceBundle.getString("bankAccount.history.target"));
         request.setAttribute("amount", resourceBundle.getString("bankAccount.history.amount"));
-        request.setAttribute("history", resourceBundle.getString("bankAccount.history.history"));
-        request.setAttribute("paymentTransfers", resourceBundle.getString("bankAccount.history.paymentTransfers"));
-        request.setAttribute("settings", resourceBundle.getString("bankAccount.history.settings"));
         request.setAttribute("currency", resourceBundle.getString("bankAccount.history.currency"));
-        request.setAttribute("back", resourceBundle.getString("bankAccount.history.back"));
 
         if(noHistory) request.setAttribute("noHistory", resourceBundle.getString("bankAccount.history.noHistory"));
 
+    }
+
+    /**
+     *
+     * @param request
+     */
+    public static void setLocaleNewBankAccount(HttpServletRequest request){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        //Locale settings for new bank account page
+        request.setAttribute("title", resourceBundle.getString("bankAccount.new.title"));
+        request.setAttribute("chooseAccType", resourceBundle.getString("bankAccount.new.chooseAccType"));
+        request.setAttribute("standard", resourceBundle.getString("bankAccount.new.standard"));
+        request.setAttribute("deposit", resourceBundle.getString("bankAccount.new.deposit"));
+        request.setAttribute("credit", resourceBundle.getString("bankAccount.new.credit"));
+        request.setAttribute("credit", resourceBundle.getString("bankAccount.new.credit"));
+        request.setAttribute("chooseDepTerm", resourceBundle.getString("bankAccount.new.chooseDepTerm"));
+        request.setAttribute("threeMonths", resourceBundle.getString("bankAccount.new.3months"));
+        request.setAttribute("sixMonths", resourceBundle.getString("bankAccount.new.6months"));
+        request.setAttribute("twelveMonths", resourceBundle.getString("bankAccount.new.12months"));
+        request.setAttribute("eighteenMonths", resourceBundle.getString("bankAccount.new.18months"));
+        request.setAttribute("twentyFourMonths", resourceBundle.getString("bankAccount.new.24months"));
+        request.setAttribute("typeDepSum", resourceBundle.getString("bankAccount.new.typeDepSum"));
+        request.setAttribute("currency", resourceBundle.getString("bankAccount.new.currency"));
+        request.setAttribute("depPercent", resourceBundle.getString("bankAccount.new.depPercent"));
+        request.setAttribute("typeCredSum", resourceBundle.getString("bankAccount.new.typeCredSum"));
+        request.setAttribute("chooseCredTerm", resourceBundle.getString("bankAccount.new.chooseCredTerm"));
+        request.setAttribute("credPercent", resourceBundle.getString("bankAccount.new.creditPercent"));
+        request.setAttribute("sendOrder", resourceBundle.getString("bankAccount.new.sendOrder"));
     }
 
     /*  System.out.println("LOCALE " + locale);

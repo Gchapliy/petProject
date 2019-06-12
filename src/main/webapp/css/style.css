@@ -317,6 +317,20 @@ a {
 
 /*--------------------------------------------------------------------*/
 
+/*NEW BANK ACCOUNT*/
+#newBankAccount{
+    margin: 40px 0 40px 0;
+}
+
+#newBankAccount .acc_line{
+    font-size: 18px;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 15px;
+}
+
+/*--------------------------------------------------------------------*/
+
 /*FOOTER*/
 .footer_elements{
     height: 200px;

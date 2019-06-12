@@ -2,9 +2,10 @@ package com.epamTranings.bankSystem.entity.bankAccount;
 
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BankAccount {
+public class BankAccount implements Serializable{
     private String accountUuid;
     private double accountBalance;
     private Date accountCreationDate;

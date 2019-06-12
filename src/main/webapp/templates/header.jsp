@@ -16,6 +16,8 @@
 <link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type='text/css'/>
+<script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/newBankAccountChanges.js" type="text/javascript"></script>
 <body>
 
 <%--HEADER--%>

@@ -70,6 +70,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
         req.setAttribute("link", "bankAccount?uuid=" + bankAccountUuid);
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleBankAccountHistory(req, noHistory);
+        LocaleUtils.setLocaleManagingInterface(req);
         req.getRequestDispatcher("templates/bankAccountHistory.jsp").forward(req, resp);
     }
 

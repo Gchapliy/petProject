@@ -1,8 +1,9 @@
 package com.epamTranings.bankSystem.entity.bankAccount;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BankAccountTransaction {
+public class BankAccountTransaction implements Serializable{
 
     private int transactionId;
     private BankAccount bankAccountFrom;

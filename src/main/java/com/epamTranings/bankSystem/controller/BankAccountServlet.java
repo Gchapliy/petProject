@@ -58,6 +58,7 @@ public class BankAccountServlet extends HttpServlet {
         req.setAttribute("creditType", BankAccount.AccountType.CREDIT);
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleBankAccount(req);
+        LocaleUtils.setLocaleManagingInterface(req);
         req.getRequestDispatcher("templates/bankAccount.jsp").forward(req, resp);
     }
 
