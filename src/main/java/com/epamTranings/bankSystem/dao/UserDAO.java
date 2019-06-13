@@ -1,4 +1,5 @@
 package com.epamTranings.bankSystem.dao;
+
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.userAccount.Role;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
@@ -32,10 +33,8 @@ public class UserDAO {
         String sql = "Select u.Account_Name, u.Account_Gender, u.Account_Encrypted_Password, u.Account_Role, u.Account_Email, u.Account_Phone from User_Account u" +
                 " where u.Account_Email = ?";
 
-
-        PreparedStatement pstm = null;
         try {
-            pstm = connection.prepareStatement(sql);
+            PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setString(1, userEmail);
             ResultSet rs = pstm.executeQuery();
 
@@ -83,9 +82,8 @@ public class UserDAO {
         String sql = "Select r.Role_Id, r.Role_Name from Role r" +
                 " where r.Role_Id = ?";
 
-        PreparedStatement pstm = null;
         try {
-            pstm = conn.prepareStatement(sql);
+            PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, roleId);
             ResultSet rs = pstm.executeQuery();
 
@@ -113,6 +111,7 @@ public class UserDAO {
 
     /**
      * Find user bank accounts by user Email
+     *
      * @param connection
      * @param userAccount
      * @return
@@ -120,9 +119,9 @@ public class UserDAO {
     public static List<BankAccount> findUserBankAccounts(Connection connection, UserAccount userAccount) {
 
         String sql = "Select a.Account_Balance, a.Account_Create_Date, a.Account_Expiration_Date, " +
-                     "a.Account_Owner, a.Account_Limit, a.Account_Interest_Rate, a.Account_Debt, a.Account_Type, " +
-                     "a.Account_Uuid from Bank_Account a " +
-                     "where a.Account_Owner=(select u.Account_Email from User_Account u where u.Account_Email=?)";
+                "a.Account_Owner, a.Account_Limit, a.Account_Interest_Rate, a.Account_Debt, a.Account_Type, " +
+                "a.Account_Uuid from Bank_Account a " +
+                "where a.Account_Owner=(select u.Account_Email from User_Account u where u.Account_Email=?)";
 
         List<BankAccount> list = new ArrayList<>();
         BankAccount bankAccount;
@@ -132,7 +131,7 @@ public class UserDAO {
             pstm.setString(1, userAccount.getUserAccountEmail());
 
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 double balance = rs.getDouble("Account_Balance");
                 Date createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Create_Date"));
                 Date expiratingDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Expiration_Date"));
