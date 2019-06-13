@@ -5,7 +5,7 @@
     </div>
     <div class="row center-lg center-md end-sm center-xs">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 service_account">
-            <a href="/standard">
+            <a href="/newBankAccount">
                 <div class="row center-lg center-md end-sm center-xs">
                     <h2 class="service_account_title">${standard_title}</h2>
                 </div>
@@ -24,7 +24,7 @@
             </a>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 service_account">
-            <a href="/deposit">
+            <a href="/newBankAccount">
                 <div class="row center-lg center-md end-sm center-xs">
                     <h2 class="service_account_title">${deposit_title}</h2>
                 </div>
@@ -43,7 +43,7 @@
             </a>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 service_account">
-            <a href="/credit">
+            <a href="/newBankAccount">
                 <div class="row center-lg center-md end-sm center-xs">
                     <h2 class="service_account_title">${credit_title}</h2>
                 </div>

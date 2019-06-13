@@ -28,6 +28,7 @@ public class SecurityConfig {
         urlPatternsAdmin.add("/credit");
         urlPatternsAdmin.add("/bankAccount");
         urlPatternsAdmin.add("/historyBankAccount");
+        urlPatternsAdmin.add("/newBankAccount");
 
         mapConfig.put(ROLE_ADMIN, urlPatternsAdmin);
 
@@ -40,6 +41,7 @@ public class SecurityConfig {
         urlPatternsUser.add("/credit");
         urlPatternsUser.add("/bankAccount");
         urlPatternsAdmin.add("/historyBankAccount");
+        urlPatternsAdmin.add("/newBankAccount");
 
         mapConfig.put(ROLE_USER, urlPatternsUser);
     }

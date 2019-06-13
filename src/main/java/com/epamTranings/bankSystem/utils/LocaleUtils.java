@@ -189,7 +189,7 @@ public class LocaleUtils {
      *
      * @param request
      */
-    public static void setLocaleNewBankAccount(HttpServletRequest request){
+    public static void setLocaleNewBankAccount(HttpServletRequest request, boolean depSumError, boolean credSumError){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for new bank account page
@@ -212,6 +212,9 @@ public class LocaleUtils {
         request.setAttribute("chooseCredTerm", resourceBundle.getString("bankAccount.new.chooseCredTerm"));
         request.setAttribute("credPercent", resourceBundle.getString("bankAccount.new.creditPercent"));
         request.setAttribute("sendOrder", resourceBundle.getString("bankAccount.new.sendOrder"));
+
+        if(depSumError)request.setAttribute("depSumError", resourceBundle.getString("bankAccount.new.depSumError"));
+        if(credSumError)request.setAttribute("credSumError", resourceBundle.getString("bankAccount.new.credSumError"));
     }
 
     /*  System.out.println("LOCALE " + locale);

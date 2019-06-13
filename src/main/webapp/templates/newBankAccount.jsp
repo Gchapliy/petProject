@@ -24,10 +24,10 @@
                 ${chooseDepTerm}
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 start-lg start-md start-sm start-xs">
-                <select size="1">
-                    <option name="depositTerm" value="3">${threeMonths}</option>
-                    <option name="depositTerm" value="6">${sixMonths}</option>
-                    <option name="depositTerm" value="12">${twelveMonths}</option>
+                <select class="depositTerm" name="depositTerm" size="1">
+                    <option value="3">${threeMonths}</option>
+                    <option value="6">${sixMonths}</option>
+                    <option value="12">${twelveMonths}</option>
                 </select>
             </div>
         </div>
@@ -36,11 +36,14 @@
                 ${typeDepSum}
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                <input type="text"/>
+                <input name="depSum" type="text"/>
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center-lg center-md center-sm center-xs">
                 ${currency}
             </div>
+        </div>
+        <div class="row center-lg center-md center-sm center-xs acc_line dep_line error">
+            ${depSumError}
         </div>
         <div class="row center-lg center-md center-sm center-xs acc_line dep_line">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 end-lg end-md end-sm end-xs">
@@ -55,18 +58,21 @@
                 ${typeCredSum}
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                <input type="text"/>
+                <input name="credSum" type="text"/>
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center-lg center-md center-sm center-xs">
                 ${currency}
             </div>
+        </div>
+        <div class="row center-lg center-md center-sm center-xs acc_line dep_line error">
+            ${credSumError}
         </div>
         <div class="row center-lg center-md center-sm center-xs acc_line cred_line">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 end-lg end-md end-sm end-xs">
                 ${chooseCredTerm}
             </div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 start-lg start-md start-sm start-xs">
-                <select class="creditTerm" size="1">
+                <select class="creditTerm" name="creditTerm" size="1">
                     <option value="6">${sixMonths}</option>
                     <option value="12">${twelveMonths}</option>
                     <option value="18">${eighteenMonths}</option>
@@ -83,7 +89,7 @@
             </div>
         </div>
         <div class="row center-lg center-md center-sm center-xs">
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center-lg center-md center-sm center-xs login_btn">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 center-lg center-md center-sm center-xs login_btn">
                 <input type="submit" value="${sendOrder}">
             </div>
         </div>

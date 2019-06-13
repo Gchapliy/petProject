@@ -19,7 +19,7 @@ public class NewBankAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
-        LocaleUtils.setLocaleNewBankAccount(req);
+        LocaleUtils.setLocaleNewBankAccount(req, false, false);
         req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
     }
 
@@ -28,16 +28,55 @@ public class NewBankAccountServlet extends HttpServlet {
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
         String type = req.getParameter("accType");
+        boolean depSumError = false;
+        boolean credSumError = false;
 
-        if(type.equals(req.getAttribute("standard"))){
+        if (type.equals("standard")) {
 
-        } else if(type.equals(req.getAttribute("deposit"))){
+        } else if (type.equals("deposit")) {
 
-        } else if(type.equals(req.getAttribute("credit"))){
+            String depTerm = req.getParameter("depositTerm");
+            String depSum = req.getParameter("depSum");
 
+            logger.info("typed depTerm: " + depTerm + ", typed depSum: " + depSum);
+            double sum;
+
+            try {
+                if (depSum.isEmpty()) throw new Exception();
+
+                sum = Double.parseDouble(depSum);
+            } catch (Exception e) {
+                logger.error("depSum is wrong");
+
+                depSumError = true;
+                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+                req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
+                return;
+            }
+
+
+        } else if (type.equals("credit")) {
+
+            String creditTerm = req.getParameter("creditTerm");
+            String credSum = req.getParameter("credSum");
+
+            logger.info("typed depTerm: " + creditTerm + ", typed depSum: " + credSum);
+            double sum;
+
+            try {
+                if (credSum.isEmpty()) throw new Exception();
+
+                sum = Double.parseDouble(credSum);
+            } catch (Exception e) {
+                logger.error("credSum is wrong");
+
+                credSumError = true;
+                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+                req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
+                return;
+            }
         }
 
-        LocaleUtils.setLocaleNewBankAccount(req);
 
         req.getRequestDispatcher("templates/newBankAccountOrderCreated.jsp").forward(req, resp);
     }

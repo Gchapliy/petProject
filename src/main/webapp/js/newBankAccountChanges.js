@@ -1,6 +1,13 @@
 $( document ).ready(function() {
-    $(".dep_line").hide();
-    $(".cred_line").hide();
+
+    var depError = "${depSumError}";
+
+    console.log("depError: " + depError);
+
+        $(".dep_line").hide();
+        $(".cred_line").hide();
+
+
 
     $("select.acc_type").on("change", function () {
         var type = $(this).children("option:selected").val();
