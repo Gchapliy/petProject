@@ -20,6 +20,10 @@ public class NewBankAccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleNewBankAccount(req, false, false);
+
+        req.setAttribute("dep_perc", "10");
+        req.setAttribute("cred_perc", "45");
+
         req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
     }
 
@@ -39,7 +43,7 @@ public class NewBankAccountServlet extends HttpServlet {
             String depSum = req.getParameter("depSum");
 
             logger.info("typed depTerm: " + depTerm + ", typed depSum: " + depSum);
-            double sum;
+            double sum = 0;
 
             try {
                 if (depSum.isEmpty()) throw new Exception();
@@ -50,6 +54,10 @@ public class NewBankAccountServlet extends HttpServlet {
 
                 depSumError = true;
                 LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+
+                req.setAttribute("dep_perc", "10");
+                req.setAttribute("cred_perc", "45");
+
                 req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
                 return;
             }
@@ -60,8 +68,8 @@ public class NewBankAccountServlet extends HttpServlet {
             String creditTerm = req.getParameter("creditTerm");
             String credSum = req.getParameter("credSum");
 
-            logger.info("typed depTerm: " + creditTerm + ", typed depSum: " + credSum);
-            double sum;
+            logger.info("typed credTerm: " + creditTerm + ", typed credSum: " + credSum);
+            double sum = 0;
 
             try {
                 if (credSum.isEmpty()) throw new Exception();
@@ -72,6 +80,10 @@ public class NewBankAccountServlet extends HttpServlet {
 
                 credSumError = true;
                 LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+
+                req.setAttribute("dep_perc", "10");
+                req.setAttribute("cred_perc", "45");
+
                 req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
                 return;
             }

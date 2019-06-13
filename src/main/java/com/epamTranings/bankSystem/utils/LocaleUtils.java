@@ -186,7 +186,7 @@ public class LocaleUtils {
     }
 
     /**
-     *
+     * Initiating locale for new bank account page. DepSumError and credSumError use if corresponding exceptions appears
      * @param request
      */
     public static void setLocaleNewBankAccount(HttpServletRequest request, boolean depSumError, boolean credSumError){

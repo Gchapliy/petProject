@@ -1,6 +1,7 @@
 package com.epamTranings.bankSystem.dao;
 
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccountTransaction;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import org.apache.logging.log4j.LogManager;
@@ -136,5 +137,9 @@ public class BankAccountDAO {
         }
 
         return bankAccount;
+    }
+
+    public static void insertBankAccountOrder(Connection connection, BankAccountOrder bankAccountOrder, UserAccount userAccount){
+
     }
 }
