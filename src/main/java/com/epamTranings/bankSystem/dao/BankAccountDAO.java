@@ -141,5 +141,18 @@ public class BankAccountDAO {
 
     public static void insertBankAccountOrder(Connection connection, BankAccountOrder bankAccountOrder, UserAccount userAccount){
 
+        String sql = "Insert into Bank_Account_Order(Order_Create_Date, Order_Owner, Order_Status, Account_Expiration_Date, " +
+                "Account_Balance, AccountLimit, Account_Interest_Rate, AccountType) values (?, ?, ?)";
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+
+            connection.setAutoCommit(false);
+            pstm.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
     }
 }
