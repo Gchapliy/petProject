@@ -1,5 +1,8 @@
 package com.epamTranings.bankSystem.controller;
 
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
+import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,13 +19,16 @@ public class NewBankAccountServlet extends HttpServlet {
 
     final static Logger logger = LogManager.getLogger(NewBankAccountServlet.class);
 
+    private final double DEPOSIT_PERCENT = 10;
+    private final double CREDIT_PERCENT = 45;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleNewBankAccount(req, false, false);
 
-        req.setAttribute("dep_perc", "10");
-        req.setAttribute("cred_perc", "45");
+        req.setAttribute("dep_perc", DEPOSIT_PERCENT);
+        req.setAttribute("cred_perc", CREDIT_PERCENT);
 
         req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
     }
@@ -34,8 +40,14 @@ public class NewBankAccountServlet extends HttpServlet {
         String type = req.getParameter("accType");
         boolean depSumError = false;
         boolean credSumError = false;
+        BankAccountOrder bankAccountOrder;
+
+        UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
 
         if (type.equals("standard")) {
+            bankAccountOrder = new BankAccountOrder();
+
+            req.getRequestDispatcher("templates/newBankAccountOrderCreated.jsp").forward(req, resp);
 
         } else if (type.equals("deposit")) {
 
@@ -55,8 +67,8 @@ public class NewBankAccountServlet extends HttpServlet {
                 depSumError = true;
                 LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
 
-                req.setAttribute("dep_perc", "10");
-                req.setAttribute("cred_perc", "45");
+                req.setAttribute("dep_perc", DEPOSIT_PERCENT);
+                req.setAttribute("cred_perc", CREDIT_PERCENT);
 
                 req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
                 return;
@@ -81,8 +93,8 @@ public class NewBankAccountServlet extends HttpServlet {
                 credSumError = true;
                 LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
 
-                req.setAttribute("dep_perc", "10");
-                req.setAttribute("cred_perc", "45");
+                req.setAttribute("dep_perc", DEPOSIT_PERCENT);
+                req.setAttribute("cred_perc", CREDIT_PERCENT);
 
                 req.getRequestDispatcher("templates/newBankAccount.jsp").forward(req, resp);
                 return;
