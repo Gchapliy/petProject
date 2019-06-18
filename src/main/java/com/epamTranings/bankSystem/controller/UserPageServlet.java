@@ -1,7 +1,9 @@
 package com.epamTranings.bankSystem.controller;
 
+import com.epamTranings.bankSystem.dao.BankAccountDAO;
 import com.epamTranings.bankSystem.dao.UserDAO;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -46,12 +49,17 @@ public class UserPageServlet extends HttpServlet{
 
         Connection connection = AppUtils.getStoredConnection(req);
         List<BankAccount> bankAccounts = UserDAO.findUserBankAccounts(connection, loginedUser);
+        List<BankAccountOrder> bankAccountOrders = BankAccountDAO.findBankAccountOrderByUserAccount(connection, loginedUser);
 
         AppUtils.getLoginedUser(session).setUserBankAccounts(bankAccounts);
+        AppUtils.getLoginedUser(session).setUserBankAccountsOrders(bankAccountOrders);
 
         logger.info("found accounts " + bankAccounts);
+        logger.info("found orders " + bankAccountOrders);
 
         boolean noAccounts = false;
+        boolean noOrders = false;
+
         // Store info to the request attribute before forwarding.
         req.setAttribute("user", loginedUser);
 
@@ -64,7 +72,16 @@ public class UserPageServlet extends HttpServlet{
             req.setAttribute("bankAccounts", bankAccounts);
         }
 
-        LocaleUtils.setLocaleUserPage(req, noAccounts);
+        if(bankAccountOrders == null || bankAccountOrders.size() == 0){
+            noOrders = true;
+        }else {
+            //Locale for Date
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, (Locale) req.getAttribute("locale"));
+            req.setAttribute("dateFormat", dateFormat);
+            req.setAttribute("bankAccountOrders", bankAccountOrders);
+        }
+
+        LocaleUtils.setLocaleUserPage(req, noAccounts, noOrders);
 
         // If the user has logged in, then forward to the page
         req.getRequestDispatcher("templates/userPage.jsp").forward(req, resp);

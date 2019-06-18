@@ -1,8 +1,10 @@
 package com.epamTranings.bankSystem.controller;
 
+import com.epamTranings.bankSystem.dao.BankAccountDAO;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import com.epamTranings.bankSystem.utils.AppUtils;
+import com.epamTranings.bankSystem.utils.CreateBankAccountOrderUtils;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,9 +47,6 @@ public class NewBankAccountServlet extends HttpServlet {
         UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
 
         if (type.equals("standard")) {
-            bankAccountOrder = new BankAccountOrder();
-
-            req.getRequestDispatcher("templates/newBankAccountOrderCreated.jsp").forward(req, resp);
 
         } else if (type.equals("deposit")) {
 
@@ -101,7 +100,12 @@ public class NewBankAccountServlet extends HttpServlet {
             }
         }
 
+        bankAccountOrder = CreateBankAccountOrderUtils.getBankAccountOrderDataFromRequest(req);
+        if(BankAccountDAO.insertBankAccountOrder(AppUtils.getStoredConnection(req), bankAccountOrder)){
+            req.getRequestDispatcher("templates/newBankAccountOrderCreated.jsp").forward(req, resp);
+            return;
+        }
 
-        req.getRequestDispatcher("templates/newBankAccountOrderCreated.jsp").forward(req, resp);
+        doGet(req, resp);
     }
 }

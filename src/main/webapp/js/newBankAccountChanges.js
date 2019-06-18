@@ -52,6 +52,27 @@ $( document ).ready(function() {
         }else if(months == 24){
             $("input.cred_perc").val('60');
         }
-    })
+    });
+
+    function orderDelete(title, text) {
+        var name = $('#productName').text();
+        var type = $('#productType').text();
+
+        return $("<div class='dialog' title='" + title + "'><p>" + text + "</p></div>")
+            .dialog({
+                height: 210,
+                width:350,
+                modal: true,
+                buttons: {
+                    "Confirm": function () {
+                        window.location.href='/delete/' + type + '=' + name;
+                        $(this).dialog("close");
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+    }
 });
 

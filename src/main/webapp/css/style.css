@@ -267,6 +267,18 @@ a {
 
 /*--------------------------------------------------------------------*/
 
+/*ORDERS*/
+#userOrders{
+    margin: 0 0 40px 0;
+}
+
+.fa-minus-square:hover{
+    color: #EE3B24;
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------------*/
+
 /*BANK ACCOUNT*/
 #bankAccount{
     margin: 80px 0 60px 0;

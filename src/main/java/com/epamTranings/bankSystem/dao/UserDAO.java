@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserDAO {
@@ -123,7 +124,7 @@ public class UserDAO {
                 "a.Account_Uuid from Bank_Account a " +
                 "where a.Account_Owner=(select u.Account_Email from User_Account u where u.Account_Email=?)";
 
-        List<BankAccount> list = new ArrayList<>();
+        List<BankAccount> list = new LinkedList<>();
         BankAccount bankAccount;
 
         try {

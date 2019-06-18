@@ -238,7 +238,7 @@ public class BankAccountDAO {
                 Date createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Order_Create_Date"));
                 Date expirationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Expiration_Date"));
                 BankAccountOrder.OrderStatus status = BankAccountOrder.OrderStatus.values()[rs.getInt("Order_Status")];
-                double accountBAlance = rs.getDouble("Account_Balance");
+                double accountBalance = rs.getDouble("Account_Balance");
                 double accountLimit = rs.getDouble("Account_Limit");
                 double interestRate = rs.getDouble("Account_Interest_Rate");
                 BankAccount.AccountType accountType = BankAccount.AccountType.values()[rs.getInt("Account_Type")];
@@ -247,7 +247,7 @@ public class BankAccountDAO {
                 bankAccountOrder.setOrderCreateDate(createDate);
                 bankAccountOrder.setAccountExpirationDate(expirationDate);
                 bankAccountOrder.setOrderStatus(status);
-                bankAccountOrder.setAccountBalance(accountBAlance);
+                bankAccountOrder.setAccountBalance(accountBalance);
                 bankAccountOrder.setAccountLimit(accountLimit);
                 bankAccountOrder.setAccountInterestRate(interestRate);
                 bankAccountOrder.setAccountType(accountType);

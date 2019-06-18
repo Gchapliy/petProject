@@ -15,8 +15,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flexboxgrid.css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.css" type='text/css'/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.structure.css" type='text/css'/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.theme.css" type='text/css'/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type='text/css'/>
 <script src="${pageContext.request.contextPath}/js/jquery.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-ui.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/newBankAccountChanges.js" type="text/javascript"></script>
 <body>
 
@@ -32,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 menu">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 menu">
             <div class="row end-lg end-md end-sm end-xs">
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <a href="/home"><h4 class="menu_btn">${home}</h4></a>

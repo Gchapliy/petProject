@@ -1,6 +1,7 @@
 package com.epamTranings.bankSystem.entity.userAccount;
 
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
+import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class UserAccount implements Serializable{
     private String userAccountEmail;
     private String userAccountPhone;
     private List<BankAccount> userBankAccounts;
+    private List<BankAccountOrder> userBankAccountsOrders;
 
     public UserAccount() {
         userBankAccounts = new ArrayList<>();
@@ -73,6 +75,14 @@ public class UserAccount implements Serializable{
 
     public void setUserBankAccounts(List<BankAccount> userBankAccounts) {
         this.userBankAccounts = userBankAccounts;
+    }
+
+    public List<BankAccountOrder> getUserBankAccountsOrders() {
+        return userBankAccountsOrders;
+    }
+
+    public void setUserBankAccountsOrders(List<BankAccountOrder> userBankAccountsOrders) {
+        this.userBankAccountsOrders = userBankAccountsOrders;
     }
 
     public BankAccount getBankAccountByUuid(String uuid){

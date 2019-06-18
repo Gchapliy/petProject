@@ -113,7 +113,7 @@ public class LocaleUtils {
      * @param request
      * @param noAccounts
      */
-    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts){
+    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts, boolean noOrders){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("user.title"));
@@ -124,7 +124,14 @@ public class LocaleUtils {
         request.setAttribute("accNumber", resourceBundle.getString("user.accNumber"));
         request.setAttribute("accType", resourceBundle.getString("user.accType"));
         request.setAttribute("balance", resourceBundle.getString("user.balance"));
+        request.setAttribute("yourOrders", resourceBundle.getString("user.yourOrders"));
+        request.setAttribute("createDate", resourceBundle.getString("user.createDate"));
+        request.setAttribute("accountType", resourceBundle.getString("user.accountType"));
+        request.setAttribute("status", resourceBundle.getString("user.status"));
+        request.setAttribute("orders", resourceBundle.getString("user.noOrders"));
+
         if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
+        if(noOrders) request.setAttribute("noOrders", resourceBundle.getString("user.noOrders"));
     }
 
     /**
