@@ -195,6 +195,7 @@ a {
     border: solid 1px #EE3B24;
     border-radius: 5px;
     max-width: 160px;
+    padding: 4px;
 }
 
 .register_btn:hover{
@@ -272,6 +273,10 @@ a {
     margin: 0 0 40px 0;
 }
 
+.fa-minus-square{
+    font-size: 18px;
+}
+
 .fa-minus-square:hover{
     color: #EE3B24;
     cursor: pointer;
@@ -325,6 +330,11 @@ a {
 /*BANK ACCOUNT HISTORY*/
 #history{
     margin: 40px 0 40px 0;
+}
+
+.titleUuid{
+    margin-left: 20px;
+    color: #EE3B24;
 }
 
 /*--------------------------------------------------------------------*/

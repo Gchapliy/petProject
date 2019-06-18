@@ -56,8 +56,7 @@ $(document).ready(function () {
 });
 
 function orderDelete(title, text) {
-    var name = $('#productName').text();
-    var type = $('#productType').text();
+    var id = $('#orderId').text();
 
     return $("<div class='dialog' title='" + title + "'><p>" + text + "</p></div>")
         .dialog({
@@ -66,7 +65,7 @@ function orderDelete(title, text) {
             modal: true,
             buttons: {
                 "Confirm": function () {
-                    window.location.href = '/delete/' + type + '=' + name;
+                    window.location.href = '/delete?id=' + id;
                     $(this).dialog("close");
                 },
                 "Cancel": function () {

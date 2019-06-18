@@ -26,10 +26,5 @@
                 ${paymentTransfers}
             </a>
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
-            <a href="/settings?uuid=${bankAccount.accountUuid}">
-                ${settings}
-            </a>
-        </div>
     </div>
 </section>

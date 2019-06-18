@@ -5,7 +5,7 @@
 <%--BANK ACCOUNT HISTORY--%>
 <section id="history">
     <div class="row center-lg center-md center-sm center-xs title">
-        ${subTitle} ${uuid}
+        ${subTitle} <span class="titleUuid">${uuid}</span>
     </div>
 
     <div class="row center-lg center-md center-sm center-xs title">

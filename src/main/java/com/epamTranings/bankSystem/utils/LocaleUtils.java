@@ -104,8 +104,38 @@ public class LocaleUtils {
         request.setAttribute("password", resourceBundle.getString("login.password"));
         request.setAttribute("loginBtn", resourceBundle.getString("login.loginBtn"));
         request.setAttribute("registerBtn", resourceBundle.getString("login.registerBtn"));
+
         if(isInvalid) request.setAttribute("error", resourceBundle.getString("login.errorInvalid"));
         if(isRequired) request.setAttribute("error", resourceBundle.getString("login.errorRequired"));
+    }
+
+    /**
+     * Initiating locale for register page. IsInvalid and isRequired need if corresponding errors  happen when
+     * user types register data
+     * @param request
+     * @param isInvalid
+     * @param isRequired
+     */
+    public static void setLocaleRegisterPage(HttpServletRequest request, boolean isInvalid, boolean isRequired){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        request.setAttribute("title", resourceBundle.getString("register.title"));
+
+        //Locale settings for register page
+        request.setAttribute("email", resourceBundle.getString("register.email"));
+        request.setAttribute("name", resourceBundle.getString("register.name"));
+        request.setAttribute("name", resourceBundle.getString("register.name"));
+        request.setAttribute("phone", resourceBundle.getString("register.phone"));
+        request.setAttribute("gender", resourceBundle.getString("register.gender"));
+        request.setAttribute("male", resourceBundle.getString("register.male"));
+        request.setAttribute("female", resourceBundle.getString("register.female"));
+        request.setAttribute("password", resourceBundle.getString("register.password"));
+        request.setAttribute("repPassword", resourceBundle.getString("register.repPassword"));
+        request.setAttribute("registerBtn", resourceBundle.getString("register.registerBtn"));
+
+        if(isInvalid) request.setAttribute("error", resourceBundle.getString("register.errorInvalid"));
+        if(isRequired) request.setAttribute("error", resourceBundle.getString("register.errorRequired"));
+
     }
 
     /**
@@ -129,6 +159,9 @@ public class LocaleUtils {
         request.setAttribute("accountType", resourceBundle.getString("user.accountType"));
         request.setAttribute("status", resourceBundle.getString("user.status"));
         request.setAttribute("orders", resourceBundle.getString("user.noOrders"));
+        request.setAttribute("delete", resourceBundle.getString("user.delete"));
+        request.setAttribute("confirm", resourceBundle.getString("user.confirm"));
+        request.setAttribute("confirmQuestion", resourceBundle.getString("user.confirmQuestion"));
 
         if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
         if(noOrders) request.setAttribute("noOrders", resourceBundle.getString("user.noOrders"));

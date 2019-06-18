@@ -5,6 +5,7 @@ import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
 import com.epamTranings.bankSystem.utils.AppUtils;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
 import com.epamTranings.bankSystem.utils.SecurityUtils;
+import com.epamTranings.bankSystem.validator.LoginValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,55 +36,12 @@ public class LoginServlet extends HttpServlet {
 
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
-        String userEmail = req.getParameter("userEmail");
-        String password = req.getParameter("password");
+        if (LoginValidator.validate(req, resp)) {
 
-        UserAccount user = null;
-        boolean hasError = false;
-        boolean isRequired = false;
-        boolean isInvalid = false;
-
-        if (userEmail == null || password == null || userEmail.length() == 0 || password.length() == 0) {
-            hasError = true;
-            isRequired = true;
-        } else {
-            Connection conn = AppUtils.getStoredConnection(req);
-            // Find the user in the DB.
-            user = UserDAO.findUserByEmail(conn, userEmail);
-
-            if (user == null || !SecurityUtils.checkPassword(user.getUserAccountEncryptedPassword(), password)) {
-                hasError = true;
-                isInvalid = true;
-            }
-        }
-
-        // If error, forward to login.jsp
-        if (hasError) {
-            user = new UserAccount();
-            user.setUserAccountEmail(userEmail);
-            user.setUserAccountEncryptedPassword(password);
-
-            // Store information in request attribute, before forward.
-            req.setAttribute("userEmail", user);
-
-            logger.info("User: " + userEmail + " typed wrong data");
-
-            LocaleUtils.setLocaleLoginPage(req, isInvalid, isRequired);
-            req.getRequestDispatcher("templates/login.jsp").forward(req, resp);
-        }
-        // If no error
-        // Store user information in Session
-        // And redirect to user page.
-        else {
-            HttpSession session = req.getSession();
-            AppUtils.storeLoginedUser(session, user);
-
-            AppUtils.storeUserCookie(resp, user);
-
-            logger.info("User: " + userEmail + " is login");
-
-            // Redirect to userInfo page.
             resp.sendRedirect(req.getContextPath() + "/userPage");
+        } else {
+
+            req.getRequestDispatcher("templates/login.jsp").forward(req, resp);
         }
     }
 }

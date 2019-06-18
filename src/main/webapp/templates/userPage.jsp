@@ -35,22 +35,24 @@
 <%--ORDERS--%>
 <section id="userOrders">
     <div class="row center-lg center-md center-sm center-xs account_row">
-        ${yourOrders}
+        <h4>${yourOrders}</h4>
     </div>
     <div class="row center-lg center-md center-sm center-xs account_sub_row">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${createDate}</div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${accountType}</div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${status}</div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">delete</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${delete}</div>
     </div>
     <c:forEach items="${bankAccountOrders}" var="order">
         <div class="row center-lg center-md center-sm center-xs account_sub_row">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${dateFormat.format(order.orderCreateDate)}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${order.accountType}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${order.orderStatus}</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteBtn" onclick="orderDelete('Confirm deletion!', 'Do you really want to delete this model?')">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteBtn" onclick="orderDelete(${confirm}, ${confirmQuestion})">
                 <i class="far fa-minus-square"></i>
             </div>
+
+            <div id="orderId" style="display: none">${order.orderId}</div>
         </div>
     </c:forEach>
     <div class="row center-lg center-md center-sm center-xs">

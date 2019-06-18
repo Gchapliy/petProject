@@ -97,8 +97,9 @@ public class BankAccountOrder implements Serializable {
     @Override
     public String toString() {
         return "BankAccountOrder{" +
+                "orderId=" + orderId +
                 ", orderCreateDate=" + orderCreateDate +
-                ", orderOwner=" + orderOwner +
+                ", orderOwner=" + orderOwner.getUserAccountEmail() +
                 ", orderStatus=" + orderStatus +
                 ", accountExpirationDate=" + accountExpirationDate +
                 ", accountBalance=" + accountBalance +

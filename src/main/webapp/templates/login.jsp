@@ -15,7 +15,7 @@
                                 <h3>${email}</h3>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs login_input">
-                                <input type="email" name="userEmail" value= "${user.userEmail}" >
+                                <input type="email" name="userEmail" value= "${userEmail}" >
                             </div>
                         </div>
                         <div class="row center-lg center-md center-sm center-xs login_row">
@@ -23,7 +23,7 @@
                                 <h3>${password}</h3>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs  login_input">
-                                <input type="password" name="password" value= "${user.password}" >
+                                <input type="password" name="password" >
                             </div>
                         </div>
                         <div class="row center-lg center-md center-sm center-xs login_row">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="row center-lg center-md center-sm center-xs login_row error">
-                            <h3>${errorString}</h3>
+                            <h3>${error}</h3>
                         </div>
                     </form>
                 </div>
