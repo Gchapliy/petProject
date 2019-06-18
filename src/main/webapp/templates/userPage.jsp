@@ -48,7 +48,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${dateFormat.format(order.orderCreateDate)}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${order.accountType}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${order.orderStatus}</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" onclick="orderDelete('Confirm deletion!', 'Do you really want to delete this model?')">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteBtn" onclick="orderDelete('Confirm deletion!', 'Do you really want to delete this model?')">
                 <i class="far fa-minus-square"></i>
             </div>
         </div>
