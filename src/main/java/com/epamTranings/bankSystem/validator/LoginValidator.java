@@ -51,7 +51,7 @@ public class LoginValidator {
             user.setUserAccountEncryptedPassword(password);
 
             // Store information in request attribute, before forward.
-            req.setAttribute("userEmail", user);
+            req.setAttribute("userEmail", user.getUserAccountEmail());
 
             logger.info("User: " + userEmail + " typed wrong data");
 

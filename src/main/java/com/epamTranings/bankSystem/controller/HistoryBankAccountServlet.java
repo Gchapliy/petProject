@@ -64,7 +64,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
                 noHistory = true;
             }
         } else {
-            req.getRequestDispatcher("templates/404.jsp").forward(req, resp);
+            req.getRequestDispatcher("templates/error.jsp").forward(req, resp);
         }
 
         req.setAttribute("link", "bankAccount?uuid=" + bankAccountUuid);

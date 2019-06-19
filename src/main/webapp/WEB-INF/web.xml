@@ -19,4 +19,13 @@
         <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/errorHandler</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errorHandler</location>
+    </error-page>
 </web-app>

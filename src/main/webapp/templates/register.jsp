@@ -18,16 +18,20 @@
                             <input type="email" name="userEmail" value= "${userEmail}">
                         </div>
                     </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorEmail}</h3>
+                    <c:if test="${errorEmail != null} ">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorEmail}</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorUserExists}</h3>
+                    </c:if>
+                    <c:if test="${errorUserExists}">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorUserExists}</h3>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs">
                             <h3>${name}</h3>
@@ -36,11 +40,13 @@
                             <input type="text" name="userName" value= "${userName}">
                         </div>
                     </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorName}</h3>
+                    <c:if test="${errorName != null}">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorName}</h3>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs">
                             <h3>${phone}</h3>
@@ -49,11 +55,13 @@
                             <input type="text" name="userPhone" value= "${userPhone}">
                         </div>
                     </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorPhone}</h3>
+                    <c:if test="${errorPhone != null}">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorPhone}</h3>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs">
                             <h3>${gender}</h3>
@@ -97,26 +105,33 @@
                             <input type="password" name="repPassword">
                         </div>
                     </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorPasswordEqual}</h3>
+
+                    <c:if test="${errorPasswordEqual != null}">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorPasswordEqual}</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorPasswordInvalid}</h3>
+                    </c:if>
+                    <c:if test="${errorPasswordInvalid != null}">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorPasswordInvalid}</h3>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 center-lg center-md center-sm center-xs login_btn">
                             <input type="submit" value="${registerBtn}">
                         </div>
                     </div>
-                    <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
-                            <h3>${errorRequired}</h3>
+                    <c:if test="${errorRequired != null}">
+                        <div class="row center-lg center-md center-sm center-xs login_row error">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                                <h3>${errorRequired}</h3>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                 </form>
             </div>
         </div>

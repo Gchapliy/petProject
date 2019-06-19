@@ -50,7 +50,7 @@ public class BankAccountServlet extends HttpServlet {
                 req.setAttribute("noBankAccount", "bank account uuid - " + bankAccountUuid + " not found");
             }
         } else {
-            req.getRequestDispatcher("templates/404.jsp").forward(req, resp);
+            req.getRequestDispatcher("templates/error.jsp").forward(req, resp);
         }
 
         req.setAttribute("link", "userPage");

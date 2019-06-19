@@ -261,6 +261,28 @@ public class LocaleUtils {
         if(credSumError)request.setAttribute("credSumError", resourceBundle.getString("bankAccount.new.credSumError"));
     }
 
+    public static void setLocaleTransfersPayment(HttpServletRequest request, boolean isDeposit, boolean[] errors){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        //Locale settings for new bank account page
+        request.setAttribute("title", resourceBundle.getString("bankAccount.transfers.title"));
+        request.setAttribute("account", resourceBundle.getString("bankAccount.transfers.account"));
+        request.setAttribute("accType", resourceBundle.getString("bankAccount.transfers.type"));
+        request.setAttribute("accBalance", resourceBundle.getString("bankAccount.transfers.balance"));
+        request.setAttribute("actions", resourceBundle.getString("bankAccount.transfers.actions"));
+        request.setAttribute("transferTitle", resourceBundle.getString("bankAccount.transfers.transfer.title"));
+        request.setAttribute("transferSpecify", resourceBundle.getString("bankAccount.transfers.transfer.specify"));
+        request.setAttribute("transferSum", resourceBundle.getString("bankAccount.transfers.transfer.sum"));
+        request.setAttribute("transferBtn", resourceBundle.getString("bankAccount.transfers.transfer.btn"));
+        request.setAttribute("payTitle", resourceBundle.getString("bankAccount.transfers.payment.title"));
+        request.setAttribute("paySpecify", resourceBundle.getString("bankAccount.transfers.payment.specify"));
+        request.setAttribute("payTarget", resourceBundle.getString("bankAccount.transfers.payment.target"));
+        request.setAttribute("payBtn", resourceBundle.getString("bankAccount.transfers.payment.btn"));
+
+        if(isDeposit)request.setAttribute("historyTitle", resourceBundle.getString("bankAccount.transfers.deposit.title"));
+        else request.setAttribute("historyTitle", resourceBundle.getString("bankAccount.transfers.credit.title"));
+    }
+
     /*  System.out.println("LOCALE " + locale);
             request.setAttribute("country", locale.getDisplayCountry());
 

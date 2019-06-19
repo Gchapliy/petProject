@@ -12,11 +12,13 @@
 
 <%--JOIN US--%>
 <section id="join_us">
-    <div class="row center-lg center-md end-sm center-xs">
-        <a href="/register" class="join">
-            ${join}
-        </a>
-    </div>
+    <c:if test="${sessionScope.loginedUser == null}">
+        <div class="row center-lg center-md end-sm center-xs">
+            <a href="/register" class="join">
+                    ${join}
+            </a>
+        </div>
+    </c:if>
 </section>
 
 <%@ include file="templates/footer.jsp" %>
