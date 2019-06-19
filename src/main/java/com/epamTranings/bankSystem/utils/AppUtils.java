@@ -22,6 +22,8 @@ public class AppUtils {
     public static final String ATR_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
     private static final String ATR_NAME_USER = "ATTRIBUTE_FOR_USER";
     private static final String ATR_LOCALE = "ATTRIBUTE_FOR_LOCALE";
+    private static final int LOCALE_COOKIE_LIFE = 10 * 365 * 24 * 60 * 60; // 10 years
+    private static final int USER_COOKIE_LIFE = 2 * 60 * 60; // 2 hours
 
     /**
      * Store connection in request attribute.
@@ -49,7 +51,7 @@ public class AppUtils {
      */
     public static void storeLocale(HttpServletResponse response, Locale locale){
         Cookie cookieLocale = new Cookie(ATR_LOCALE, locale.getLanguage() + "_" + locale.getCountry());
-        cookieLocale.setMaxAge(10 * 365 * 24 * 60 * 60);
+        cookieLocale.setMaxAge(LOCALE_COOKIE_LIFE);
         response.addCookie(cookieLocale);
     }
 
@@ -99,7 +101,7 @@ public class AppUtils {
     public static void storeUserCookie(HttpServletResponse response, UserAccount userAccount) {
         Cookie cookieUserEmail = new Cookie(ATR_NAME_USER, userAccount.getUserAccountEmail());
         // 1 day (Converted to seconds)
-        cookieUserEmail.setMaxAge(24 * 60 * 60);
+        cookieUserEmail.setMaxAge(USER_COOKIE_LIFE);
         response.addCookie(cookieUserEmail);
     }
 

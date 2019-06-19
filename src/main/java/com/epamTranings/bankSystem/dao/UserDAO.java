@@ -110,6 +110,11 @@ public class UserDAO {
         return null;
     }
 
+    public static boolean insertUserAccount(Connection connection, UserAccount account){
+
+        return true;
+    }
+
     /**
      * Find user bank accounts by user Email
      *

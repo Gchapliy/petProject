@@ -23,7 +23,7 @@
                                 <h3>${password}</h3>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs  login_input">
-                                <input type="password" name="password" >
+                                <input type="password" name="password">
                             </div>
                         </div>
                         <div class="row center-lg center-md center-sm center-xs login_row">

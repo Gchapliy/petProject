@@ -113,10 +113,9 @@ public class LocaleUtils {
      * Initiating locale for register page. IsInvalid and isRequired need if corresponding errors  happen when
      * user types register data
      * @param request
-     * @param isInvalid
-     * @param isRequired
+     * @param errors
      */
-    public static void setLocaleRegisterPage(HttpServletRequest request, boolean isInvalid, boolean isRequired){
+    public static void setLocaleRegisterPage(HttpServletRequest request, boolean[] errors){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("register.title"));
@@ -133,8 +132,12 @@ public class LocaleUtils {
         request.setAttribute("repPassword", resourceBundle.getString("register.repPassword"));
         request.setAttribute("registerBtn", resourceBundle.getString("register.registerBtn"));
 
-        if(isInvalid) request.setAttribute("error", resourceBundle.getString("register.errorInvalid"));
-        if(isRequired) request.setAttribute("error", resourceBundle.getString("register.errorRequired"));
+        if(errors[0]) request.setAttribute("errorRequired", resourceBundle.getString("register.errorRequired"));
+        if(errors[1]) request.setAttribute("errorEmail", resourceBundle.getString("register.errorEmailInvalid"));
+        if(errors[2]) request.setAttribute("errorName", resourceBundle.getString("register.errorNameInvalid"));
+        if(errors[3]) request.setAttribute("errorPhone", resourceBundle.getString("register.errorPhoneInvalid"));
+        if(errors[4]) request.setAttribute("errorUserExists", resourceBundle.getString("register.errorUserExists"));
+        if(errors[5]) request.setAttribute("errorPassword", resourceBundle.getString("register.errorPasswordsEqual"));
 
     }
 

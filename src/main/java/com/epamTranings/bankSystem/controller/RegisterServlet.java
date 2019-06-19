@@ -1,5 +1,9 @@
 package com.epamTranings.bankSystem.controller;
 
+import com.epamTranings.bankSystem.dao.UserDAO;
+import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+import com.epamTranings.bankSystem.utils.AppUtils;
+import com.epamTranings.bankSystem.utils.CreateUserAccountUtil;
 import com.epamTranings.bankSystem.utils.LocaleUtils;
 import com.epamTranings.bankSystem.validator.RegisterValidator;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +25,10 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
-        LocaleUtils.setLocaleRegisterPage(req, false, false);
+        boolean[] errors = new boolean[6];
+        errors[5] = true;
+
+        LocaleUtils.setLocaleRegisterPage(req, errors);
 
         req.getRequestDispatcher("templates/register.jsp").forward(req, resp);
     }
@@ -31,6 +38,8 @@ public class RegisterServlet extends HttpServlet {
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
         if (RegisterValidator.validate(req,resp)) {
+            UserAccount userAccount = CreateUserAccountUtil.getUserAccountFromDataRequest(req);
+            UserDAO.insertUserAccount(AppUtils.getStoredConnection(req), userAccount);
 
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {
