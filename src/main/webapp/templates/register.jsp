@@ -19,7 +19,14 @@
                         </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <h3>${errorEmail}</h3>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorEmail}</h3>
+                        </div>
+                    </div>
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorUserExists}</h3>
+                        </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs">
@@ -30,7 +37,9 @@
                         </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <h3>${errorName}</h3>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorName}</h3>
+                        </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs">
@@ -41,7 +50,9 @@
                         </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <h3>${errorPhone}</h3>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorPhone}</h3>
+                        </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 start-lg start-md start-sm start-xs">
@@ -51,16 +62,22 @@
                             <c:if test="${userGenderMale != null}">
                                 <input type="radio" name="userGender" value= "male" checked>${male}
                             </c:if>
-                            <c:if test="${userGenderMale == null}">
+                            <c:if test="${userGenderMale == null && userGenderFemale != null}">
                                 <input type="radio" name="userGender" value= "male" >${male}
+                            </c:if>
+                            <c:if test="${userGenderMale == null && userGenderFemale == null}">
+                                <input type="radio" name="userGender" value= "male" checked>${male}
                             </c:if>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 start-lg start-md start-sm start-xs">
                             <c:if test="${userGenderFemale != null}">
                                 <input type="radio" name="userGender" value= "female" checked>${female}
                             </c:if>
-                            <c:if test="${userGenderFemale == null}">
-                                <input type="radio" name="userGender" value= "male" >${female}
+                            <c:if test="${userGenderFemale == null && userGenderMale != null}">
+                                <input type="radio" name="userGender" value= "female" >${female}
+                            </c:if>
+                            <c:if test="${userGenderMale == null && userGenderFemale == null}">
+                                <input type="radio" name="userGender" value= "female">${female}
                             </c:if>
                         </div>
                     </div>
@@ -81,16 +98,24 @@
                         </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <h3>${errorPassword}</h3>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorPasswordEqual}</h3>
+                        </div>
+                    </div>
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorPasswordInvalid}</h3>
+                        </div>
                     </div>
                     <div class="row center-lg center-md center-sm center-xs login_row">
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 center-lg center-md center-sm center-xs login_btn">
                             <input type="submit" value="${registerBtn}">
                         </div>
                     </div>
-
                     <div class="row center-lg center-md center-sm center-xs login_row error">
-                        <h3>${errorRequired}</h3>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorRequired}</h3>
+                        </div>
                     </div>
                 </form>
             </div>

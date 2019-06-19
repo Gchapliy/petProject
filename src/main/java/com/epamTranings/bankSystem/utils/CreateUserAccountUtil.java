@@ -17,11 +17,11 @@ public class CreateUserAccountUtil {
 
     public static UserAccount getUserAccountFromDataRequest(HttpServletRequest request){
 
-        String email = (String) request.getAttribute("userEmail");
-        String name = (String) request.getAttribute("userName");
-        String phone = (String) request.getAttribute("userPhone");
-        String gender = (String) request.getAttribute("userGender");
-        String password = (String) request.getAttribute("password");
+        String email = request.getParameter("userEmail");
+        String name = request.getParameter("userName");
+        String phone = request.getParameter("userPhone");
+        String gender = request.getParameter("userGender");
+        String password = request.getParameter("password");
 
         String encryptedPassword = SecurityUtils.encodePassword(password);
 

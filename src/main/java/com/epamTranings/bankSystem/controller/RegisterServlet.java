@@ -20,13 +20,14 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
 
     final static Logger logger = LogManager.getLogger(RegisterServlet.class);
+    final static private int NUMBER_OF_ERRORS = 7;
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
-        boolean[] errors = new boolean[6];
-        errors[5] = true;
+        boolean[] errors = new boolean[NUMBER_OF_ERRORS];
 
         LocaleUtils.setLocaleRegisterPage(req, errors);
 
@@ -37,10 +38,10 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
-        if (RegisterValidator.validate(req,resp)) {
+        if (RegisterValidator.validate(req, resp)) {
             UserAccount userAccount = CreateUserAccountUtil.getUserAccountFromDataRequest(req);
 
-            if(UserDAO.insertUserAccount(AppUtils.getStoredConnection(req), userAccount))
+            if (UserDAO.insertUserAccount(AppUtils.getStoredConnection(req), userAccount))
                 resp.sendRedirect(req.getContextPath() + "/login");
             else
                 req.getRequestDispatcher("templates/register.jsp").forward(req, resp);

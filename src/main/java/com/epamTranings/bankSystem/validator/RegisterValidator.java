@@ -15,22 +15,32 @@ import java.sql.Connection;
 public class RegisterValidator {
 
     final static Logger logger = LogManager.getLogger(RegisterValidator.class);
-    final static private int NUMBER_OF_ERRORS = 6;
+    final static private int NUMBER_OF_ERRORS = 7;
 
     public static boolean validate(HttpServletRequest request, HttpServletResponse response) {
 
-        String email = (String) request.getAttribute("userEmail");
-        String name = (String) request.getAttribute("userName");
-        String phone = (String) request.getAttribute("userPhone");
-        String gender = (String) request.getAttribute("userGender");
-        String password = (String) request.getAttribute("password");
-        String repPassword = (String) request.getAttribute("repPassword");
+        String email = request.getParameter("userEmail");
+        String name = request.getParameter("userName");
+        String phone = request.getParameter("userPhone");
+        String gender = request.getParameter("userGender");
+        String password = request.getParameter("password");
+        String repPassword = request.getParameter("repPassword");
 
         UserAccount user = null;
 
         String phoneRegex = "^\\d{4}-\\d{3}-\\d{4}$";
         String emailRegex = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         String nameRegex = "[A-Z][a-z]*";
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$";
+        /*
+            ^                 # start-of-string
+            (?=.*[0-9])       # a digit must occur at least once
+            (?=.*[a-z])       # a lower case letter must occur at least once
+            (?=.*[A-Z])       # an upper case letter must occur at least once
+            (?=.*[@#$%^&+=])  # a special character must occur at least once
+            (?=\S+$)          # no whitespace allowed in the entire string
+            .{8,}             # anything, at least eight places though
+            $                 # end-of-string*/
 
         boolean isUserExists = false;
         boolean isRequired = false;
@@ -38,6 +48,7 @@ public class RegisterValidator {
         boolean isNameInvalid = false;
         boolean isPhoneInvalid = false;
         boolean isPasswordsNotEquals = false;
+        boolean isPasswordInvalid = false;
         boolean hasError = false;
 
         boolean[] errors = new boolean[NUMBER_OF_ERRORS];
@@ -49,12 +60,12 @@ public class RegisterValidator {
 
             errors[0] = isRequired;
 
-            if(email != null) request.setAttribute("userEmail", email);
-            if(name != null) request.setAttribute("userName", name);
-            if(phone != null) request.setAttribute("userPhone", phone);
+            if (email != null) request.setAttribute("userEmail", email);
+            if (name != null) request.setAttribute("userName", name);
+            if (phone != null) request.setAttribute("userPhone", phone);
 
             if (gender != null && gender.equals("male")) request.setAttribute("userGenderMale", "male");
-            else if(gender != null && gender.equals("female"))request.setAttribute("userGenderFemale", "female");
+            else if (gender != null && gender.equals("female")) request.setAttribute("userGenderFemale", "female");
 
             LocaleUtils.setLocaleRegisterPage(request, errors);
 
@@ -62,7 +73,7 @@ public class RegisterValidator {
             return false;
         }
 
-        if(email.isEmpty() || name.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty() || repPassword.isEmpty()){
+        if (email.isEmpty() || name.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty() || repPassword.isEmpty()) {
             isRequired = true;
             hasError = true;
 
@@ -111,13 +122,22 @@ public class RegisterValidator {
             logger.error("user with email " + email + " is already exists");
         }
 
-        if(!password.equals(repPassword)){
+        if (!password.equals(repPassword)) {
             hasError = true;
             isPasswordsNotEquals = true;
 
             errors[5] = isPasswordsNotEquals;
 
-            logger.info("passwords do not match");
+            logger.error("passwords do not match");
+        }
+
+        if(!password.matches(passwordRegex)){
+            hasError = true;
+            isPasswordInvalid = true;
+
+            errors[6] = isPasswordInvalid;
+
+            logger.error("password is invalid");
         }
 
         if (hasError) {

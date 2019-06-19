@@ -137,7 +137,8 @@ public class LocaleUtils {
         if(errors[2]) request.setAttribute("errorName", resourceBundle.getString("register.errorNameInvalid"));
         if(errors[3]) request.setAttribute("errorPhone", resourceBundle.getString("register.errorPhoneInvalid"));
         if(errors[4]) request.setAttribute("errorUserExists", resourceBundle.getString("register.errorUserExists"));
-        if(errors[5]) request.setAttribute("errorPassword", resourceBundle.getString("register.errorPasswordsEqual"));
+        if(errors[5]) request.setAttribute("errorPasswordEqual", resourceBundle.getString("register.errorPasswordsEqual"));
+        if(errors[6]) request.setAttribute("errorPasswordInvalid", resourceBundle.getString("register.errorPasswordsInvalid"));
 
     }
 
