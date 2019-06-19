@@ -19,9 +19,9 @@
             <c:forEach items="${bankAccounts}" var="account">
                 <a href="/bankAccount?uuid=${account.accountUuid}">
                     <div class="row center-lg center-md center-sm center-xs account_sub_row acc_data">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">${account.accountUuid}</div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${account.accountType}</div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${numberFormat.format(account.accountBalance)}</div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><h3>${account.accountUuid}</h3></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><h3>${account.accountType}</h3></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><h3>${numberFormat.format(account.accountBalance)}</h3></div>
                     </div>
                 </a>
             </c:forEach>
@@ -45,9 +45,9 @@
     </div>
     <c:forEach items="${bankAccountOrders}" var="order">
         <div class="row center-lg center-md center-sm center-xs account_sub_row">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${dateFormat.format(order.orderCreateDate)}</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${order.accountType}</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${order.orderStatus}</div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><h3>${dateFormat.format(order.orderCreateDate)}</h3></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountType}</h3></div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.orderStatus}</h3></div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteBtn" onclick="orderDelete(${confirm}, ${confirmQuestion})">
                 <i class="far fa-minus-square"></i>
             </div>
