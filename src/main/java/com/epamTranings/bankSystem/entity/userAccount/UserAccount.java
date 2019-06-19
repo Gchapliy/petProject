@@ -5,12 +5,14 @@ import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserAccount implements Serializable{
     private String userAccountName;
     private String userAccountGender;
     private String userAccountEncryptedPassword;
+    private Date accountCreateDate;
     private Role userAccountRole;
     private String userAccountEmail;
     private String userAccountPhone;
@@ -43,6 +45,14 @@ public class UserAccount implements Serializable{
 
     public void setUserAccountEncryptedPassword(String userAccountEncryptedPassword) {
         this.userAccountEncryptedPassword = userAccountEncryptedPassword;
+    }
+
+    public Date getAccountCreateDate() {
+        return accountCreateDate;
+    }
+
+    public void setAccountCreateDate(Date accountCreateDate) {
+        this.accountCreateDate = accountCreateDate;
     }
 
     public Role getUserAccountRole() {
@@ -96,8 +106,10 @@ public class UserAccount implements Serializable{
     @Override
     public String toString() {
         return "UserAccount{" +
-                ", userAccountName='" + userAccountName + '\'' +
+                "userAccountName='" + userAccountName + '\'' +
                 ", userAccountGender='" + userAccountGender + '\'' +
+                ", userAccountEncryptedPassword='" + userAccountEncryptedPassword + '\'' +
+                ", accountCreateDate=" + accountCreateDate +
                 ", userAccountRole=" + userAccountRole +
                 ", userAccountEmail='" + userAccountEmail + '\'' +
                 ", userAccountPhone='" + userAccountPhone + '\'' +

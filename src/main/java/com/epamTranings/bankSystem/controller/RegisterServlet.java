@@ -39,9 +39,12 @@ public class RegisterServlet extends HttpServlet {
 
         if (RegisterValidator.validate(req,resp)) {
             UserAccount userAccount = CreateUserAccountUtil.getUserAccountFromDataRequest(req);
-            UserDAO.insertUserAccount(AppUtils.getStoredConnection(req), userAccount);
 
-            resp.sendRedirect(req.getContextPath() + "/login");
+            if(UserDAO.insertUserAccount(AppUtils.getStoredConnection(req), userAccount))
+                resp.sendRedirect(req.getContextPath() + "/login");
+            else
+                req.getRequestDispatcher("templates/register.jsp").forward(req, resp);
+
         } else {
 
             req.getRequestDispatcher("templates/register.jsp").forward(req, resp);

@@ -37,18 +37,38 @@ public class RegisterValidator {
         boolean isEmailInvalid = false;
         boolean isNameInvalid = false;
         boolean isPhoneInvalid = false;
-        boolean isPasswordsEquals = true;
+        boolean isPasswordsNotEquals = false;
         boolean hasError = false;
 
         boolean[] errors = new boolean[NUMBER_OF_ERRORS];
 
-        if (email.isEmpty() || name.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty() || repPassword.isEmpty()) {
-            hasError = true;
+        logger.info("DATA: " + email + ", " + name + ", " + phone + ", " + gender + ", " + password + ", " + repPassword);
+
+        if (email == null || name == null || phone == null || gender == null || password == null || repPassword == null) {
             isRequired = true;
 
             errors[0] = isRequired;
 
+            if(email != null) request.setAttribute("userEmail", email);
+            if(name != null) request.setAttribute("userName", name);
+            if(phone != null) request.setAttribute("userPhone", phone);
+
+            if (gender != null && gender.equals("male")) request.setAttribute("userGenderMale", "male");
+            else if(gender != null && gender.equals("female"))request.setAttribute("userGenderFemale", "female");
+
+            LocaleUtils.setLocaleRegisterPage(request, errors);
+
+            logger.error("input data is null");
+            return false;
+        }
+
+        if(email.isEmpty() || name.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty() || repPassword.isEmpty()){
+            isRequired = true;
+            hasError = true;
+
+            errors[0] = isRequired;
             logger.error("input data is empty");
+
         }
 
         if (!email.matches(emailRegex)) {
@@ -93,9 +113,9 @@ public class RegisterValidator {
 
         if(!password.equals(repPassword)){
             hasError = true;
-            isPasswordsEquals = false;
+            isPasswordsNotEquals = true;
 
-            errors[5] = isPasswordsEquals;
+            errors[5] = isPasswordsNotEquals;
 
             logger.info("passwords do not match");
         }

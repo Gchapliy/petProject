@@ -3,6 +3,7 @@ package com.epamTranings.bankSystem.dao;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.userAccount.Role;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+import com.epamTranings.bankSystem.utils.dbConnectionUtils.ConnectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +31,8 @@ public class UserDAO {
     public static UserAccount findUserByEmail(Connection connection,
                                               String userEmail) {
 
-        String sql = "Select u.Account_Name, u.Account_Gender, u.Account_Encrypted_Password, u.Account_Role, u.Account_Email, u.Account_Phone from User_Account u" +
+        String sql = "Select u.Account_Name, u.Account_Gender, u.Account_Encrypted_Password, u.Account_Role, u.Account_Email, u.Account_Phone," +
+                " u.Account_Create_Date from User_Account u" +
                 " where u.Account_Email = ?";
 
         try {
@@ -45,8 +46,9 @@ public class UserDAO {
                 String accountEncryptedPassword = rs.getString("Account_Encrypted_Password");
                 int accountRole = rs.getInt("Account_Role");
                 String accountPhone = rs.getString("Account_Phone");
+                Date createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Create_Date"));
 
-                Role userRole = findUserRoleByName(connection, accountRole);
+                Role userRole = findUserRoleById(connection, accountRole);
 
                 UserAccount user = new UserAccount();
                 user.setUserAccountName(accountName);
@@ -55,6 +57,7 @@ public class UserDAO {
                 user.setUserAccountRole(userRole);
                 user.setUserAccountEmail(userEmail);
                 user.setUserAccountPhone(accountPhone);
+                user.setAccountCreateDate(createDate);
 
                 logger.info(user + " founded");
 
@@ -62,6 +65,8 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             logger.error("error while find user");
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -78,7 +83,7 @@ public class UserDAO {
      * @return
      * @throws SQLException
      */
-    public static Role findUserRoleByName(Connection conn, int roleId) {
+    public static Role findUserRoleById(Connection conn, int roleId) {
 
         String sql = "Select r.Role_Id, r.Role_Name from Role r" +
                 " where r.Role_Id = ?";
@@ -110,7 +115,111 @@ public class UserDAO {
         return null;
     }
 
+    /**
+     * Find userAccount role in db by role's name
+     *
+     * @param conn
+     * @param roleName
+     * @return
+     * @throws SQLException
+     */
+    public static Role findUserRoleByName(Connection conn, String roleName) {
+
+        String sql = "Select r.Role_Id, r.Role_Name from Role r" +
+                " where r.Role_Name = ?";
+
+        try {
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, roleName);
+            ResultSet rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                int roleId = rs.getInt("Role_Id");
+
+                Role userRole = new Role();
+                userRole.setRoleID(roleId);
+                userRole.setRoleName(roleName);
+
+                logger.info(userRole + " founded");
+
+                return userRole;
+            }
+        } catch (SQLException e) {
+            logger.error("error while find role");
+            e.printStackTrace();
+        }
+
+        logger.error("userRole with name " + roleName + " not founded");
+
+        return null;
+    }
+
+    /**
+     * Insert new user account to db
+     * @param connection
+     * @param account
+     * @return
+     */
     public static boolean insertUserAccount(Connection connection, UserAccount account){
+
+        String sql = "Insert into User_Account values(?, ?, ?, ?, ?, ?, ?)";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, account.getUserAccountEmail());
+            pstm.setString(2, account.getUserAccountName());
+            pstm.setString(3, account.getUserAccountGender());
+            pstm.setString(4, account.getUserAccountEncryptedPassword());
+            pstm.setInt(5, account.getUserAccountRole().getRoleID());
+            pstm.setString(6, account.getUserAccountPhone());
+            pstm.setString(7, sdf.format(account.getAccountCreateDate()));
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("user account created");
+        } catch (SQLException e) {
+            logger.error("error while insert user account");
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete user account from db
+     * @param connection
+     * @param account
+     * @return
+     */
+    public static boolean deleteUserAccount(Connection connection, UserAccount account){
+
+        String sql = "Delete from User_Account where Account_Email = ?";
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, account.getUserAccountEmail());
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("user account with email: " + account.getUserAccountEmail() + " deleted");
+        } catch (SQLException e) {
+            logger.error("error while delete user account with email: " + account.getUserAccountEmail());
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
 
         return true;
     }

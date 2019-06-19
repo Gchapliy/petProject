@@ -10,6 +10,15 @@ import java.util.Set;
 public class SecurityUtils {
 
     /**
+     * Encode password
+      * @param password
+     * @return
+     */
+    public static String encodePassword(String password){
+        return Base64.getEncoder().encodeToString(password.getBytes());
+    }
+
+    /**
      * Check password typed by user with password from db
      * @param encryptedAccountPassword
      * @param checkingPassword

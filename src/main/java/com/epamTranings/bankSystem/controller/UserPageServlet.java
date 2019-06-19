@@ -22,7 +22,6 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 @WebServlet(name = "userPage", urlPatterns = { "/userPage" })
 public class UserPageServlet extends HttpServlet{
@@ -49,7 +48,7 @@ public class UserPageServlet extends HttpServlet{
 
         Connection connection = AppUtils.getStoredConnection(req);
         List<BankAccount> bankAccounts = UserDAO.findUserBankAccounts(connection, loginedUser);
-        List<BankAccountOrder> bankAccountOrders = BankAccountDAO.findBankAccountOrderByUserAccount(connection, loginedUser);
+        List<BankAccountOrder> bankAccountOrders = BankAccountDAO.findBankAccountOrdersByUserAccount(connection, loginedUser);
 
         AppUtils.getLoginedUser(session).setUserBankAccounts(bankAccounts);
         AppUtils.getLoginedUser(session).setUserBankAccountsOrders(bankAccountOrders);

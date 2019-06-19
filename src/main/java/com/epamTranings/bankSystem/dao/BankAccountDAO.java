@@ -4,6 +4,7 @@ import com.epamTranings.bankSystem.entity.bankAccount.BankAccount;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccountOrder;
 import com.epamTranings.bankSystem.entity.bankAccount.BankAccountTransaction;
 import com.epamTranings.bankSystem.entity.userAccount.UserAccount;
+import com.epamTranings.bankSystem.utils.dbConnectionUtils.ConnectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -174,7 +175,7 @@ public class BankAccountDAO {
             logger.error("error while insert bank account order");
             e.printStackTrace();
 
-            transactionRollback(connection);
+            ConnectionUtils.rollbackQuietly(connection);
             return false;
         }
 
@@ -205,7 +206,7 @@ public class BankAccountDAO {
             logger.error("error while delete bank account order with id: " + bankAccountOrderId);
             e.printStackTrace();
 
-           transactionRollback(connection);
+            ConnectionUtils.rollbackQuietly(connection);
            return false;
         }
 
@@ -218,7 +219,7 @@ public class BankAccountDAO {
      * @param userAccount
      * @return
      */
-    public static List<BankAccountOrder> findBankAccountOrderByUserAccount(Connection connection, UserAccount userAccount){
+    public static List<BankAccountOrder> findBankAccountOrdersByUserAccount(Connection connection, UserAccount userAccount){
         String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
                 "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b " +
                 "where b.Order_Owner = ?";
@@ -264,15 +265,5 @@ public class BankAccountDAO {
         }
 
         return bankAccountOrders;
-    }
-
-    private static void transactionRollback(Connection connection){
-        try {
-            connection.rollback();
-            logger.info("transaction rollback");
-        } catch (SQLException e1) {
-            logger.error("transaction didn't rollback");
-            e1.printStackTrace();
-        }
     }
 }
