@@ -27,8 +27,11 @@ public class TransferValidator {
 
         String recepAccount = request.getParameter("recepAccount");
         String recepSum = request.getParameter("recepSum");
+        String balance = (String) request.getAttribute("balance");
 
-        logger.info("transfer data: " + recepAccount + ", " + recepSum);
+        double accountBalance = Double.parseDouble(balance);
+
+        logger.info("transfer data: " + recepAccount + ", " + recepSum + ", " + balance);
 
         boolean isRequiredTransfer = false;
         boolean isTransferSpecifyInvalid = false;
@@ -75,6 +78,10 @@ public class TransferValidator {
 
         try {
             sum = Double.parseDouble(recepSum);
+            if(sum <= 0) throw new IllegalArgumentException();
+            if(sum > accountBalance){
+                throw new IllegalArgumentException();
+            }
         } catch (Exception e){
             hasError = true;
             isTransferSumInvalid = true;

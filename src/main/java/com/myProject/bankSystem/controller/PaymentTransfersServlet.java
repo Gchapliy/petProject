@@ -1,7 +1,6 @@
 package com.myProject.bankSystem.controller;
 
 import com.myProject.bankSystem.dao.BankAccountDAO;
-import com.myProject.bankSystem.dao.UserDAO;
 import com.myProject.bankSystem.entity.bankAccount.BankAccount;
 import com.myProject.bankSystem.entity.bankAccount.BankAccountTransaction;
 import com.myProject.bankSystem.entity.userAccount.UserAccount;
@@ -77,6 +76,17 @@ public class PaymentTransfersServlet extends HttpServlet {
                 BankAccountTransaction transaction = CreateTransactionUtil.createBankAccountTransaction(req);
 
                 if (BankAccountDAO.insertBankAccountTransaction(AppUtils.getStoredConnection(req), transaction)){
+
+                    bankAccount.setAccountBalance(bankAccount.getAccountBalance() - transaction.getTransactionAmount());
+
+                    if(BankAccountDAO.updateBankAccount(AppUtils.getStoredConnection(req), bankAccount)){
+                        logger.info("transaction completed successfully");
+                    } else {
+                        req.setAttribute("payment", "payment");
+                        req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                        return;
+                    }
+
                     resp.sendRedirect(req.getContextPath() + "/userPage");
                 }
                 else {

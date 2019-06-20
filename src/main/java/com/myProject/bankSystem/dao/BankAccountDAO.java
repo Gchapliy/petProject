@@ -84,17 +84,73 @@ public class BankAccountDAO {
     }
 
     /**
+     * Find bank account transactions by bank account's uuid
+     *
+     * @param connection
+     * @param bankAccountTransactionId
+     * @return
+     */
+    public static BankAccountTransaction findBankAccountTransactionById(Connection connection, int bankAccountTransactionId) {
+
+        String sql = "Select t.Transaction_Id, t.Bank_Account_From_Uuid, t.Bank_Account_To_Uuid, t.Transaction_Date, t.Transaction_Amount, t.Transaction_Target " +
+                "from Bank_Account_Transaction t where t.Transaction_Id = ?";
+
+        BankAccountTransaction bankAccountTransaction = null;
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, bankAccountTransactionId);
+
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("Transaction_id");
+                String uuidFrom = rs.getString("Bank_Account_From_Uuid");
+                String uuidTo = rs.getString("Bank_Account_To_Uuid");
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Transaction_Date"));
+                double amount = rs.getDouble("Transaction_Amount");
+                String target = rs.getString("Transaction_Target");
+
+                BankAccount from;
+                BankAccount to;
+
+                to = findBankAccountByUuid(connection, uuidTo);
+                from = findBankAccountByUuid(connection, uuidFrom);
+
+                bankAccountTransaction = new BankAccountTransaction();
+
+                bankAccountTransaction.setTransactionId(id);
+                bankAccountTransaction.setBankAccountFrom(from);
+                bankAccountTransaction.setBankAccountTo(to);
+                bankAccountTransaction.setTransactionDate(date);
+                bankAccountTransaction.setTransactionAmount(amount);
+                bankAccountTransaction.setTransactionTarget(target);
+
+            }
+        } catch (SQLException e) {
+            logger.error("error while find bank account transactions");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            logger.error("error while parse date during finding bank account transactions");
+            e.printStackTrace();
+        }
+
+        return bankAccountTransaction;
+    }
+
+    /**
      * Insert bank account transaction to db
+     *
      * @param connection
      * @param bankAccountTransaction
      * @return
      */
-    public static boolean insertBankAccountTransaction(Connection connection, BankAccountTransaction bankAccountTransaction){
+    public static boolean insertBankAccountTransaction(Connection connection, BankAccountTransaction bankAccountTransaction) {
 
         String sql = "Insert into Bank_Account_Transaction (Bank_Account_From_Uuid, Bank_Account_To_Uuid, Transaction_Date," +
                 "Transaction_Amount, Transaction_Target) values(?, ?, ?, ?, ?)";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        int result = 0;
 
         try {
             PreparedStatement pstm = connection.prepareStatement(sql);
@@ -106,12 +162,38 @@ public class BankAccountDAO {
 
             connection.setAutoCommit(false);
 
-            pstm.executeUpdate();
+            result = pstm.executeUpdate();
 
             connection.commit();
             logger.info("bank account transaction created");
         } catch (SQLException e) {
             logger.error("error while insert bank account transaction");
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean deleteBankAccountTransaction(Connection connection, int bankAccountTransactionId) {
+
+        String sql = "Delete from Bank_Account_Transaction where Transaction_Id = ?";
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, bankAccountTransactionId);
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("bank account transaction with id " + bankAccountTransactionId + " deleted");
+        } catch (SQLException e) {
+            logger.info("bank account transaction with id " + bankAccountTransactionId + " deleted");
+
             e.printStackTrace();
 
             ConnectionUtils.rollbackQuietly(connection);
@@ -179,6 +261,119 @@ public class BankAccountDAO {
     }
 
     /**
+     * Insert bank account data to db
+     * @param connection
+     * @param bankAccount
+     * @return
+     */
+    public static boolean insertBankAccount(Connection connection, BankAccount bankAccount){
+
+        String sql = "Insert into Bank_Account values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, bankAccount.getAccountUuid());
+            pstm.setDouble(2, bankAccount.getAccountBalance());
+            pstm.setString(3, sdf.format(bankAccount.getAccountCreationDate()));
+            pstm.setString(4, sdf.format(bankAccount.getAccountExpirationDate()));
+            pstm.setString(5, bankAccount.getAccountOwner().getUserAccountEmail());
+            pstm.setDouble(6, bankAccount.getAccountLimit());
+            pstm.setDouble(7, bankAccount.getAccountInterestRate());
+            pstm.setDouble(8, bankAccount.getAccountDebt());
+            pstm.setInt(9, bankAccount.getAccountType().ordinal());
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("bank account with uuid " + bankAccount.getAccountUuid() + " inserted");
+        } catch (SQLException e) {
+            logger.error("error while inserting bank account with uuid " + bankAccount.getAccountUuid());
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Update bank account data in db
+     *
+     * @param connection
+     * @param bankAccount
+     * @return
+     */
+    public static boolean updateBankAccount(Connection connection, BankAccount bankAccount) {
+
+        String sql = "Update Bank_Account set Account_Balance = ?, Account_Expiration_Date = ?, Account_Owner = ?, Account_Limit = ?," +
+                "Account_Interest_Rate = ?, Account_Debt = ?, Account_Type = ? where Account_Uuid = ?";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setDouble(1, bankAccount.getAccountBalance());
+            pstm.setString(2, sdf.format(bankAccount.getAccountExpirationDate()));
+            pstm.setString(3, bankAccount.getAccountOwner().getUserAccountEmail());
+            pstm.setDouble(4, bankAccount.getAccountLimit());
+            pstm.setDouble(5, bankAccount.getAccountInterestRate());
+            pstm.setDouble(6, bankAccount.getAccountDebt());
+            pstm.setInt(7, bankAccount.getAccountType().ordinal());
+            pstm.setString(8, bankAccount.getAccountUuid());
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("bank account updated");
+        } catch (SQLException e) {
+            logger.error("error while update bank account");
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete bank account from db
+     * @param connection
+     * @param bankAccountUuid
+     * @return
+     */
+    public static boolean deleteBankAccount(Connection connection, String bankAccountUuid){
+
+        String sql = "Delete from Bank_Account where Account_Uuid = ?";
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, bankAccountUuid);
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("bank account with uuid " + bankAccountUuid + " deleted");
+        } catch (SQLException e) {
+            logger.error("error while deleting bak account with uuid " + bankAccountUuid);
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Insert bank account order to db
      *
      * @param connection
@@ -222,6 +417,7 @@ public class BankAccountDAO {
 
     /**
      * Delete bank account order by id
+     *
      * @param connection
      * @param bankAccountOrderId
      * @return
@@ -245,7 +441,7 @@ public class BankAccountDAO {
             e.printStackTrace();
 
             ConnectionUtils.rollbackQuietly(connection);
-           return false;
+            return false;
         }
 
         return true;
@@ -253,11 +449,12 @@ public class BankAccountDAO {
 
     /**
      * Find bank account orders by user account email in db
+     *
      * @param connection
      * @param userAccount
      * @return
      */
-    public static List<BankAccountOrder> findBankAccountOrdersByUserAccount(Connection connection, UserAccount userAccount){
+    public static List<BankAccountOrder> findBankAccountOrdersByUserAccount(Connection connection, UserAccount userAccount) {
         String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
                 "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b " +
                 "where b.Order_Owner = ?";
@@ -270,7 +467,7 @@ public class BankAccountDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 BankAccountOrder bankAccountOrder = new BankAccountOrder();
 
                 int orderId = rs.getInt("Order_Id");
