@@ -188,8 +188,8 @@ public class LocaleUtils {
         request.setAttribute("confirmSuccess", resourceBundle.getString("user.confirmSuccess"));
         request.setAttribute("confirmDeny", resourceBundle.getString("user.confirmDeny"));
         request.setAttribute("confirmQuestion", resourceBundle.getString("user.confirmQuestion"));
-        request.setAttribute("successQuestion", resourceBundle.getString("user.confirmQuestion"));
-        request.setAttribute("denyQuestion", resourceBundle.getString("user.confirmQuestion"));
+        request.setAttribute("successQuestion", resourceBundle.getString("user.successQuestion"));
+        request.setAttribute("denyQuestion", resourceBundle.getString("user.denyQuestion"));
 
         if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
         if(noOrders) request.setAttribute("noOrders", resourceBundle.getString("user.noOrders"));

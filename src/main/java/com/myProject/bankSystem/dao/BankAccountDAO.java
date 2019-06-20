@@ -262,11 +262,12 @@ public class BankAccountDAO {
 
     /**
      * Insert bank account data to db
+     *
      * @param connection
      * @param bankAccount
      * @return
      */
-    public static boolean insertBankAccount(Connection connection, BankAccount bankAccount){
+    public static boolean insertBankAccount(Connection connection, BankAccount bankAccount) {
 
         String sql = "Insert into Bank_Account values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -344,11 +345,12 @@ public class BankAccountDAO {
 
     /**
      * Delete bank account from db
+     *
      * @param connection
      * @param bankAccountUuid
      * @return
      */
-    public static boolean deleteBankAccount(Connection connection, String bankAccountUuid){
+    public static boolean deleteBankAccount(Connection connection, String bankAccountUuid) {
 
         String sql = "Delete from Bank_Account where Account_Uuid = ?";
 
@@ -415,6 +417,41 @@ public class BankAccountDAO {
         return true;
     }
 
+    public static boolean updateBankAccountOrder(Connection connection, BankAccountOrder order){
+
+        String sql = "Update Bank_Account_Order set Order_Create_Date = ?, Order_Owner = ?, Order_Status = ?, Account_Expiration_Date = ?," +
+                "Account_Balance = ?, Account_Limit = ?, Account_Interest_Rate = ?, Account_Type = ? where Order_Id = ?";
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, sdf.format(order.getOrderCreateDate()));
+            pstm.setString(2, order.getOrderOwner().getUserAccountEmail());
+            pstm.setInt(3, order.getOrderStatus().ordinal());
+            pstm.setString(4, sdf.format(order.getAccountExpirationDate()));
+            pstm.setDouble(5, order.getAccountBalance());
+            pstm.setDouble(6, order.getAccountLimit());
+            pstm.setDouble(7, order.getAccountInterestRate());
+            pstm.setInt(8, order.getAccountType().ordinal());
+            pstm.setInt(9, order.getOrderId());
+
+            connection.setAutoCommit(false);
+
+            pstm.executeUpdate();
+
+            connection.commit();
+            logger.info("bank account order updated");
+        } catch (SQLException e) {
+            logger.error("error while updating bank account order");
+            e.printStackTrace();
+
+            ConnectionUtils.rollbackQuietly(connection);
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Delete bank account order by id
      *
@@ -448,20 +485,76 @@ public class BankAccountDAO {
     }
 
     /**
+     * Find bank account order by order id
+     * @param connection
+     * @param bankAccountOrderId
+     * @return
+     */
+    public static BankAccountOrder findBankAccountOrderById(Connection connection, int bankAccountOrderId) {
+
+        String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date," +
+                "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b where b.Order_Id = ?";
+
+        BankAccountOrder bankAccountOrder = new BankAccountOrder();
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, bankAccountOrderId);
+            ResultSet rs = pstm.executeQuery();
+
+            if(rs.next()){
+                int orderId = rs.getInt("Order_Id");
+                Date createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Order_Create_Date"));
+                Date expirationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Expiration_Date"));
+                BankAccountOrder.OrderStatus status = BankAccountOrder.OrderStatus.values()[rs.getInt("Order_Status")];
+                double accountBalance = rs.getDouble("Account_Balance");
+                double accountLimit = rs.getDouble("Account_Limit");
+                double interestRate = rs.getDouble("Account_Interest_Rate");
+                BankAccount.AccountType accountType = BankAccount.AccountType.values()[rs.getInt("Account_Type")];
+                String orderOwner = rs.getString("Order_Owner");
+
+                UserAccount orderOwnerAccount = UserDAO.findUserByEmail(connection, orderOwner);
+
+
+                bankAccountOrder.setOrderId(orderId);
+                bankAccountOrder.setOrderCreateDate(createDate);
+                bankAccountOrder.setAccountExpirationDate(expirationDate);
+                bankAccountOrder.setOrderStatus(status);
+                bankAccountOrder.setAccountBalance(accountBalance);
+                bankAccountOrder.setAccountLimit(accountLimit);
+                bankAccountOrder.setAccountInterestRate(interestRate);
+                bankAccountOrder.setAccountType(accountType);
+                bankAccountOrder.setOrderOwner(orderOwnerAccount);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error("error while find bank account order in db");
+        } catch (ParseException e) {
+            logger.error("error while parse date during find bank account order in db");
+            e.printStackTrace();
+        }
+
+        return bankAccountOrder;
+    }
+
+    /**
      * Find all user orders from db
+     *
      * @param connection
      * @return
      */
-    public static List<BankAccountOrder> findAllBankAccountOrders(Connection connection){
+    public static List<BankAccountOrder> findAllBankAccountOrdersInProgress(Connection connection) {
         String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
-                "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b";
+                "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b where b.Order_Status = ?";
 
         List<BankAccountOrder> bankAccountOrders = new LinkedList<>();
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, BankAccountOrder.OrderStatus.IN_PROGRESS.ordinal());
 
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
                 BankAccountOrder bankAccountOrder = new BankAccountOrder();

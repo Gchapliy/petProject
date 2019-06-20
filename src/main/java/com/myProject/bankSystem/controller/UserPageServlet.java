@@ -54,7 +54,7 @@ public class UserPageServlet extends HttpServlet{
 
 
 
-            List<BankAccountOrder> usersBankAccountOrders = BankAccountDAO.findAllBankAccountOrders(AppUtils.getStoredConnection(req));
+            List<BankAccountOrder> usersBankAccountOrders = BankAccountDAO.findAllBankAccountOrdersInProgress(AppUtils.getStoredConnection(req));
 
             if(usersBankAccountOrders == null || usersBankAccountOrders.size() == 0)
                 noUserOrders = true;

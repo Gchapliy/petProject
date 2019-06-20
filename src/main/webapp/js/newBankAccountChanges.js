@@ -73,7 +73,7 @@ function orderDelete(title, text) {
                 }
             }
         });
-}
+};
 
 function orderSuccess(title, text) {
     var id = $('#userOrderId').text();
@@ -93,7 +93,7 @@ function orderSuccess(title, text) {
                 }
             }
         });
-}
+};
 
 function orderDeny(title, text) {
     var id = $('#userOrderId').text();
@@ -113,4 +113,4 @@ function orderDeny(title, text) {
                 }
             }
         });
-}
+};
