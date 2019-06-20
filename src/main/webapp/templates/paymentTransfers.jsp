@@ -27,7 +27,7 @@
             <h4>${actions}</h4>
         </div>
         <div class="row center-lg center-md center-sm center-xs login_row">
-            <form method="POST" action="/paymentTransfers">
+            <form method="POST" action="/paymentTransfers?type=transfer&uuid=${uuid}">
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <h3>${transferTitle}</h3>
                 </div>
@@ -36,26 +36,47 @@
                         ${transferSpecify}
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 start-lg start-md start-sm start-xs login_input">
-                        <input type="text" name="recepAccount">
+                        <input type="text" name="recepAccount" value="${recepAccount}">
                     </div>
                 </div>
+                <c:if test="${errorTransferSpecify != null} ">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorTransferSpecify}</h3>
+                        </div>
+                    </div>
+                </c:if>
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 start-lg start-md start-sm start-xs">
                         ${transferSum}
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 start-lg start-md start-sm start-xs login_input">
-                        <input type="text" name="recepSum">
+                        <input type="text" name="recepSum" value="${recepSum}">
                     </div>
                 </div>
+                <c:if test="${errorTransferSum != null} ">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorTransferSum}</h3>
+                        </div>
+                    </div>
+                </c:if>
                 <div class="row center-lg center-md center-sm center-xs login_row">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs login_btn">
                         <input type="submit" value="${transferBtn}">
                     </div>
                 </div>
+                <c:if test="${errorRequiredTransfer != null}">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorRequiredTransfer}</h3>
+                        </div>
+                    </div>
+                </c:if>
             </form>
         </div>
         <div class="row center-lg center-md center-sm center-xs login_row">
-            <form method="POST" action="/paymentTransfers">
+            <form method="POST" action="/paymentTransfers?type=payment">
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <h3>${payTitle}</h3>
                 </div>
@@ -67,6 +88,13 @@
                         <input type="text" name="recepAccount">
                     </div>
                 </div>
+                <c:if test="${errorPaySpecify != null} ">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorPaySpecify}</h3>
+                        </div>
+                    </div>
+                </c:if>
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 start-lg start-md start-sm start-xs">
                         ${payTarget}
@@ -83,11 +111,25 @@
                         <input type="text" name="recepSum">
                     </div>
                 </div>
+                <c:if test="${errorPayTransferSum != null} ">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorPayTransferSum}</h3>
+                        </div>
+                    </div>
+                </c:if>
                 <div class="row center-lg center-md center-sm center-xs login_row">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs login_btn">
                         <input type="submit" value="${payBtn}">
                     </div>
                 </div>
+                <c:if test="${errorRequiredPay != null}">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorRequiredPay}</h3>
+                        </div>
+                    </div>
+                </c:if>
             </form>
         </div>
         </c:if>
