@@ -1,6 +1,8 @@
 package com.myProject.bankSystem.utils;
 
 import com.myProject.bankSystem.config.SecurityConfig;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
@@ -8,6 +10,9 @@ import java.util.List;
 import java.util.Set;
 
 public class SecurityUtils {
+
+    final static Logger logger = LogManager.getLogger(SecurityUtils.class);
+
 
     /**
      * Encode password

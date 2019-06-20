@@ -10,10 +10,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TransferValidator {
+public class PaymentValidator {
+    final static Logger logger = LogManager.getLogger(PaymentValidator.class);
 
-    final static Logger logger = LogManager.getLogger(TransferValidator.class);
     final static private int NUMBER_OF_ERRORS = 8;
+    final static private int TARGET_LENGTH = 10;
     /*
         0 - isTransferSpecifyInvalid
         1 - isTransferSumInvalid
@@ -26,7 +27,7 @@ public class TransferValidator {
     */
 
     /**
-     * Validate user data from transfer interface
+     * Validate user data from payment interface
      *
      * @param request
      * @param response
@@ -36,24 +37,27 @@ public class TransferValidator {
 
         String recepAccount = request.getParameter("recepAccount");
         String recepSum = request.getParameter("recepSum");
+        String target = request.getParameter("target");
 
         double balance = (double) request.getAttribute("balance");
 
-        logger.info("transfer data: " + recepAccount + ", " + recepSum + ", " + balance);
+        logger.info("payment data: " + recepAccount + ", " + recepSum + ", " + balance + ", " + target);
 
-        boolean isRequiredTransfer = false;
-        boolean isTransferSpecifyInvalid = false;
-        boolean isTransferSumInvalid = false;
+        boolean isRequiredPayment = false;
+        boolean isPaymentSpecifyInvalid = false;
+        boolean isPaymentSumInvalid = false;
+        boolean isPaymentTargetInvalid = false;
         boolean hasError = false;
 
         boolean[] errors = new boolean[NUMBER_OF_ERRORS];
 
-        if (recepAccount == null || recepSum == null) {
-            isRequiredTransfer = true;
-            errors[2] = isRequiredTransfer;
+        if (recepAccount == null || recepSum == null || target == null) {
+            isRequiredPayment = true;
+            errors[5] = isRequiredPayment;
 
-            if (recepAccount != null) request.setAttribute("recepAccount", recepAccount);
-            if (recepSum != null) request.setAttribute("recepSum", recepSum);
+            if (recepAccount != null) request.setAttribute("recepAccountPay", recepAccount);
+            if (target != null) request.setAttribute("target", target);
+            if (recepSum != null) request.setAttribute("recepSumPay", recepSum);
 
             LocaleUtils.setLocaleTransfersPayment(request, false, errors);
 
@@ -61,13 +65,14 @@ public class TransferValidator {
             return false;
         }
 
-        if (recepAccount.isEmpty() || recepSum.isEmpty()) {
+        if (recepAccount.isEmpty() || recepSum.isEmpty() || target.isEmpty()) {
             hasError = true;
-            isRequiredTransfer = true;
-            errors[2] = isRequiredTransfer;
+            isRequiredPayment = true;
+            errors[5] = isRequiredPayment;
 
-            if (recepAccount != null) request.setAttribute("recepAccount", recepAccount);
-            if (recepSum != null) request.setAttribute("recepSum", recepSum);
+            if (recepAccount != null) request.setAttribute("recepAccountPay", recepAccount);
+            if (target != null) request.setAttribute("target", target);
+            if (recepSum != null) request.setAttribute("recepSumPay", recepSum);
 
             logger.error("input data is empty");
         }
@@ -76,10 +81,18 @@ public class TransferValidator {
 
         if (bankAccount == null) {
             hasError = true;
-            isTransferSpecifyInvalid = true;
-            errors[0] = isTransferSpecifyInvalid;
+            isPaymentSpecifyInvalid = true;
+            errors[3] = isPaymentSpecifyInvalid;
 
-            logger.error("transfer specify is invalid");
+            logger.error("payment specify is invalid");
+        }
+
+        if (target.length() < TARGET_LENGTH) {
+            hasError = true;
+            isPaymentTargetInvalid = true;
+            errors[7] = isPaymentTargetInvalid;
+
+            logger.error("payment target is invalid");
         }
 
         double sum;
@@ -92,16 +105,17 @@ public class TransferValidator {
             }
         } catch (Exception e) {
             hasError = true;
-            isTransferSumInvalid = true;
-            errors[1] = isTransferSumInvalid;
+            isPaymentSumInvalid = true;
+            errors[4] = isPaymentSumInvalid;
 
-            logger.error("transfer sum is invalid");
+            logger.error("payment sum is invalid");
         }
 
         if (hasError) {
 
-            request.setAttribute("recepAccount", recepAccount);
-            request.setAttribute("recepSum", recepSum);
+            request.setAttribute("recepAccountPay", recepAccount);
+            request.setAttribute("target", target);
+            request.setAttribute("recepSumPay", recepSum);
 
             LocaleUtils.setLocaleTransfersPayment(request, false, errors);
 

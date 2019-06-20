@@ -289,6 +289,11 @@ public class LocaleUtils {
         request.setAttribute("accType", resourceBundle.getString("bankAccount.transfers.type"));
         request.setAttribute("accBalance", resourceBundle.getString("bankAccount.transfers.balance"));
         request.setAttribute("actions", resourceBundle.getString("bankAccount.transfers.actions"));
+        request.setAttribute("accountFrom", resourceBundle.getString("bankAccount.transfers.accountFrom"));
+        request.setAttribute("accountTo", resourceBundle.getString("bankAccount.transfers.accountTo"));
+        request.setAttribute("date", resourceBundle.getString("bankAccount.transfers.date"));
+        request.setAttribute("payTarget", resourceBundle.getString("bankAccount.transfers.target"));
+        request.setAttribute("amount", resourceBundle.getString("bankAccount.transfers.amount"));
         request.setAttribute("transferTitle", resourceBundle.getString("bankAccount.transfers.transfer.title"));
         request.setAttribute("transferSpecify", resourceBundle.getString("bankAccount.transfers.transfer.specify"));
         request.setAttribute("transferSum", resourceBundle.getString("bankAccount.transfers.transfer.sum"));
@@ -306,6 +311,7 @@ public class LocaleUtils {
         4 - isPayTransferSumInvalid
         5 - isRequiredPay
         6 - isNoHistory
+        7 - isPayTargetInvalid
         */
 
         if(errors[0]) request.setAttribute("errorTransferSpecify", resourceBundle.getString("bankAccount.transfers.transfer.errorTransferSpecify"));
@@ -318,6 +324,7 @@ public class LocaleUtils {
             if(isDeposit) request.setAttribute("noHistory", resourceBundle.getString("bankAccount.transfers.deposit.noHistory"));
             else request.setAttribute("noHistory", resourceBundle.getString("bankAccount.transfers.credit.noHistory"));
         }
+        if(errors[7]) request.setAttribute("errorPayTarget", resourceBundle.getString("bankAccount.transfers.payment.errorPayTarget"));
 
         if(isDeposit){
             request.setAttribute("historyTitle", resourceBundle.getString("bankAccount.transfers.deposit.title"));

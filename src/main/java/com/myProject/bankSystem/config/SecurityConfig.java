@@ -42,10 +42,10 @@ public class SecurityConfig {
         urlPatternsUser.add("/deposit");
         urlPatternsUser.add("/credit");
         urlPatternsUser.add("/bankAccount");
-        urlPatternsAdmin.add("/history");
-        urlPatternsAdmin.add("/newBankAccount");
-        urlPatternsAdmin.add("/paymentTransfers");
-        urlPatternsAdmin.add("/delete");
+        urlPatternsUser.add("/history");
+        urlPatternsUser.add("/newBankAccount");
+        urlPatternsUser.add("/paymentTransfers");
+        urlPatternsUser.add("/delete");
 
         mapConfig.put(ROLE_USER, urlPatternsUser);
     }

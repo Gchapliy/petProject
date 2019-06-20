@@ -85,7 +85,7 @@
                         ${paySpecify}
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 start-lg start-md start-sm start-xs login_input">
-                        <input type="text" name="recepAccount">
+                        <input type="text" name="recepAccount" value="${recepAccountPay}">
                     </div>
                 </div>
                 <c:if test="${errorPaySpecify != null} ">
@@ -100,15 +100,22 @@
                         ${payTarget}
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 start-lg start-md start-sm start-xs login_input">
-                        <input type="text" name="target">
+                        <input type="text" name="target" value="${target}">
                     </div>
                 </div>
+                <c:if test="${errorPayTarget != null} ">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorPayTarget}</h3>
+                        </div>
+                    </div>
+                </c:if>
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 start-lg start-md start-sm start-xs">
                         ${transferSum}
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 start-lg start-md start-sm start-xs login_input">
-                        <input type="text" name="recepSum">
+                        <input type="text" name="recepSum" value="${recepSumPay}">
                     </div>
                 </div>
                 <c:if test="${errorPayTransferSum != null} ">
@@ -134,7 +141,7 @@
         </div>
         </c:if>
 
-    <c:if test="${deposit != null || credit != null}">
+    <c:if test="${depositCredit != null}">
         <div class="row center-lg center-md center-sm center-xs login_row">
             <h4>${historyTitle}</h4>
         </div>
