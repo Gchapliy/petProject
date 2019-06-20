@@ -159,7 +159,7 @@ public class LocaleUtils {
      * @param request
      * @param noAccounts
      */
-    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts, boolean noOrders){
+    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts, boolean noOrders, boolean noUserOrders){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("user.title"));
@@ -171,16 +171,29 @@ public class LocaleUtils {
         request.setAttribute("accType", resourceBundle.getString("user.accType"));
         request.setAttribute("balance", resourceBundle.getString("user.balance"));
         request.setAttribute("yourOrders", resourceBundle.getString("user.yourOrders"));
+        request.setAttribute("usersOrders", resourceBundle.getString("user.usersOrders"));
         request.setAttribute("createDate", resourceBundle.getString("user.createDate"));
+        request.setAttribute("expirationDate", resourceBundle.getString("user.expirationDate"));
+        request.setAttribute("orderOwner", resourceBundle.getString("user.orderOwner"));
         request.setAttribute("accountType", resourceBundle.getString("user.accountType"));
+        request.setAttribute("accountBalance", resourceBundle.getString("user.accountBalance"));
+        request.setAttribute("accountLimit", resourceBundle.getString("user.accountLimit"));
+        request.setAttribute("accountInterestRate", resourceBundle.getString("user.accountInterestRate"));
         request.setAttribute("status", resourceBundle.getString("user.status"));
+        request.setAttribute("success", resourceBundle.getString("user.success"));
+        request.setAttribute("deny", resourceBundle.getString("user.deny"));
         request.setAttribute("orders", resourceBundle.getString("user.noOrders"));
         request.setAttribute("delete", resourceBundle.getString("user.delete"));
         request.setAttribute("confirm", resourceBundle.getString("user.confirm"));
+        request.setAttribute("confirmSuccess", resourceBundle.getString("user.confirmSuccess"));
+        request.setAttribute("confirmDeny", resourceBundle.getString("user.confirmDeny"));
         request.setAttribute("confirmQuestion", resourceBundle.getString("user.confirmQuestion"));
+        request.setAttribute("successQuestion", resourceBundle.getString("user.confirmQuestion"));
+        request.setAttribute("denyQuestion", resourceBundle.getString("user.confirmQuestion"));
 
         if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
         if(noOrders) request.setAttribute("noOrders", resourceBundle.getString("user.noOrders"));
+        if(noUserOrders) request.setAttribute("noUserOrders", resourceBundle.getString("user.noUserOrders"));
     }
 
     /**

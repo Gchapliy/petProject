@@ -21,7 +21,8 @@
                     <div class="row center-lg center-md center-sm center-xs account_sub_row acc_data">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><h3>${account.accountUuid}</h3></div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><h3>${account.accountType}</h3></div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><h3>${numberFormat.format(account.accountBalance)}</h3></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <h3>${numberFormat.format(account.accountBalance)}</h3></div>
                     </div>
                 </a>
             </c:forEach>
@@ -31,6 +32,52 @@
         </div>
     </div>
 </section>
+
+<<%--ADMIN INTERFACE--%>
+<c:if test="${isAdmin != null}">
+    <section id="adminInterface">
+        <div class="row center-lg center-md center-xs center-sm  account_row">
+            <h4>Users orders</h4>
+        </div>
+        <div class="row center-lg center-md center-sm center-xs account_sub_row">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${createDate}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${expirationDate}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${orderOwner}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${accountType}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${accountBalance}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${accountLimit}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${accountInterestRate}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${status}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${success}</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${deny}</div>
+        </div>
+        <c:forEach items="${usersBankAccountOrders}" var="order">
+            <div class="row center-lg center-md center-sm center-xs account_sub_row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${dateFormat.format(order.orderCreateDate)}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${dateFormat.format(order.accountExpirationDate)}</h3></div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><h3>${order.orderOwner.userAccountEmail}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountType}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountBalance}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountLimit}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountInterestRate}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.orderStatus}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1  deleteBtn"
+                     onclick="orderSuccess(${confirmSuccess}, ${successQuestion})">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1  deleteBtn"
+                     onclick="orderDeny(${confirmDeny}, ${denyQuestion})">
+                    <i class="fas fa-ban"></i>
+                </div>
+
+                <div id="userOrderId" style="display: none">${order.orderId}</div>
+            </div>
+        </c:forEach>
+        <div class="row center-lg center-md center-sm center-xs">
+            <h3>${noUserOrders}</h3>
+        </div>
+    </section>
+</c:if>
 
 <%--ORDERS--%>
 <section id="userOrders">
@@ -48,7 +95,8 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><h3>${dateFormat.format(order.orderCreateDate)}</h3></div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountType}</h3></div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.orderStatus}</h3></div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteBtn" onclick="orderDelete(${confirm}, ${confirmQuestion})">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteBtn"
+                 onclick="orderDelete(${confirm}, ${confirmQuestion})">
                 <i class="far fa-minus-square"></i>
             </div>
 

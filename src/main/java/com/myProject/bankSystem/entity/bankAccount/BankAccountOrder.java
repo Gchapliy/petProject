@@ -11,7 +11,6 @@ public class BankAccountOrder implements Serializable {
     private Date orderCreateDate;
     private UserAccount orderOwner;
     private OrderStatus orderStatus;
-
     private Date accountExpirationDate;
     private double accountBalance;
     private double accountLimit;

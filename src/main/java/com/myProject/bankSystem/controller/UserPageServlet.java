@@ -27,7 +27,7 @@ import java.util.Locale;
 public class UserPageServlet extends HttpServlet{
 
     final static Logger logger = LogManager.getLogger(UserPageServlet.class);
-
+    private final static String ROLE_ADMIN = "ROLE_ADMIN";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,11 +39,29 @@ public class UserPageServlet extends HttpServlet{
         // Check User has logged on
         UserAccount loginedUser = AppUtils.getLoginedUser(session);
 
+        boolean isAdmin = false;
+        boolean noUserOrders = false;
+
         // Not logged in
         if (loginedUser == null) {
             // Redirect to login page.
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
+        }
+
+        if(loginedUser.getUserAccountRole().getRoleName().equals(ROLE_ADMIN)){
+            isAdmin = true;
+
+
+
+            List<BankAccountOrder> usersBankAccountOrders = BankAccountDAO.findAllBankAccountOrders(AppUtils.getStoredConnection(req));
+
+            if(usersBankAccountOrders == null || usersBankAccountOrders.size() == 0)
+                noUserOrders = true;
+            else
+                req.setAttribute("usersBankAccountOrders", usersBankAccountOrders);
+
+            req.setAttribute("isAdmin", isAdmin);
         }
 
         Connection connection = AppUtils.getStoredConnection(req);
@@ -80,7 +98,7 @@ public class UserPageServlet extends HttpServlet{
             req.setAttribute("bankAccountOrders", bankAccountOrders);
         }
 
-        LocaleUtils.setLocaleUserPage(req, noAccounts, noOrders);
+        LocaleUtils.setLocaleUserPage(req, noAccounts, noOrders, noUserOrders);
 
         // If the user has logged in, then forward to the page
         req.getRequestDispatcher("templates/userPage.jsp").forward(req, resp);

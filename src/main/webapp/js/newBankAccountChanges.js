@@ -74,3 +74,43 @@ function orderDelete(title, text) {
             }
         });
 }
+
+function orderSuccess(title, text) {
+    var id = $('#userOrderId').text();
+
+    return $("<div class='dialog' title='" + title + "'><p>" + text + "</p></div>")
+        .dialog({
+            height: 210,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Confirm": function () {
+                    window.location.href = '/success?id=' + id;
+                    $(this).dialog("close");
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+}
+
+function orderDeny(title, text) {
+    var id = $('#userOrderId').text();
+
+    return $("<div class='dialog' title='" + title + "'><p>" + text + "</p></div>")
+        .dialog({
+            height: 210,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Confirm": function () {
+                    window.location.href = '/deny?id=' + id;
+                    $(this).dialog("close");
+                },
+                "Cancel": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+}

@@ -448,6 +448,60 @@ public class BankAccountDAO {
     }
 
     /**
+     * Find all user orders from db
+     * @param connection
+     * @return
+     */
+    public static List<BankAccountOrder> findAllBankAccountOrders(Connection connection){
+        String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
+                "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b";
+
+        List<BankAccountOrder> bankAccountOrders = new LinkedList<>();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                BankAccountOrder bankAccountOrder = new BankAccountOrder();
+
+                int orderId = rs.getInt("Order_Id");
+                Date createDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Order_Create_Date"));
+                Date expirationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Account_Expiration_Date"));
+                BankAccountOrder.OrderStatus status = BankAccountOrder.OrderStatus.values()[rs.getInt("Order_Status")];
+                double accountBalance = rs.getDouble("Account_Balance");
+                double accountLimit = rs.getDouble("Account_Limit");
+                double interestRate = rs.getDouble("Account_Interest_Rate");
+                BankAccount.AccountType accountType = BankAccount.AccountType.values()[rs.getInt("Account_Type")];
+                String orderOwner = rs.getString("Order_Owner");
+
+                UserAccount orderOwnerAccount = UserDAO.findUserByEmail(connection, orderOwner);
+
+                bankAccountOrder.setOrderId(orderId);
+                bankAccountOrder.setOrderCreateDate(createDate);
+                bankAccountOrder.setAccountExpirationDate(expirationDate);
+                bankAccountOrder.setOrderStatus(status);
+                bankAccountOrder.setAccountBalance(accountBalance);
+                bankAccountOrder.setAccountLimit(accountLimit);
+                bankAccountOrder.setAccountInterestRate(interestRate);
+                bankAccountOrder.setAccountType(accountType);
+                bankAccountOrder.setOrderOwner(orderOwnerAccount);
+
+                bankAccountOrders.add(bankAccountOrder);
+            }
+        } catch (SQLException e) {
+            logger.error("error while find bank account order in db");
+            e.printStackTrace();
+        } catch (ParseException e) {
+            logger.error("error while parse date during find bank account order in db");
+            e.printStackTrace();
+        }
+
+        return bankAccountOrders;
+    }
+
+    /**
      * Find bank account orders by user account email in db
      *
      * @param connection
@@ -455,6 +509,7 @@ public class BankAccountDAO {
      * @return
      */
     public static List<BankAccountOrder> findBankAccountOrdersByUserAccount(Connection connection, UserAccount userAccount) {
+
         String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
                 "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b " +
                 "where b.Order_Owner = ?";

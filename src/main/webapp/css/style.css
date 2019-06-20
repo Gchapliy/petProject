@@ -268,18 +268,30 @@ a {
 
 /*--------------------------------------------------------------------*/
 
-/*ORDERS*/
-#userOrders{
+/*ADMIN INTERFACE*/
+#adminInterface{
     margin: 0 0 40px 0;
 }
 
-.fa-minus-square{
+#adminInterface .account_sub_row{
+    font-size: 14px;
+}
+
+/*--------------------------------------------------------------------*/
+
+/*ORDERS*/
+#userOrders{
+    margin: 40px 0 40px 0;
+}
+
+.fa-minus-square, .fa-check-circle, .fa-ban{
     font-size: 18px;
 }
 
-.fa-minus-square:hover{
+.fa-minus-square:hover, .fa-check-circle:hover, .fa-ban:hover{
     color: #EE3B24;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 /*--------------------------------------------------------------------*/
