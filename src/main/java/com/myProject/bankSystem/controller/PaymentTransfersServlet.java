@@ -37,23 +37,23 @@ public class PaymentTransfersServlet extends HttpServlet {
 
         BankAccount bankAccount = userAccount.getBankAccountByUuid(uuid);
 
-        if(bankAccount != null){
+        if (bankAccount != null) {
             req.setAttribute("uuid", bankAccount.getAccountUuid());
             req.setAttribute("balance", bankAccount.getAccountBalance());
             BankAccount.AccountType type = bankAccount.getAccountType();
 
             req.setAttribute("type", bankAccount.getAccountType());
 
-            if(type == BankAccount.AccountType.PAYMENT) req.setAttribute("payment", bankAccount.getAccountType());
-            if(type == BankAccount.AccountType.DEPOSIT) req.setAttribute("deposit", bankAccount.getAccountType());
-            if(type == BankAccount.AccountType.CREDIT) req.setAttribute("credit", bankAccount.getAccountType());
+            if (type == BankAccount.AccountType.PAYMENT) req.setAttribute("payment", "payment");
+            if (type == BankAccount.AccountType.DEPOSIT) req.setAttribute("deposit", "deposit");
+            if (type == BankAccount.AccountType.CREDIT) req.setAttribute("credit", "credit");
         } else {
 
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
-        LocaleUtils.setLocaleTransfersPayment(req, false, new boolean[10]);
+        LocaleUtils.setLocaleTransfersPayment(req, false, errors);
         req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
     }
 
@@ -64,23 +64,30 @@ public class PaymentTransfersServlet extends HttpServlet {
         String type = req.getParameter("type");
         String uuid = req.getParameter("uuid");
 
-        if(type.equals("transfer")){
-            if(TransferValidator.validate(req, resp)){
+        UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
+        BankAccount bankAccount = userAccount.getBankAccountByUuid(uuid);
+
+        req.setAttribute("uuid", uuid);
+        req.setAttribute("type", bankAccount.getAccountType());
+        req.setAttribute("balance", bankAccount.getAccountBalance());
+
+        if (type.equals("transfer")) {
+            if (TransferValidator.validate(req, resp)) {
 
                 BankAccountTransaction transaction = CreateTransactionUtil.createBankAccountTransaction(req);
 
-                if (BankAccountDAO.insertBankAccountTransaction(AppUtils.getStoredConnection(req), transaction))
+                if (BankAccountDAO.insertBankAccountTransaction(AppUtils.getStoredConnection(req), transaction)){
                     resp.sendRedirect(req.getContextPath() + "/userPage");
-                else
-                    req.getRequestDispatcher("templates/paymentTransfer.jsp").forward(req, resp);
+                }
+                else {
+                    req.setAttribute("payment", "payment");
+                    req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                }
 
             } else {
-
-                req.getRequestDispatcher("templates/paymentTransfer.jsp").forward(req, resp);
+                req.setAttribute("payment", "payment");
+                req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
             }
         }
-
-
-
     }
 }

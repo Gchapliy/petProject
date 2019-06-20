@@ -50,6 +50,17 @@ public class TransferValidator {
             return false;
         }
 
+        if(recepAccount.isEmpty() || recepSum.isEmpty()){
+            hasError = true;
+            isRequiredTransfer = true;
+            errors[2] = isRequiredTransfer;
+
+            if(recepAccount != null) request.setAttribute("recepAccount", recepAccount);
+            if(recepSum != null) request.setAttribute("recepSum", recepSum);
+
+            logger.error("input data is empty");
+        }
+
         BankAccount bankAccount = BankAccountDAO.findBankAccountByUuid(AppUtils.getStoredConnection(request), recepAccount);
 
         if(bankAccount == null){

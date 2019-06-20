@@ -39,7 +39,7 @@
                         <input type="text" name="recepAccount" value="${recepAccount}">
                     </div>
                 </div>
-                <c:if test="${errorTransferSpecify != null} ">
+                <c:if test="${errorTransferSpecify != null}">
                     <div class="row center-lg center-md center-sm center-xs login_row error">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
                             <h3>${errorTransferSpecify}</h3>
@@ -54,7 +54,7 @@
                         <input type="text" name="recepSum" value="${recepSum}">
                     </div>
                 </div>
-                <c:if test="${errorTransferSum != null} ">
+                <c:if test="${errorTransferSum != null}">
                     <div class="row center-lg center-md center-sm center-xs login_row error">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
                             <h3>${errorTransferSum}</h3>
@@ -76,7 +76,7 @@
             </form>
         </div>
         <div class="row center-lg center-md center-sm center-xs login_row">
-            <form method="POST" action="/paymentTransfers?type=payment">
+            <form method="POST" action="/paymentTransfers?type=payment&uuid=${uuid}">
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <h3>${payTitle}</h3>
                 </div>
