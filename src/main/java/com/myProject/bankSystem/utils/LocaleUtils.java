@@ -347,6 +347,27 @@ public class LocaleUtils {
         }
     }
 
+    public static void setLocaleError(HttpServletRequest request, boolean isError, boolean isException, boolean isAccessDenied) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
+
+        //Locale for error page
+        if(isError){
+            request.setAttribute("title", resourceBundle.getString("error.title"));
+        }
+
+        //Locale for exception page
+        if(isException){
+            request.setAttribute("title", resourceBundle.getString("exception.title"));
+            request.setAttribute("text", resourceBundle.getString("exception.text"));
+        }
+
+        //Locale for access denied page
+        if(isAccessDenied){
+            request.setAttribute("title", resourceBundle.getString("accessDenied.title"));
+        }
+
+    }
+
     /*  System.out.println("LOCALE " + locale);
             request.setAttribute("country", locale.getDisplayCountry());
 

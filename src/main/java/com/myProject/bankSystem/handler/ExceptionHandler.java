@@ -1,6 +1,5 @@
 package com.myProject.bankSystem.handler;
 
-import com.myProject.bankSystem.controller.PaymentTransfersServlet;
 import com.myProject.bankSystem.utils.LocaleUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,30 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "errorHandler", urlPatterns = "/errorHandler")
-public class ErrorHandler extends HttpServlet {
+@WebServlet(name = "exceptionHandler", urlPatterns = {"/exceptionHandler"})
+public class ExceptionHandler extends HttpServlet{
 
-    final static Logger logger = LogManager.getLogger(ErrorHandler.class);
+    final static Logger logger = LogManager.getLogger(ExceptionHandler.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        boolean isError = true;
-        boolean isException = false;
+        boolean isError = false;
+        boolean isException = true;
         boolean isAccessDenied = false;
 
-        // Analyze the servlet exception
-        Integer statusCode = (Integer)
-                req.getAttribute("javax.servlet.error.status_code");
+        Throwable throwable = (Throwable)
+                req.getAttribute("javax.servlet.error.exception");
 
-        req.setAttribute("errorCode", statusCode);
-
-        logger.error("error code " + statusCode);
+        logger.error("exception " + throwable.getStackTrace());
 
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleError(req, isError, isException, isAccessDenied);
 
-        req.getRequestDispatcher("templates/error.jsp").forward(req, resp);
+        req.getRequestDispatcher("templates/exception.jsp").forward(req, resp);
     }
 
     @Override

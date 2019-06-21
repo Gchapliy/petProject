@@ -4,7 +4,7 @@
 <%--ERROR PAGE--%>
 <section id="errorPage">
     <div class="row center-lg center-md center-sm center-xs">
-        <h2>Error ${errorCode}</h2>
+        <h2>${title} ${errorCode}</h2>
     </div>
 </section>
 

@@ -3,6 +3,7 @@ package com.myProject.bankSystem.filter;
 import com.myProject.bankSystem.entity.userAccount.Role;
 import com.myProject.bankSystem.entity.userAccount.UserAccount;
 import com.myProject.bankSystem.utils.AppUtils;
+import com.myProject.bankSystem.utils.LocaleUtils;
 import com.myProject.bankSystem.utils.SecurityUtils;
 import com.myProject.bankSystem.utils.UserRoleRequestWrapper;
 
@@ -27,6 +28,10 @@ public class SecurityFilter implements javax.servlet.Filter {
         String servletPath = request.getServletPath();
 
         UserAccount loginedUser = AppUtils.getLoginedUser(request.getSession());
+
+        boolean isError = true;
+        boolean isException = false;
+        boolean isAccessDenied = true;
 
         if(servletPath.equals("/login")){
             filterChain.doFilter(request, response);
@@ -68,6 +73,7 @@ public class SecurityFilter implements javax.servlet.Filter {
                     request.getSession().invalidate();
                     AppUtils.deleteUserCookie(response);
 
+                LocaleUtils.setLocaleError(request, isError, isException, isAccessDenied);
                 request.getRequestDispatcher("templates/accessDeniedView.jsp").forward(request, response);
                 return;
             }
