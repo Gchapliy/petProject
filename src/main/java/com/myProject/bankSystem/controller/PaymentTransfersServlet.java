@@ -109,14 +109,16 @@ public class PaymentTransfersServlet extends HttpServlet {
         Connection connection = AppUtils.getStoredConnection(req);
 
         String type = req.getParameter("type");
-        String uuid = req.getParameter("uuid");
+        String uuidFrom = req.getParameter("uuid");
+        String uuidTo = req.getParameter("recepAccount");
 
         UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
-        BankAccount bankAccount = userAccount.getBankAccountByUuid(uuid);
+        BankAccount bankAccountFrom = BankAccountDAO.findBankAccountByUuid(connection, uuidFrom);
+        BankAccount bankAccountTo = BankAccountDAO.findBankAccountByUuid(connection, uuidTo);
 
-        req.setAttribute("uuid", uuid);
-        req.setAttribute("type", bankAccount.getAccountType());
-        req.setAttribute("balance", bankAccount.getAccountBalance());
+        req.setAttribute("uuid", uuidFrom);
+        req.setAttribute("type", bankAccountFrom.getAccountType());
+        req.setAttribute("balance", bankAccountFrom.getAccountBalance());
 
         boolean isDeposit = false;
         boolean[] errors = new boolean[NUMBER_OF_ERRORS];
@@ -129,10 +131,19 @@ public class PaymentTransfersServlet extends HttpServlet {
 
                 if (BankAccountDAO.insertBankAccountTransaction(connection, transaction)){
 
-                    bankAccount.setAccountBalance(bankAccount.getAccountBalance() - transaction.getTransactionAmount());
+                    bankAccountFrom.setAccountBalance(bankAccountFrom.getAccountBalance() - transaction.getTransactionAmount());
+                    bankAccountTo.setAccountBalance(bankAccountTo.getAccountBalance() + transaction.getTransactionAmount());
 
-                    if(BankAccountDAO.updateBankAccount(connection, bankAccount)){
-                        logger.info("transfer transaction completed successfully");
+                    if(BankAccountDAO.updateBankAccount(connection, bankAccountFrom)){
+                        logger.info("transfer transaction from completed successfully");
+                    } else {
+                        req.setAttribute("payment", "payment");
+                        req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                        return;
+                    }
+
+                    if(BankAccountDAO.updateBankAccount(connection, bankAccountTo)){
+                        logger.info("transfer transaction to completed successfully");
                     } else {
                         req.setAttribute("payment", "payment");
                         req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
@@ -163,10 +174,18 @@ public class PaymentTransfersServlet extends HttpServlet {
 
                 if (BankAccountDAO.insertBankAccountTransaction(connection, transaction)){
 
-                    bankAccount.setAccountBalance(bankAccount.getAccountBalance() - transaction.getTransactionAmount());
+                    bankAccountFrom.setAccountBalance(bankAccountFrom.getAccountBalance() - transaction.getTransactionAmount());
+                    bankAccountTo.setAccountBalance(bankAccountTo.getAccountBalance() + transaction.getTransactionAmount());
 
-                    if(BankAccountDAO.updateBankAccount(connection, bankAccount)){
-                        logger.info("payment transaction completed successfully");
+                    if(BankAccountDAO.updateBankAccount(connection, bankAccountFrom)){
+                        logger.info("payment transaction from completed successfully");
+                    } else {
+                        req.setAttribute("payment", "payment");
+                        req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                        return;
+                    }
+                    if(BankAccountDAO.updateBankAccount(connection, bankAccountTo)){
+                        logger.info("payment transaction to completed successfully");
                     } else {
                         req.setAttribute("payment", "payment");
                         req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
