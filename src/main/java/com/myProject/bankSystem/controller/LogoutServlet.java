@@ -26,12 +26,9 @@ public class LogoutServlet extends HttpServlet{
         AppUtils.deleteUserCookie(resp);
 
         logger.info("User: " + loginedUser.getUserAccountEmail() + " is logout");
+
         // Redirect to Home Page.
-
-        LocaleUtils.setLocaleHeaderAndFooter(req);
-        LocaleUtils.setLocaleHomePage(req);
-
-        req.getRequestDispatcher("/home").forward(req,resp);
+        resp.sendRedirect("/home");
     }
 
     @Override

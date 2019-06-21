@@ -12,7 +12,7 @@ import java.util.Date;
 public class CreateUserAccountUtil {
     final static Logger logger = LogManager.getLogger(CreateUserAccountUtil.class);
 
-    public static UserAccount getUserAccountFromDataRequest(HttpServletRequest request){
+    public static UserAccount getUserAccountFromDataRequest(HttpServletRequest request) {
 
         String email = request.getParameter("userEmail");
         String name = request.getParameter("userName");

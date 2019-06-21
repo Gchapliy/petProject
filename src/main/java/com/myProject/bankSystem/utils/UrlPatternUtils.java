@@ -10,6 +10,7 @@ public class UrlPatternUtils {
 
     /**
      * Checking is servlet path has urlPattern
+     *
      * @param servletContext
      * @param urlPattern
      * @return
@@ -32,6 +33,7 @@ public class UrlPatternUtils {
 
     /**
      * Returned url pattern
+     *
      * @param request
      * @return
      */

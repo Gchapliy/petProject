@@ -40,9 +40,14 @@ public class CreateBankAccountOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
 
+        //check bank account order data
         if(BankAccountOrderValidator.validate(req)){
+
+            //create order
             BankAccountOrder bankAccountOrder = CreateBankAccountOrderUtil.getBankAccountOrderDataFromRequest(req);
+
             if(BankAccountDAO.insertBankAccountOrder(AppUtils.getStoredConnection(req), bankAccountOrder)){
+                //update logined user data
                 UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
                 userAccount.getUserBankAccountsOrders().add(bankAccountOrder);
 

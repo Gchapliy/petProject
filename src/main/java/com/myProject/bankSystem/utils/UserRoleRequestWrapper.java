@@ -16,7 +16,7 @@ import java.security.Principal;
  * to try to fetch what ever the container has set for us. This is intended to
  * be created and used by the UserRoleFilter.
  */
-public class UserRoleRequestWrapper extends HttpServletRequestWrapper{
+public class UserRoleRequestWrapper extends HttpServletRequestWrapper {
     private String userEmail;
     private Role role;
     private HttpServletRequest realRequest;

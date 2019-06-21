@@ -17,14 +17,15 @@ public class LocaleUtils {
 
     /**
      * Initiating locale for header and footer to every page
+     *
      * @param request
      */
-    public static void setLocaleHeaderAndFooter(HttpServletRequest request){
+    public static void setLocaleHeaderAndFooter(HttpServletRequest request) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         UserAccount loginedUser = AppUtils.getLoginedUser(request.getSession());
 
-        if(loginedUser != null){
+        if (loginedUser != null) {
             request.setAttribute("userName", loginedUser.getUserAccountName());
         }
 
@@ -44,9 +45,10 @@ public class LocaleUtils {
 
     /**
      * Initiating locale for home page
+     *
      * @param request
      */
-    public static void setLocaleHomePage(HttpServletRequest request){
+    public static void setLocaleHomePage(HttpServletRequest request) {
         Locale locale = (Locale) request.getAttribute("locale");
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", locale, new UTF8Control());
 
@@ -81,7 +83,7 @@ public class LocaleUtils {
         String creditPercent = resourceBundle.getString("home.credit.interestRate");
         String usd = resourceBundle.getString("home.credit.usd");
 
-        request.setAttribute("credit_credit1", resourceBundle.getString("home.credit.credit1") + " " +numberFormat.format(Integer.parseInt(creditFrom))
+        request.setAttribute("credit_credit1", resourceBundle.getString("home.credit.credit1") + " " + numberFormat.format(Integer.parseInt(creditFrom))
                 + " " + to + " " + numberFormat.format(Integer.parseInt(creditTo)) + " " + usd);
         request.setAttribute("credit_credit2", resourceBundle.getString("home.credit.credit2") + " " + numberFormat.format(Integer.parseInt(creditPercent)) + "%");
         request.setAttribute("credit_credit3", resourceBundle.getString("home.credit.credit3"));
@@ -92,11 +94,12 @@ public class LocaleUtils {
     /**
      * Initiating locale for login page. IsInvalid and isRequired need if corresponding errors  happen when
      * user types login data
+     *
      * @param request
      * @param isInvalid
      * @param isRequired
      */
-    public static void setLocaleLoginPage(HttpServletRequest request, boolean isInvalid, boolean isRequired){
+    public static void setLocaleLoginPage(HttpServletRequest request, boolean isInvalid, boolean isRequired) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("login.title"));
@@ -107,17 +110,18 @@ public class LocaleUtils {
         request.setAttribute("loginBtn", resourceBundle.getString("login.loginBtn"));
         request.setAttribute("registerBtn", resourceBundle.getString("login.registerBtn"));
 
-        if(isInvalid) request.setAttribute("error", resourceBundle.getString("login.errorInvalid"));
-        if(isRequired) request.setAttribute("error", resourceBundle.getString("login.errorRequired"));
+        if (isInvalid) request.setAttribute("error", resourceBundle.getString("login.errorInvalid"));
+        if (isRequired) request.setAttribute("error", resourceBundle.getString("login.errorRequired"));
     }
 
     /**
      * Initiating locale for register page. errors need if corresponding errors  happen when
      * user types register data
+     *
      * @param request
      * @param errors
      */
-    public static void setLocaleRegisterPage(HttpServletRequest request, boolean[] errors){
+    public static void setLocaleRegisterPage(HttpServletRequest request, boolean[] errors) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("register.title"));
@@ -144,22 +148,25 @@ public class LocaleUtils {
         6 - isPasswordInvalid
         */
 
-        if(errors[0]) request.setAttribute("errorRequired", resourceBundle.getString("register.errorRequired"));
-        if(errors[1]) request.setAttribute("errorEmail", resourceBundle.getString("register.errorEmailInvalid"));
-        if(errors[2]) request.setAttribute("errorName", resourceBundle.getString("register.errorNameInvalid"));
-        if(errors[3]) request.setAttribute("errorPhone", resourceBundle.getString("register.errorPhoneInvalid"));
-        if(errors[4]) request.setAttribute("errorUserExists", resourceBundle.getString("register.errorUserExists"));
-        if(errors[5]) request.setAttribute("errorPasswordEqual", resourceBundle.getString("register.errorPasswordsEqual"));
-        if(errors[6]) request.setAttribute("errorPasswordInvalid", resourceBundle.getString("register.errorPasswordsInvalid"));
+        if (errors[0]) request.setAttribute("errorRequired", resourceBundle.getString("register.errorRequired"));
+        if (errors[1]) request.setAttribute("errorEmail", resourceBundle.getString("register.errorEmailInvalid"));
+        if (errors[2]) request.setAttribute("errorName", resourceBundle.getString("register.errorNameInvalid"));
+        if (errors[3]) request.setAttribute("errorPhone", resourceBundle.getString("register.errorPhoneInvalid"));
+        if (errors[4]) request.setAttribute("errorUserExists", resourceBundle.getString("register.errorUserExists"));
+        if (errors[5])
+            request.setAttribute("errorPasswordEqual", resourceBundle.getString("register.errorPasswordsEqual"));
+        if (errors[6])
+            request.setAttribute("errorPasswordInvalid", resourceBundle.getString("register.errorPasswordsInvalid"));
 
     }
 
     /**
      * Initiating locale for user page. NoAccounts need if user doesn't have any bank accounts
+     *
      * @param request
      * @param noAccounts
      */
-    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts, boolean noOrders, boolean noUserOrders){
+    public static void setLocaleUserPage(HttpServletRequest request, boolean noAccounts, boolean noOrders, boolean noUserOrders) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         request.setAttribute("title", resourceBundle.getString("user.title"));
@@ -191,16 +198,17 @@ public class LocaleUtils {
         request.setAttribute("successQuestion", resourceBundle.getString("user.successQuestion"));
         request.setAttribute("denyQuestion", resourceBundle.getString("user.denyQuestion"));
 
-        if(noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
-        if(noOrders) request.setAttribute("noOrders", resourceBundle.getString("user.noOrders"));
-        if(noUserOrders) request.setAttribute("noUserOrders", resourceBundle.getString("user.noUserOrders"));
+        if (noAccounts) request.setAttribute("noAccounts", resourceBundle.getString("user.noAccounts"));
+        if (noOrders) request.setAttribute("noOrders", resourceBundle.getString("user.noOrders"));
+        if (noUserOrders) request.setAttribute("noUserOrders", resourceBundle.getString("user.noUserOrders"));
     }
 
     /**
      * Initiating locale for bank account managing interface
+     *
      * @param request
      */
-    public static void setLocaleManagingInterface(HttpServletRequest request){
+    public static void setLocaleManagingInterface(HttpServletRequest request) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for managing interface
@@ -214,9 +222,10 @@ public class LocaleUtils {
 
     /**
      * Initiating locale for bank account page.
+     *
      * @param request
      */
-    public static void setLocaleBankAccount(HttpServletRequest request){
+    public static void setLocaleBankAccount(HttpServletRequest request) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for bank account page
@@ -234,10 +243,11 @@ public class LocaleUtils {
 
     /**
      * Initiating locale for bank account history. NoHistory uses when bank account transactions are not exists
+     *
      * @param request
      * @param noHistory
      */
-    public static void setLocaleBankAccountHistory(HttpServletRequest request, boolean noHistory){
+    public static void setLocaleBankAccountHistory(HttpServletRequest request, boolean noHistory) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for bank account history page
@@ -250,15 +260,16 @@ public class LocaleUtils {
         request.setAttribute("amount", resourceBundle.getString("bankAccount.history.amount"));
         request.setAttribute("currency", resourceBundle.getString("bankAccount.history.currency"));
 
-        if(noHistory) request.setAttribute("noHistory", resourceBundle.getString("bankAccount.history.noHistory"));
+        if (noHistory) request.setAttribute("noHistory", resourceBundle.getString("bankAccount.history.noHistory"));
 
     }
 
     /**
      * Initiating locale for new bank account page. DepSumError and credSumError use if corresponding exceptions appears
+     *
      * @param request
      */
-    public static void setLocaleNewBankAccount(HttpServletRequest request, boolean depSumError, boolean credSumError){
+    public static void setLocaleNewBankAccount(HttpServletRequest request, boolean depSumError, boolean credSumError) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for new bank account page
@@ -282,18 +293,20 @@ public class LocaleUtils {
         request.setAttribute("credPercent", resourceBundle.getString("bankAccount.new.creditPercent"));
         request.setAttribute("sendOrder", resourceBundle.getString("bankAccount.new.sendOrder"));
 
-        if(depSumError)request.setAttribute("depSumError", resourceBundle.getString("bankAccount.new.depSumError"));
-        if(credSumError)request.setAttribute("credSumError", resourceBundle.getString("bankAccount.new.credSumError"));
+        if (depSumError) request.setAttribute("depSumError", resourceBundle.getString("bankAccount.new.depSumError"));
+        if (credSumError)
+            request.setAttribute("credSumError", resourceBundle.getString("bankAccount.new.credSumError"));
     }
 
     /**
      * Initiating locale for transfer and payment page. errors need if corresponding errors  happen when
      * user types data
+     *
      * @param request
      * @param isDeposit
      * @param errors
      */
-    public static void setLocaleTransfersPayment(HttpServletRequest request, boolean isDeposit, boolean[] errors){
+    public static void setLocaleTransfersPayment(HttpServletRequest request, boolean isDeposit, boolean[] errors) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for new bank account page
@@ -327,22 +340,29 @@ public class LocaleUtils {
         7 - isPayTargetInvalid
         */
 
-        if(errors[0]) request.setAttribute("errorTransferSpecify", resourceBundle.getString("bankAccount.transfers.transfer.errorTransferSpecify"));
-        if(errors[1]) request.setAttribute("errorTransferSum", resourceBundle.getString("bankAccount.transfers.transfer.errorTransferSum"));
-        if(errors[2]) request.setAttribute("errorRequiredTransfer", resourceBundle.getString("bankAccount.transfers.transfer.errorRequiredTransfer"));
-        if(errors[3]) request.setAttribute("errorPaySpecify", resourceBundle.getString("bankAccount.transfers.payment.errorPaySpecify"));
-        if(errors[4]) request.setAttribute("errorPayTransferSum", resourceBundle.getString("bankAccount.transfers.payment.errorPayTransferSum"));
-        if(errors[5]) request.setAttribute("errorRequiredPay", resourceBundle.getString("bankAccount.transfers.payment.errorRequiredPay"));
-        if(errors[6]){
-            if(isDeposit) request.setAttribute("noHistory", resourceBundle.getString("bankAccount.transfers.deposit.noHistory"));
+        if (errors[0])
+            request.setAttribute("errorTransferSpecify", resourceBundle.getString("bankAccount.transfers.transfer.errorTransferSpecify"));
+        if (errors[1])
+            request.setAttribute("errorTransferSum", resourceBundle.getString("bankAccount.transfers.transfer.errorTransferSum"));
+        if (errors[2])
+            request.setAttribute("errorRequiredTransfer", resourceBundle.getString("bankAccount.transfers.transfer.errorRequiredTransfer"));
+        if (errors[3])
+            request.setAttribute("errorPaySpecify", resourceBundle.getString("bankAccount.transfers.payment.errorPaySpecify"));
+        if (errors[4])
+            request.setAttribute("errorPayTransferSum", resourceBundle.getString("bankAccount.transfers.payment.errorPayTransferSum"));
+        if (errors[5])
+            request.setAttribute("errorRequiredPay", resourceBundle.getString("bankAccount.transfers.payment.errorRequiredPay"));
+        if (errors[6]) {
+            if (isDeposit)
+                request.setAttribute("noHistory", resourceBundle.getString("bankAccount.transfers.deposit.noHistory"));
             else request.setAttribute("noHistory", resourceBundle.getString("bankAccount.transfers.credit.noHistory"));
         }
-        if(errors[7]) request.setAttribute("errorPayTarget", resourceBundle.getString("bankAccount.transfers.payment.errorPayTarget"));
+        if (errors[7])
+            request.setAttribute("errorPayTarget", resourceBundle.getString("bankAccount.transfers.payment.errorPayTarget"));
 
-        if(isDeposit){
+        if (isDeposit) {
             request.setAttribute("historyTitle", resourceBundle.getString("bankAccount.transfers.deposit.title"));
-        }
-        else{
+        } else {
             request.setAttribute("historyTitle", resourceBundle.getString("bankAccount.transfers.credit.title"));
         }
     }
@@ -351,18 +371,18 @@ public class LocaleUtils {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale for error page
-        if(isError){
+        if (isError) {
             request.setAttribute("title", resourceBundle.getString("error.title"));
         }
 
         //Locale for exception page
-        if(isException){
+        if (isException) {
             request.setAttribute("title", resourceBundle.getString("exception.title"));
             request.setAttribute("text", resourceBundle.getString("exception.text"));
         }
 
         //Locale for access denied page
-        if(isAccessDenied){
+        if (isAccessDenied) {
             request.setAttribute("title", resourceBundle.getString("accessDenied.title"));
         }
 

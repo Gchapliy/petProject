@@ -28,9 +28,11 @@ public class BankAccountServlet extends HttpServlet {
         UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
         String bankAccountUuid = req.getParameter("uuid");
 
+
         Locale locale = (Locale) req.getAttribute("locale");
         //Locale for Date
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
+
         //Locale for Number
         NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
@@ -38,14 +40,13 @@ public class BankAccountServlet extends HttpServlet {
 
         if (bankAccountUuid != null) {
             bankAccount = userAccount.getBankAccountByUuid(bankAccountUuid);
-            if(bankAccount != null){
+            if (bankAccount != null) {
 
                 logger.info("bank account uuid - " + bankAccountUuid + " found");
                 req.setAttribute("dateFormat", dateFormat);
                 req.setAttribute("numberFormat", numberFormat);
                 req.setAttribute("bankAccount", bankAccount);
-            }
-            else {
+            } else {
                 logger.info("bank account uuid - " + bankAccountUuid + " not found");
                 req.setAttribute("noBankAccount", "bank account uuid - " + bankAccountUuid + " not found");
             }
@@ -56,9 +57,11 @@ public class BankAccountServlet extends HttpServlet {
         req.setAttribute("link", "userPage?pageA=1&pageUsO=1&pageYO=1");
         req.setAttribute("depositType", BankAccount.AccountType.DEPOSIT);
         req.setAttribute("creditType", BankAccount.AccountType.CREDIT);
+
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleBankAccount(req);
         LocaleUtils.setLocaleManagingInterface(req);
+
         req.getRequestDispatcher("templates/bankAccount.jsp").forward(req, resp);
     }
 

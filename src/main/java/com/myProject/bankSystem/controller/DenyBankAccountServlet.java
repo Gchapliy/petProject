@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
 
 @WebServlet(name = "denyBankAccount", urlPatterns = {"/deny"})
 public class DenyBankAccountServlet extends HttpServlet {
@@ -20,15 +21,20 @@ public class DenyBankAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Connection connection = AppUtils.getStoredConnection(req);
+
         String orderId = req.getParameter("id");
 
         logger.info("orderId to deny: " + orderId);
 
-        BankAccountOrder bankAccountOrder = BankAccountDAO.findBankAccountOrderById(AppUtils.getStoredConnection(req), Integer.parseInt(orderId));
+        //find bank account order
+        BankAccountOrder bankAccountOrder = BankAccountDAO.findBankAccountOrderById(connection, Integer.parseInt(orderId));
 
+        //change status
         bankAccountOrder.setOrderStatus(BankAccountOrder.OrderStatus.REJECTED);
 
-        BankAccountDAO.updateBankAccountOrder(AppUtils.getStoredConnection(req), bankAccountOrder);
+        //update order
+        BankAccountDAO.updateBankAccountOrder(connection, bankAccountOrder);
 
         logger.info("bank account order " + bankAccountOrder + " denied");
 

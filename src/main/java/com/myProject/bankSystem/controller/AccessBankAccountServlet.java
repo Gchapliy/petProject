@@ -14,26 +14,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
 
 @WebServlet(name = "accessBankAccount", urlPatterns = {"/success"})
-public class AccessBankAccountServlet extends HttpServlet{
+public class AccessBankAccountServlet extends HttpServlet {
     final static Logger logger = LogManager.getLogger(AccessBankAccountServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Connection connection = AppUtils.getStoredConnection(req);
 
         String orderId = req.getParameter("id");
 
         logger.info("orderId to success: " + orderId);
 
-        BankAccountOrder bankAccountOrder = BankAccountDAO.findBankAccountOrderById(AppUtils.getStoredConnection(req), Integer.parseInt(orderId));
+        //find bank account order by id
+        BankAccountOrder bankAccountOrder = BankAccountDAO.findBankAccountOrderById(connection, Integer.parseInt(orderId));
 
+        //create bank account based on the order
         BankAccount bankAccount = CreateBankAccountUtil.createBankAccount(req, bankAccountOrder);
 
-        BankAccountDAO.insertBankAccount(AppUtils.getStoredConnection(req), bankAccount);
+        //insert new bank account to db
+        BankAccountDAO.insertBankAccount(connection, bankAccount);
 
+        //change order status
         bankAccountOrder.setOrderStatus(BankAccountOrder.OrderStatus.ALLOWED);
-        BankAccountDAO.updateBankAccountOrder(AppUtils.getStoredConnection(req), bankAccountOrder);
+
+        //update bank account order
+        BankAccountDAO.updateBankAccountOrder(connection, bankAccountOrder);
 
         logger.info("bank account " + bankAccount + " created");
 

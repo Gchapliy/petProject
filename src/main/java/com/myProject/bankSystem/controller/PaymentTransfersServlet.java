@@ -41,7 +41,9 @@ public class PaymentTransfersServlet extends HttpServlet {
         String uuid = req.getParameter("uuid");
         UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
 
+        //Locale for numbers
         NumberFormat numberFormat = NumberFormat.getNumberInstance((Locale) req.getAttribute("locale"));
+        //Locale for date
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, (Locale) req.getAttribute("locale"));
 
         String pageId = req.getParameter("page");

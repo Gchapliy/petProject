@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class CreateBankAccountUtil {
 
-    public static BankAccount createBankAccount(HttpServletRequest request, BankAccountOrder order){
+    public static BankAccount createBankAccount(HttpServletRequest request, BankAccountOrder order) {
 
         BankAccount bankAccount = new BankAccount();
 
@@ -21,13 +21,13 @@ public class CreateBankAccountUtil {
         bankAccount.setAccountOwner(order.getOrderOwner());
         bankAccount.setAccountType(order.getAccountType());
 
-        if(order.getAccountType() == BankAccount.AccountType.PAYMENT || order.getAccountType() == BankAccount.AccountType.DEPOSIT){
+        if (order.getAccountType() == BankAccount.AccountType.PAYMENT || order.getAccountType() == BankAccount.AccountType.DEPOSIT) {
             bankAccount.setAccountDebt(0);
-        } else if(order.getAccountType() == BankAccount.AccountType.CREDIT){
+        } else if (order.getAccountType() == BankAccount.AccountType.CREDIT) {
             bankAccount.setAccountDebt(order.getAccountLimit());
         }
 
-        while (true){
+        while (true) {
             byte[] bytes = (order.getAccountBalance() + "" +
                     "" + order.getOrderCreateDate() + "" +
                     "" + order.getAccountExpirationDate() + "" +
@@ -38,7 +38,7 @@ public class CreateBankAccountUtil {
 
             UUID uuid = UUID.nameUUIDFromBytes(bytes);
 
-            if(BankAccountDAO.findBankAccountByUuid(AppUtils.getStoredConnection(request), uuid.toString()) == null){
+            if (BankAccountDAO.findBankAccountByUuid(AppUtils.getStoredConnection(request), uuid.toString()) == null) {
                 bankAccount.setAccountUuid(uuid.toString());
                 break;
             }

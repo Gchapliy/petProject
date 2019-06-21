@@ -18,6 +18,9 @@ public class Pagination {
         calculatePageId();
     }
 
+    /**
+     * calculating the pages array size
+     */
     private void calculateAllPages(){
         allPages = allItems / totalItemsPerPage;
 
@@ -27,6 +30,9 @@ public class Pagination {
             allPages++;
     }
 
+    /**
+     * filling pages array with ordinal numbers
+     */
     private void createPagesArr(){
         pagesArray = new int[allPages];
 
@@ -35,6 +41,9 @@ public class Pagination {
         }
     }
 
+    /**
+     * calculating current item number in db
+     */
     private void calculatePageId(){
         if(pageId > 1){
             pageId = pageId - 1;

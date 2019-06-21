@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 public class BankAccountOrderValidator {
     final static Logger logger = LogManager.getLogger(BankAccountOrderValidator.class);
 
-    public static boolean validate(HttpServletRequest req){
+    public static boolean validate(HttpServletRequest req) {
         String type = req.getParameter("accType");
         boolean depSumError = false;
         boolean credSumError = false;
 
-         if (type.equals("deposit")) {
+        if (type.equals("deposit")) {
 
             String depTerm = req.getParameter("depositTerm");
             String depSum = req.getParameter("depSum");

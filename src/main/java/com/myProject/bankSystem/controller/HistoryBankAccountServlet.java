@@ -48,15 +48,19 @@ public class HistoryBankAccountServlet extends HttpServlet {
 
         //Locale for Date
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
+
         //Locale for Number
         NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
         BankAccount bankAccount;
+
         List<BankAccountTransaction> bankAccountTransactions;
+
         boolean noHistory = false;
 
         if (bankAccountUuid != null) {
             bankAccount = userAccount.getBankAccountByUuid(bankAccountUuid);
+
             if (bankAccount != null) {
 
                 logger.info("bank account uuid - " + bankAccountUuid + " found");
@@ -82,7 +86,6 @@ public class HistoryBankAccountServlet extends HttpServlet {
                     return;
                 }
 
-
                 req.setAttribute("uuid", bankAccountUuid);
                 req.setAttribute("transactionsHistory", bankAccountTransactions);
                 req.setAttribute("dateFormat", dateFormat);
@@ -99,6 +102,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
 
         req.setAttribute("allHistory", historyPagination.getPagesArray());
         req.setAttribute("link", "bankAccount?uuid=" + bankAccountUuid);
+
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleBankAccountHistory(req, noHistory);
         LocaleUtils.setLocaleManagingInterface(req);

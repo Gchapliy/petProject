@@ -16,20 +16,22 @@ public class SecurityUtils {
 
     /**
      * Encode password
-      * @param password
+     *
+     * @param password
      * @return
      */
-    public static String encodePassword(String password){
+    public static String encodePassword(String password) {
         return Base64.getEncoder().encodeToString(password.getBytes());
     }
 
     /**
      * Check password typed by user with password from db
+     *
      * @param encryptedAccountPassword
      * @param checkingPassword
      * @return
      */
-    public static boolean checkPassword(String encryptedAccountPassword, String checkingPassword){
+    public static boolean checkPassword(String encryptedAccountPassword, String checkingPassword) {
         String decodedPassword = new String(Base64.getDecoder().decode(encryptedAccountPassword.getBytes()));
 
         return decodedPassword.equals(checkingPassword);
@@ -37,6 +39,7 @@ public class SecurityUtils {
 
     /**
      * Check whether this 'request' is required to login or not.
+     *
      * @param request
      * @return
      */
@@ -56,6 +59,7 @@ public class SecurityUtils {
 
     /**
      * Check if this 'request' has a 'valid role'?
+     *
      * @param request
      * @return
      */
