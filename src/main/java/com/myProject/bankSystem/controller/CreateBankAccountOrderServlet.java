@@ -28,7 +28,7 @@ public class CreateBankAccountOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
-        LocaleUtils.setLocaleNewBankAccount(req, false, false);
+        LocaleUtils.setLocaleNewBankAccount(req, false, false, false);
 
         req.setAttribute("dep_perc", DEPOSIT_PERCENT);
         req.setAttribute("cred_perc", CREDIT_PERCENT);

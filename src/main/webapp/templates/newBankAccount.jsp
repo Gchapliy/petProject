@@ -19,6 +19,22 @@
                 </select>
             </div>
         </div>
+        <div class="row center-lg center-md center-sm center-xs acc_line stnd_line">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 end-lg end-md end-sm end-xs">
+                ${typeStndSum}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                <input class="stndSum" name="stndSum" type="text"/>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 center-lg center-md center-sm center-xs">
+                ${currency}
+            </div>
+        </div>
+        <c:if test="${stndSumError != null}">
+            <div class="row center-lg center-md center-sm center-xs acc_line stnd_line stnd_e">
+                    ${stndSumError}
+            </div>
+        </c:if>
         <div class="row center-lg center-md center-sm center-xs acc_line dep_line">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 end-lg end-md end-sm end-xs">
                 ${chooseDepTerm}

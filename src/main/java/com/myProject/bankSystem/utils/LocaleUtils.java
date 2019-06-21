@@ -269,7 +269,7 @@ public class LocaleUtils {
      *
      * @param request
      */
-    public static void setLocaleNewBankAccount(HttpServletRequest request, boolean depSumError, boolean credSumError) {
+    public static void setLocaleNewBankAccount(HttpServletRequest request, boolean depSumError, boolean credSumError, boolean stndSunError) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.messages", (Locale) request.getAttribute("locale"), new UTF8Control());
 
         //Locale settings for new bank account page
@@ -286,6 +286,7 @@ public class LocaleUtils {
         request.setAttribute("eighteenMonths", resourceBundle.getString("bankAccount.new.18months"));
         request.setAttribute("twentyFourMonths", resourceBundle.getString("bankAccount.new.24months"));
         request.setAttribute("typeDepSum", resourceBundle.getString("bankAccount.new.typeDepSum"));
+        request.setAttribute("typeStndSum", resourceBundle.getString("bankAccount.new.typeStndSum"));
         request.setAttribute("currency", resourceBundle.getString("bankAccount.new.currency"));
         request.setAttribute("depPercent", resourceBundle.getString("bankAccount.new.depPercent"));
         request.setAttribute("typeCredSum", resourceBundle.getString("bankAccount.new.typeCredSum"));
@@ -297,6 +298,7 @@ public class LocaleUtils {
         if (depSumError) request.setAttribute("depSumError", resourceBundle.getString("bankAccount.new.depSumError"));
         if (credSumError)
             request.setAttribute("credSumError", resourceBundle.getString("bankAccount.new.credSumError"));
+        if(stndSunError) request.setAttribute("stndSumError", resourceBundle.getString("bankAccount.new.stndSumError"));
     }
 
     /**

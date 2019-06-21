@@ -14,10 +14,30 @@ public class BankAccountOrderValidator {
         String type = req.getParameter("accType");
         boolean depSumError = false;
         boolean credSumError = false;
+        boolean stndSumError = false;
 
         if(type.equals("standard")){
-            LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
-            return true;
+
+            String stndSum = req.getParameter("stndSum");
+
+            double sum = 0;
+            try {
+                if (stndSum.isEmpty()) throw new Exception();
+
+                sum = Double.parseDouble(stndSum);
+            } catch (Exception e) {
+                logger.error("stndSum is wrong");
+
+                stndSumError = true;
+                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError, stndSumError);
+
+                req.setAttribute("dep_perc", CreateBankAccountOrderServlet.DEPOSIT_PERCENT);
+                req.setAttribute("cred_perc", CreateBankAccountOrderServlet.CREDIT_PERCENT);
+
+                return false;
+            }
+
+
         }else if (type.equals("deposit")) {
 
             String depTerm = req.getParameter("depositTerm");
@@ -34,7 +54,7 @@ public class BankAccountOrderValidator {
                 logger.error("depSum is wrong");
 
                 depSumError = true;
-                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError, stndSumError);
 
                 req.setAttribute("dep_perc", CreateBankAccountOrderServlet.DEPOSIT_PERCENT);
                 req.setAttribute("cred_perc", CreateBankAccountOrderServlet.CREDIT_PERCENT);
@@ -59,7 +79,7 @@ public class BankAccountOrderValidator {
                 logger.error("credSum is wrong");
 
                 credSumError = true;
-                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+                LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError, stndSumError);
 
                 req.setAttribute("dep_perc", CreateBankAccountOrderServlet.DEPOSIT_PERCENT);
                 req.setAttribute("cred_perc", CreateBankAccountOrderServlet.CREDIT_PERCENT);
@@ -68,7 +88,7 @@ public class BankAccountOrderValidator {
             }
         }
 
-        LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+        LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError, stndSumError);
         return true;
     }
 }

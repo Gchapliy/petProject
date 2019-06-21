@@ -388,17 +388,17 @@ a {
     margin-bottom: 15px;
 }
 
-.acc_type,.depositTerm,.creditTerm,.depSum,.credSum,.dep_perc,.cred_perc{
+.acc_type,.depositTerm,.creditTerm,.depSum, .stndSum, .credSum,.dep_perc,.cred_perc{
     border: solid 1px #EE3B24;
     border-radius: 3px;
     padding: 4px;
 }
 
-.acc_type:focus,.depositTerm:focus,.creditTerm:focus,.depSum:focus,.credSum:focus,.dep_perc:focus,.cred_perc:focus{
+.acc_type:focus,.depositTerm:focus,.creditTerm:focus,.depSum:focus,.stndSum:focus,.credSum:focus,.dep_perc:focus,.cred_perc:focus{
     outline: none;
 }
 
-#newBankAccount .dep_e,#newBankAccount .cred_e{
+#newBankAccount .dep_e,#newBankAccount .cred_e, #newBankAccount .stnd_e{
     font-size: 18px;
     color: red;
 }

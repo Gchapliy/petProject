@@ -29,10 +29,11 @@ public class CreateBankAccountOrderUtil {
         bankAccountOrder.setOrderStatus(BankAccountOrder.OrderStatus.IN_PROGRESS);
 
         if (accType.equals("standard")) {
+            double stndSum = Double.parseDouble(request.getParameter("stndSum"));
             expiration.add(Calendar.YEAR, STANDARD_EXP_DATE_YEARS);
 
             bankAccountOrder.setAccountExpirationDate(expiration.getTime()); // standard account for 4 years
-            bankAccountOrder.setAccountBalance(0);
+            bankAccountOrder.setAccountBalance(stndSum);
             bankAccountOrder.setAccountLimit(0); // if 0 than no limit
             bankAccountOrder.setAccountInterestRate(0);
             bankAccountOrder.setAccountType(BankAccount.AccountType.PAYMENT);
