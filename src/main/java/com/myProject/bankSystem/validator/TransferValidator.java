@@ -9,11 +9,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Connection;
 
 public class TransferValidator {
 
     final static Logger logger = LogManager.getLogger(TransferValidator.class);
-    final static private int NUMBER_OF_ERRORS = 8;
+    final static private int NUMBER_OF_ERRORS = 9;
     /*
         0 - isTransferSpecifyInvalid
         1 - isTransferSumInvalid
@@ -23,6 +24,7 @@ public class TransferValidator {
         5 - isRequiredPay
         6 - isNoHistory
         7 - isPayTargetInvalid
+        8 - isAccountTransferInvalid
     */
 
     /**
@@ -33,6 +35,7 @@ public class TransferValidator {
      * @return
      */
     public static boolean validate(HttpServletRequest request, HttpServletResponse response) {
+        Connection connection = AppUtils.getStoredConnection(request);
 
         String uuidFrom = request.getParameter("uuid");
         String recepAccount = request.getParameter("recepAccount");
@@ -45,9 +48,25 @@ public class TransferValidator {
         boolean isRequiredTransfer = false;
         boolean isTransferSpecifyInvalid = false;
         boolean isTransferSumInvalid = false;
+        boolean isAccountTransferInvalid = false;
         boolean hasError = false;
 
         boolean[] errors = new boolean[NUMBER_OF_ERRORS];
+
+        BankAccount bankAccountFrom = BankAccountDAO.findBankAccountByUuid(connection, uuidFrom);
+
+        if(bankAccountFrom.getAccountType() != BankAccount.AccountType.PAYMENT){
+            isAccountTransferInvalid = true;
+            errors[8] = isAccountTransferInvalid;
+
+            if (recepAccount != null) request.setAttribute("recepAccount", recepAccount);
+            if (recepSum != null) request.setAttribute("recepSum", recepSum);
+
+            LocaleUtils.setLocaleTransfersPayment(request, false, errors);
+
+            logger.error("input data is null");
+            return false;
+        }
 
         if (recepAccount == null || recepSum == null) {
             isRequiredTransfer = true;

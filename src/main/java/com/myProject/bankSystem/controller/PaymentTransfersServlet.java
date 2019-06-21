@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,8 +30,9 @@ import java.util.Locale;
 public class PaymentTransfersServlet extends HttpServlet {
 
     final static Logger logger = LogManager.getLogger(PaymentTransfersServlet.class);
-    final static private int NUMBER_OF_ERRORS = 8;
+    final static private int NUMBER_OF_ERRORS = 9;
     final static private int TOTAL_ITEMS_PER_PAGE = 5;
+    private static final int ONE_DAY_IN_MILLIS = (1000 * 60 * 60 * 24);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -132,6 +134,20 @@ public class PaymentTransfersServlet extends HttpServlet {
 
                     bankAccountFrom.setAccountBalance(bankAccountFrom.getAccountBalance() - transaction.getTransactionAmount());
                     bankAccountTo.setAccountBalance(bankAccountTo.getAccountBalance() + transaction.getTransactionAmount());
+
+                    if(bankAccountTo.getAccountType() == BankAccount.AccountType.DEPOSIT){
+                        double depSum = bankAccountTo.getAccountBalance();
+                        double depPerc = bankAccountTo.getAccountInterestRate();
+                        long days = (bankAccountTo.getAccountExpirationDate().getTime() - bankAccountTo.getAccountCreationDate().getTime()) / ONE_DAY_IN_MILLIS;
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(bankAccountTo.getAccountCreationDate());
+                        int daysInYear = c.getActualMaximum(Calendar.DAY_OF_YEAR);
+
+                        bankAccountTo.setAccountLimit(((depSum * (depPerc / 100)) * days) / daysInYear + depSum);
+                    } else if(bankAccountTo.getAccountType() == BankAccount.AccountType.CREDIT){
+
+                        bankAccountTo.setAccountDebt(bankAccountTo.getAccountDebt() - transaction.getTransactionAmount());
+                    }
 
                     if(BankAccountDAO.updateBankAccount(connection, bankAccountFrom)){
                         logger.info("transfer transaction from completed successfully");

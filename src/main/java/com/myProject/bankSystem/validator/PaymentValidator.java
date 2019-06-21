@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PaymentValidator {
     final static Logger logger = LogManager.getLogger(PaymentValidator.class);
 
-    final static private int NUMBER_OF_ERRORS = 8;
+    final static private int NUMBER_OF_ERRORS = 9;
     final static private int TARGET_LENGTH = 10;
     /*
         0 - isTransferSpecifyInvalid
@@ -24,6 +24,7 @@ public class PaymentValidator {
         5 - isRequiredPay
         6 - isNoHistory
         7 - isPayTargetInvalid
+        8 - isAccountTransferInvalid
     */
 
     /**

@@ -46,6 +46,13 @@
                         </div>
                     </div>
                 </c:if>
+                <c:if test="${errorAccountTransfer != null}">
+                    <div class="row center-lg center-md center-sm center-xs login_row error">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 center-lg center-md center-sm center-xs">
+                            <h3>${errorAccountTransfer}</h3>
+                        </div>
+                    </div>
+                </c:if>
                 <div class="row center-lg center-md center-sm center-xs  login_row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 start-lg start-md start-sm start-xs">
                         ${transferSum}
@@ -149,7 +156,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${accountFrom}</div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${accountTo}</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${date}</div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${target}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${target}</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${amount}</div>
         </div>
         <c:forEach items="${transactionsHistory}" var="transaction">
@@ -157,7 +164,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${transaction.bankAccountFrom.accountUuid}</div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${transaction.bankAccountTo.accountUuid}</div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${dateFormat.format(transaction.transactionDate)}</div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">${transaction.transactionTarget}</div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">${transaction.transactionTarget}</div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">${numberFormat.format(transaction.transactionAmount)} ${currency}</div>
             </div>
         </c:forEach>

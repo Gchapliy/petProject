@@ -341,6 +341,7 @@ public class LocaleUtils {
         5 - isRequiredPay
         6 - isNoHistory
         7 - isPayTargetInvalid
+        8 - isAccountTransferInvalid
         */
 
         if (errors[0])
@@ -362,6 +363,9 @@ public class LocaleUtils {
         }
         if (errors[7])
             request.setAttribute("errorPayTarget", resourceBundle.getString("bankAccount.transfers.payment.errorPayTarget"));
+
+        if(errors[8])
+            request.setAttribute("errorAccountTransfer", resourceBundle.getString("bankAccount.transfers.transfer.errorAccountTransferInvalid"));
 
         if (isDeposit) {
             request.setAttribute("historyTitle", resourceBundle.getString("bankAccount.transfers.deposit.title"));
