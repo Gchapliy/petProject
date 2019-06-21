@@ -38,7 +38,7 @@ public class PaymentValidator {
         String uuidFrom = request.getParameter("uuid");
         String recepAccount = request.getParameter("recepAccount");
         String recepSum = request.getParameter("recepSum");
-        String target = request.getParameter("target");
+        String target = request.getParameter("target").replaceAll("[<>!@#$%&*()_]+", "");
 
         double balance = (double) request.getAttribute("balance");
 

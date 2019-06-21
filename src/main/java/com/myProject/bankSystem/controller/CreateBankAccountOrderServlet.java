@@ -47,11 +47,6 @@ public class CreateBankAccountOrderServlet extends HttpServlet {
             BankAccountOrder bankAccountOrder = CreateBankAccountOrderUtil.getBankAccountOrderDataFromRequest(req);
 
             if(BankAccountDAO.insertBankAccountOrder(AppUtils.getStoredConnection(req), bankAccountOrder)){
-                //update logined user data
-                UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
-                userAccount.getUserBankAccountsOrders().add(bankAccountOrder);
-
-                AppUtils.storeLoginedUser(req.getSession(), userAccount);
 
                 req.getRequestDispatcher("templates/newBankAccountOrderCreated.jsp").forward(req, resp);
                 return;

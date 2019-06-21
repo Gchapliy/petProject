@@ -68,6 +68,7 @@ public class BankAccountOrderValidator {
             }
         }
 
+        LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
         return true;
     }
 }

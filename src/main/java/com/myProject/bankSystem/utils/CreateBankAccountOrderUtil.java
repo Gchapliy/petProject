@@ -10,13 +10,18 @@ import java.util.Date;
 public class CreateBankAccountOrderUtil {
 
     private static final int STANDARD_EXP_DATE_YEARS = 4;
+    private static final int ONE_DAY_IN_MILLIS = (1000 * 60 * 60 * 24);
 
     public static BankAccountOrder getBankAccountOrderDataFromRequest(HttpServletRequest request) {
         String accType = request.getParameter("accType");
 
-        Calendar c = Calendar.getInstance();
+        Calendar create = Calendar.getInstance();
+        Calendar expiration = Calendar.getInstance();
+        int daysInYear = create.getActualMaximum(Calendar.DAY_OF_YEAR);
+
         Date createDate = new Date();
-        c.setTime(createDate);
+        create.setTime(createDate);
+        expiration.setTime(createDate);
 
         BankAccountOrder bankAccountOrder = new BankAccountOrder();
         bankAccountOrder.setOrderCreateDate(createDate);
@@ -24,9 +29,9 @@ public class CreateBankAccountOrderUtil {
         bankAccountOrder.setOrderStatus(BankAccountOrder.OrderStatus.IN_PROGRESS);
 
         if (accType.equals("standard")) {
-            c.add(Calendar.YEAR, STANDARD_EXP_DATE_YEARS);
+            expiration.add(Calendar.YEAR, STANDARD_EXP_DATE_YEARS);
 
-            bankAccountOrder.setAccountExpirationDate(c.getTime()); // standard account for 4 years
+            bankAccountOrder.setAccountExpirationDate(expiration.getTime()); // standard account for 4 years
             bankAccountOrder.setAccountBalance(0);
             bankAccountOrder.setAccountLimit(0); // if 0 than no limit
             bankAccountOrder.setAccountInterestRate(0);
@@ -37,25 +42,28 @@ public class CreateBankAccountOrderUtil {
             double depSum = Double.parseDouble(request.getParameter("depSum"));
             double depPerc = Double.parseDouble(request.getParameter("dep_perc"));
 
-            c.add(Calendar.MONTH, (depTerm));
+            expiration.add(Calendar.MONTH, (depTerm));
 
-            bankAccountOrder.setAccountExpirationDate(c.getTime());
+            long days = (expiration.getTime().getTime() - create.getTime().getTime()) / (ONE_DAY_IN_MILLIS);
+
+            bankAccountOrder.setAccountExpirationDate(expiration.getTime());
             bankAccountOrder.setAccountBalance(depSum);
-            bankAccountOrder.setAccountLimit(((depSum * depPerc) * depTerm) + depSum);
+            bankAccountOrder.setAccountLimit(((depSum * (depPerc / 100)) * days) / daysInYear + depSum);
             bankAccountOrder.setAccountInterestRate(depPerc);
             bankAccountOrder.setAccountType(BankAccount.AccountType.DEPOSIT);
+
+            System.out.println("days: " + days + ", daysInYear:" + daysInYear + ", depPerc: " + depPerc + ", depTerm:" + depTerm);
 
         } else if (accType.equals("credit")) {
             double credSum = Double.parseDouble(request.getParameter("credSum"));
             int creditTerm = Integer.parseInt(request.getParameter("creditTerm"));
             double credPerc = Double.parseDouble(request.getParameter("cred_perc"));
 
-            c.add(Calendar.MONTH, (creditTerm));
+            expiration.add(Calendar.MONTH, (creditTerm));
 
-            bankAccountOrder.setAccountExpirationDate(c.getTime());
+            bankAccountOrder.setAccountExpirationDate(expiration.getTime());
             bankAccountOrder.setAccountBalance(credSum);
-            bankAccountOrder.setAccountBalance(credSum);
-            bankAccountOrder.setAccountLimit((credSum * credPerc * (creditTerm + 1)) / (24 * 100)); //(Sc * % (p + 1)) / (24 * 100%) = %%, где Sc – credit summ; % - percent; р – credit term.
+            bankAccountOrder.setAccountLimit((credSum * credPerc * (creditTerm + 1)) / (24 * 100) + credSum); //(Sc * % (p + 1)) / (24 * 100%) = %%, где Sc – credit summ; % - percent; р – credit term.
             bankAccountOrder.setAccountInterestRate(credPerc);
             bankAccountOrder.setAccountType(BankAccount.AccountType.CREDIT);
         }
