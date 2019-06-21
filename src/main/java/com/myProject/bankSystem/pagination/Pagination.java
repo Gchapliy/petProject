@@ -24,10 +24,13 @@ public class Pagination {
     private void calculateAllPages(){
         allPages = allItems / totalItemsPerPage;
 
-        if(allPages > 1 && ((double)allItems / totalItemsPerPage) % 2 != 0){
+        if(allPages > 1 && (allItems % totalItemsPerPage) != 0){
             allPages++;
         } else if(allPages == 1 && allItems > totalItemsPerPage)
             allPages++;
+        else if(allPages == 0){
+            allPages++;
+        }
     }
 
     /**

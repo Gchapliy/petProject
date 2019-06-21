@@ -96,6 +96,7 @@ public class PaymentTransfersServlet extends HttpServlet {
             return;
         }
         req.setAttribute("uuid", uuid);
+        req.setAttribute("pageHistoryId", pageHistoryId);
         req.setAttribute("allHistory", historyPagination.getPagesArray());
         LocaleUtils.setLocaleTransfersPayment(req, isDeposit, errors);
         req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);

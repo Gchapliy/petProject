@@ -86,6 +86,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
                     return;
                 }
 
+                req.setAttribute("pageIdHistory", pageHistoryId);
                 req.setAttribute("uuid", bankAccountUuid);
                 req.setAttribute("transactionsHistory", bankAccountTransactions);
                 req.setAttribute("dateFormat", dateFormat);
@@ -102,6 +103,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
 
         req.setAttribute("allHistory", historyPagination.getPagesArray());
         req.setAttribute("link", "bankAccount?uuid=" + bankAccountUuid);
+        req.setAttribute("pageIdHistory", pageHistoryId);
 
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleBankAccountHistory(req, noHistory);

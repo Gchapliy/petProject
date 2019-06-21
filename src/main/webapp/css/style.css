@@ -266,6 +266,31 @@ a {
     color: #262626;
 }
 
+.navigatorBtn{
+    background-color: #6a6a6a;
+    padding: 3px;
+    border: solid 1px #6a6a6a;
+    border-radius: 3px;
+    max-width: 40px;
+    margin-right: 5px;
+}
+
+.navigatorBtn:hover{
+    background-color: #EE3B24;
+    border-color: #EE3B24;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.typedBtn{
+    background-color: #EE3B24;
+    border-color: #EE3B24;
+}
+
+.navigatorBtn a{
+    color: white;
+}
+
 /*--------------------------------------------------------------------*/
 
 /*ADMIN INTERFACE*/

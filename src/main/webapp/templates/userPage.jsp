@@ -26,9 +26,11 @@
                     </div>
                 </a>
             </c:forEach>
-            <div class="row center-lg center-md center-sm center-xs">
-                <h3>${noAccounts}</h3>
-            </div>
+            <c:if test="${bankAccounts == null}">
+                <div class="row center-lg center-md center-sm center-xs">
+                    <h3>${noAccounts}</h3>
+                </div>
+            </c:if>
         </div>
     </div>
 </section>
@@ -38,9 +40,16 @@
     <section id="pagination">
         <div class="row center-lg center-md center-xs center-sm">
             <c:forEach items="${allAccountsPages}" var="page">
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <a href="/userPage?pageA=${page}&pageUsO=${pageIdUsersOrders}&pageYO=${pageIdYourOrders}">${page}</a>
-                </div>
+                <c:if test="${page == pageIdAccount}">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn typedBtn">
+                        <a href="/userPage?pageA=${page}&pageUsO=${pageIdUsersOrders}&pageYO=${pageIdYourOrders}">${page}</a>
+                    </div>
+                </c:if>
+                <c:if test="${page != pageIdAccount}">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn">
+                        <a href="/userPage?pageA=${page}&pageUsO=${pageIdUsersOrders}&pageYO=${pageIdYourOrders}">${page}</a>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </section>
@@ -96,9 +105,16 @@
         <section id="pagination">
             <div class="row center-lg center-md center-xs center-sm">
                 <c:forEach items="${allUsersOrdersPages}" var="page">
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${page}&pageYO=${pageIdYourOrders}">${page}</a>
-                    </div>
+                    <c:if test="${pageIdUsersOrders == page}">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn typedBtn">
+                            <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${page}&pageYO=${pageIdYourOrders}">${page}</a>
+                        </div>
+                    </c:if>
+                    <c:if test="${pageIdUsersOrders != page}">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn">
+                            <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${page}&pageYO=${pageIdYourOrders}">${page}</a>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
         </section>
@@ -139,9 +155,16 @@
     <section id="pagination">
         <div class="row center-lg center-md center-xs center-sm">
             <c:forEach items="${allYourOrdersPages}" var="page">
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                    <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${pageIdUsersOrders}&pageYO=${page}">${page}</a>
-                </div>
+                <c:if test="${pageIdYourOrders == page}">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn typedBtn">
+                        <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${pageIdUsersOrders}&pageYO=${page}">${page}</a>
+                    </div>
+                </c:if>
+                <c:if test="${pageIdYourOrders != page}">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn">
+                        <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${pageIdUsersOrders}&pageYO=${page}">${page}</a>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </section>

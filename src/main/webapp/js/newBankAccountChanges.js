@@ -9,7 +9,7 @@ $(document).ready(function () {
     } else {
         $(".cred_line").hide();
         $(".dep_line").hide();
-    }
+    };
 
     $("select.acc_type").on("change", function () {
         var type = $(this).children("option:selected").val();

@@ -31,9 +31,16 @@
         <section id="pagination">
             <div class="row center-lg center-md center-xs center-sm">
                 <c:forEach items="${allHistory}" var="page">
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        <a href="/history?uuid=${uuid}&page=${page}">${page}</a>
-                    </div>
+                    <c:if test="${pageIdHistory == page}">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn typedBtn">
+                            <a href="/history?uuid=${uuid}&page=${page}">${page}</a>
+                        </div>
+                    </c:if>
+                    <c:if test="${pageIdHistory != page}">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 navigatorBtn">
+                            <a href="/history?uuid=${uuid}&page=${page}">${page}</a>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
         </section>
