@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 
         if (LoginValidator.validate(req, resp)) {
 
-            resp.sendRedirect(req.getContextPath() + "/userPage");
+            resp.sendRedirect(req.getContextPath() + "/userPage?pageA=1&pageUsO=1&pageYO=1");
         } else {
 
             req.getRequestDispatcher("templates/login.jsp").forward(req, resp);

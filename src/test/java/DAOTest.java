@@ -40,7 +40,7 @@ public class DAOTest {
     @Test
     public void findBankAccountsByUserAccountEmailTest(){
         userAccount = userDAO.findUserByEmail(connection, "grishachapliy1@gmail.com");
-        accounts = userDAO.findUserBankAccounts(connection, userAccount);
+        accounts = userDAO.findUserBankAccounts(connection, userAccount, 1, 10);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class DAOTest {
     public void findBankAccountTransactionsByBankAccountUuidTest(){
         String uuid = "82b07ab1-d082-4be4-a9c4-52f959c295cb";
         bankAccount = bankAccountDAO.findBankAccountByUuid(connection, uuid);
-        transactions = bankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount);
+        transactions = bankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount, 0, 100);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class DAOTest {
 
             Assert.assertTrue(bankAccountDAO.insertBankAccountOrder(connection, bankAccountOrder));
 
-            List<BankAccountOrder> orders = bankAccountDAO.findBankAccountOrdersByUserAccount(connection, userAccount);
+            List<BankAccountOrder> orders = bankAccountDAO.findBankAccountOrdersByUserAccount(connection, userAccount, 0, 100);
 
             bankAccountOrderRead = orders.get(orders.size() - 1);
 
@@ -128,7 +128,7 @@ public class DAOTest {
 
             bankAccountDAO.insertBankAccountTransaction(connection, bankAccountTransaction);
 
-            List<BankAccountTransaction> list = bankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount);
+            List<BankAccountTransaction> list = bankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount, 0, 100);
             bankAccountTransactionRead = list.get(list.size() - 1);
 
             Assert.assertTrue(bankAccountTransaction.getTransactionTarget().equals(bankAccountTransactionRead.getTransactionTarget()));
@@ -158,6 +158,13 @@ public class DAOTest {
 
         Assert.assertTrue(bankAccountDAO.deleteBankAccount(connection, test.getAccountUuid()));
 
+    }
+
+    @Test
+    public void findRowsAccountCountTest(){
+        userAccount = userDAO.findUserByEmail(connection, "grishachapliy1@gmail.com");
+
+        Assert.assertTrue(BankAccountDAO.getBankAccountsCount(connection, userAccount) > 0);
     }
 
     private void setMockUserAccountGetDataRules(Mockito mock, UserAccount userAccount, int number){

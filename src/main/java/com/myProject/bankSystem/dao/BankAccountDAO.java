@@ -30,10 +30,10 @@ public class BankAccountDAO {
      * @param bankAccount
      * @return
      */
-    public static List<BankAccountTransaction> findBankAccountTransactionsByUuid(Connection connection, BankAccount bankAccount) {
+    public static List<BankAccountTransaction> findBankAccountTransactionsByUuid(Connection connection, BankAccount bankAccount, int start, int total) {
 
         String sql = "Select t.Transaction_id, t.Bank_Account_From_Uuid, t.Bank_Account_To_Uuid, t.Transaction_Date, t.Transaction_Amount, t.Transaction_Target " +
-                "from Bank_Account_Transaction t where t.Bank_Account_From_Uuid = ? or t.Bank_Account_To_Uuid = ?";
+                "from Bank_Account_Transaction t where t.Bank_Account_From_Uuid = ? or t.Bank_Account_To_Uuid = ? limit ?, ?";
 
         List<BankAccountTransaction> list = new ArrayList<>();
 
@@ -41,6 +41,8 @@ public class BankAccountDAO {
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setString(1, bankAccount.getAccountUuid());
             pstm.setString(2, bankAccount.getAccountUuid());
+            pstm.setInt(3, start);
+            pstm.setInt(4, total);
 
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
@@ -81,6 +83,32 @@ public class BankAccountDAO {
         }
 
         return list;
+    }
+
+    /**
+     * Find rows count in bank account transactions table
+     * @param connection
+     * @return
+     */
+    public static int getBankAccountTransactionsCountByUuid(Connection connection, BankAccount bankAccount) {
+        String sql = "Select count(*) as rowcount from Bank_Account_Transaction where Bank_Account_From_Uuid = ? or Bank_Account_To_Uuid = ?";
+
+        int count = 0;
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, bankAccount.getAccountUuid());
+            pstm.setString(2, bankAccount.getAccountUuid());
+            ResultSet rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("rowcount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 
     /**
@@ -201,6 +229,31 @@ public class BankAccountDAO {
         }
 
         return true;
+    }
+
+    /**
+     * Find rows count in bank account table
+     * @param connection
+     * @return
+     */
+    public static int getBankAccountsCount(Connection connection, UserAccount userAccount){
+        String sql = "Select count(*) as rowcount from Bank_Account where Account_Owner = ?";
+
+        int count = 0;
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, userAccount.getUserAccountEmail());
+            ResultSet rs = pstm.executeQuery();
+
+            if(rs.next()){
+                count = rs.getInt("rowcount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 
     /**
@@ -544,15 +597,17 @@ public class BankAccountDAO {
      * @param connection
      * @return
      */
-    public static List<BankAccountOrder> findAllBankAccountOrdersInProgress(Connection connection) {
+    public static List<BankAccountOrder> findAllBankAccountOrdersInProgress(Connection connection, int start, int total) {
         String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
-                "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b where b.Order_Status = ?";
+                "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b where b.Order_Status = ? limit ?, ?";
 
         List<BankAccountOrder> bankAccountOrders = new LinkedList<>();
 
         try {
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setInt(1, BankAccountOrder.OrderStatus.IN_PROGRESS.ordinal());
+            pstm.setInt(2, start);
+            pstm.setInt(3, total);
 
             ResultSet rs = pstm.executeQuery();
 
@@ -595,25 +650,53 @@ public class BankAccountDAO {
     }
 
     /**
-     * Find bank account orders by user account email in db
-     *
+     * Find rows count in bank account users orders table
      * @param connection
-     * @param userAccount
      * @return
      */
-    public static List<BankAccountOrder> findBankAccountOrdersByUserAccount(Connection connection, UserAccount userAccount) {
+    public static int getBankAccountsUsersOrdersCount(Connection connection) {
+        String sql = "Select count(*) as rowcount from Bank_Account_Order where Order_Status = ?";
+
+        int count = 0;
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, BankAccountOrder.OrderStatus.IN_PROGRESS.ordinal());
+            ResultSet rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("rowcount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+
+        /**
+         * Find bank account orders by user account email in db
+         *
+         * @param connection
+         * @param userAccount
+         * @return
+         */
+    public static List<BankAccountOrder> findBankAccountOrdersByUserAccount(Connection connection, UserAccount userAccount, int start, int total) {
 
         String sql = "Select b.Order_Id, b.Order_Create_Date, b.Order_Owner, b.Order_Status, b.Account_Expiration_Date, " +
                 "b.Account_Balance, b.Account_Limit, b.Account_Interest_Rate, b.Account_Type from Bank_Account_Order b " +
-                "where b.Order_Owner = ?";
+                "where b.Order_Owner = ? limit ?, ?";
 
         List<BankAccountOrder> bankAccountOrders = new LinkedList<>();
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, userAccount.getUserAccountEmail());
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, userAccount.getUserAccountEmail());
+            pstm.setInt(2, start);
+            pstm.setInt(3, total);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
                 BankAccountOrder bankAccountOrder = new BankAccountOrder();
@@ -648,5 +731,30 @@ public class BankAccountDAO {
         }
 
         return bankAccountOrders;
+    }
+
+    /**
+     * Find rows count in bank account user orders table
+     * @param connection
+     * @return
+     */
+    public static int getBankAccountsUserOrdersByUserAccountCount(Connection connection, UserAccount logined) {
+        String sql = "Select count(*) as rowcount from Bank_Account_Order where Order_Owner = ?";
+
+        int count = 0;
+
+        try {
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setString(1, logined.getUserAccountEmail());
+            ResultSet rs = pstm.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt("rowcount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 }

@@ -17,12 +17,12 @@
             </a>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
-            <a href="/history?uuid=${bankAccount.accountUuid}">
+            <a href="/history?uuid=${bankAccount.accountUuid}&page=1">
                 ${history}
             </a>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 accountBtn">
-            <a href="/paymentTransfers?uuid=${bankAccount.accountUuid}">
+            <a href="/paymentTransfers?uuid=${bankAccount.accountUuid}&page=1">
                 ${paymentTransfers}
             </a>
         </div>

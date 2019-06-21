@@ -33,6 +33,20 @@
     </div>
 </section>
 
+<c:if test="${bankAccounts != null}">
+    <%--PAGINATION--%>
+    <section id="pagination">
+        <div class="row center-lg center-md center-xs center-sm">
+            <c:forEach items="${allAccountsPages}" var="page">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a href="/userPage?pageA=${page}&pageUsO=${pageIdUsersOrders}&pageYO=${pageIdYourOrders}">${page}</a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
+</c:if>
+
+
 <<%--ADMIN INTERFACE--%>
 <c:if test="${isAdmin != null}">
     <section id="adminInterface">
@@ -57,9 +71,9 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${dateFormat.format(order.accountExpirationDate)}</h3></div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><h3>${order.orderOwner.userAccountEmail}</h3></div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountType}</h3></div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountBalance}</h3></div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountLimit}</h3></div>
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.accountInterestRate}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${numberFormat.format(order.accountBalance)}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${numberFormat.format(order.accountLimit)}</h3></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${numberFormat.format(order.accountInterestRate)}</h3></div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><h3>${order.orderStatus}</h3></div>
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1  deleteBtn"
                      onclick="orderSuccess(${confirmSuccess}, ${successQuestion})">
@@ -77,6 +91,18 @@
             <h3>${noUserOrders}</h3>
         </div>
     </section>
+    <c:if test="${usersBankAccountOrders != null}">
+        <%--PAGINATION--%>
+        <section id="pagination">
+            <div class="row center-lg center-md center-xs center-sm">
+                <c:forEach items="${allUsersOrdersPages}" var="page">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${page}&pageYO=${pageIdYourOrders}">${page}</a>
+                    </div>
+                </c:forEach>
+            </div>
+        </section>
+    </c:if>
 </c:if>
 
 <%--ORDERS--%>
@@ -107,6 +133,19 @@
         <h3>${noOrders}</h3>
     </div>
 </section>
+
+<c:if test="${bankAccountOrders != null}">
+    <%--PAGINATION--%>
+    <section id="pagination">
+        <div class="row center-lg center-md center-xs center-sm">
+            <c:forEach items="${allYourOrdersPages}" var="page">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    <a href="/userPage?pageA=${pageIdAccount}&pageUsO=${pageIdUsersOrders}&pageYO=${page}">${page}</a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
+</c:if>
 
 <%--SERVICES--%>
 <%@ include file="services.jsp" %>

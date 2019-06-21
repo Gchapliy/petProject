@@ -19,7 +19,6 @@ import java.io.IOException;
 public class AccessBankAccountServlet extends HttpServlet{
     final static Logger logger = LogManager.getLogger(AccessBankAccountServlet.class);
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -38,7 +37,7 @@ public class AccessBankAccountServlet extends HttpServlet{
 
         logger.info("bank account " + bankAccount + " created");
 
-        resp.sendRedirect("/userPage");
+        resp.sendRedirect("/userPage?pageA=1&pageUsO=1&pageYO=1");
     }
 
     @Override

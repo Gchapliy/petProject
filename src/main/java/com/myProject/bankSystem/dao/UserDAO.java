@@ -231,12 +231,12 @@ public class UserDAO {
      * @param userAccount
      * @return
      */
-    public static List<BankAccount> findUserBankAccounts(Connection connection, UserAccount userAccount) {
+    public static List<BankAccount> findUserBankAccounts(Connection connection, UserAccount userAccount, int start, int total) {
 
         String sql = "Select a.Account_Balance, a.Account_Create_Date, a.Account_Expiration_Date, " +
                 "a.Account_Owner, a.Account_Limit, a.Account_Interest_Rate, a.Account_Debt, a.Account_Type, " +
                 "a.Account_Uuid from Bank_Account a " +
-                "where a.Account_Owner=(select u.Account_Email from User_Account u where u.Account_Email=?)";
+                "where a.Account_Owner=(select u.Account_Email from User_Account u where u.Account_Email=?) limit ?, ?";
 
         List<BankAccount> list = new LinkedList<>();
         BankAccount bankAccount;
@@ -244,6 +244,8 @@ public class UserDAO {
         try {
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setString(1, userAccount.getUserAccountEmail());
+            pstm.setInt(2, start);
+            pstm.setInt(3, total);
 
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {

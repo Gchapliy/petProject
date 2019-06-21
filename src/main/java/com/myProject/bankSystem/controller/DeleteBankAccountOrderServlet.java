@@ -20,7 +20,7 @@ public class DeleteBankAccountOrderServlet extends HttpServlet {
 
         BankAccountDAO.deleteBankAccountOrderById(AppUtils.getStoredConnection(req), orderId);
 
-        resp.sendRedirect("/userPage");
+        resp.sendRedirect("/userPage?pageA=1&pageUsO=1&pageYO=1");
     }
 
     @Override

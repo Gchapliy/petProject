@@ -162,6 +162,19 @@
             </div>
         </c:forEach>
 
+        <c:if test="${transactionsHistory != null}">
+            <%--PAGINATION--%>
+            <section id="pagination">
+                <div class="row center-lg center-md center-xs center-sm">
+                    <c:forEach items="${allHistory}" var="page">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <a href="/history?uuid=${uuid}&page=${page}">${page}</a>
+                        </div>
+                    </c:forEach>
+                </div>
+            </section>
+        </c:if>
+
         <c:if test="${noHistory != null}">
             <div class="row center-lg center-md center-sm center-xs title">
                     ${noHistory}

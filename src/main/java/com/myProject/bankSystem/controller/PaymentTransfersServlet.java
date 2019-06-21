@@ -4,6 +4,7 @@ import com.myProject.bankSystem.dao.BankAccountDAO;
 import com.myProject.bankSystem.entity.bankAccount.BankAccount;
 import com.myProject.bankSystem.entity.bankAccount.BankAccountTransaction;
 import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.pagination.Pagination;
 import com.myProject.bankSystem.utils.AppUtils;
 import com.myProject.bankSystem.utils.CreateTransactionUtil;
 import com.myProject.bankSystem.utils.LocaleUtils;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -28,16 +30,27 @@ public class PaymentTransfersServlet extends HttpServlet {
 
     final static Logger logger = LogManager.getLogger(PaymentTransfersServlet.class);
     final static private int NUMBER_OF_ERRORS = 8;
+    final static private int TOTAL_ITEMS_PER_PAGE = 5;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
+
+        Connection connection = AppUtils.getStoredConnection(req);
 
         String uuid = req.getParameter("uuid");
         UserAccount userAccount = AppUtils.getLoginedUser(req.getSession());
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance((Locale) req.getAttribute("locale"));
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, (Locale) req.getAttribute("locale"));
+
+        String pageId = req.getParameter("page");
+
+        int pageHistoryId = Integer.parseInt(pageId);
+
+        int allHistory = 0;
+
+        Pagination historyPagination = null;
 
         boolean isDeposit = false;
         boolean isNoHistory = false;
@@ -52,19 +65,23 @@ public class PaymentTransfersServlet extends HttpServlet {
 
             req.setAttribute("type", bankAccount.getAccountType());
 
+            allHistory = BankAccountDAO.getBankAccountTransactionsCountByUuid(connection, bankAccount);
+            historyPagination = new Pagination(pageHistoryId, allHistory, TOTAL_ITEMS_PER_PAGE);
+
             if (type == BankAccount.AccountType.PAYMENT) req.setAttribute("payment", "payment");
             else if (type == BankAccount.AccountType.DEPOSIT || type == BankAccount.AccountType.CREDIT){
                 req.setAttribute("depositCredit", "depositCredit");
 
-                List<BankAccountTransaction> transactions = BankAccountDAO.findBankAccountTransactionsByUuid(AppUtils.getStoredConnection(req), bankAccount);
+
+                List<BankAccountTransaction> transactions = BankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount, historyPagination.getPageId() - 1, TOTAL_ITEMS_PER_PAGE);
+
+                if(type == BankAccount.AccountType.DEPOSIT)
+                    isDeposit = true;
 
                 if(transactions == null || transactions.size() == 0){
                     isNoHistory = true;
                     errors[6] = isNoHistory;
 
-                    if(type.equals("deposit")){
-                        isDeposit = true;
-                    }
                 } else {
                     req.setAttribute("numberFormat", numberFormat);
                     req.setAttribute("dateFormat", dateFormat);
@@ -76,7 +93,8 @@ public class PaymentTransfersServlet extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-
+        req.setAttribute("uuid", uuid);
+        req.setAttribute("allHistory", historyPagination.getPagesArray());
         LocaleUtils.setLocaleTransfersPayment(req, isDeposit, errors);
         req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
     }
@@ -84,6 +102,8 @@ public class PaymentTransfersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LocaleUtils.setLocaleHeaderAndFooter(req);
+
+        Connection connection = AppUtils.getStoredConnection(req);
 
         String type = req.getParameter("type");
         String uuid = req.getParameter("uuid");
@@ -104,11 +124,11 @@ public class PaymentTransfersServlet extends HttpServlet {
 
                 BankAccountTransaction transaction = CreateTransactionUtil.createBankAccountTransaction(req);
 
-                if (BankAccountDAO.insertBankAccountTransaction(AppUtils.getStoredConnection(req), transaction)){
+                if (BankAccountDAO.insertBankAccountTransaction(connection, transaction)){
 
                     bankAccount.setAccountBalance(bankAccount.getAccountBalance() - transaction.getTransactionAmount());
 
-                    if(BankAccountDAO.updateBankAccount(AppUtils.getStoredConnection(req), bankAccount)){
+                    if(BankAccountDAO.updateBankAccount(connection, bankAccount)){
                         logger.info("transfer transaction completed successfully");
                     } else {
                         req.setAttribute("payment", "payment");
@@ -116,16 +136,19 @@ public class PaymentTransfersServlet extends HttpServlet {
                         return;
                     }
 
-                    resp.sendRedirect(req.getContextPath() + "/userPage");
+                    resp.sendRedirect(req.getContextPath() + "/userPage?pageA=1&pageUsO=1&pageYO=1");
+                    return;
                 }
                 else {
                     req.setAttribute("payment", "payment");
                     req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                    return;
                 }
 
             } else {
                 req.setAttribute("payment", "payment");
                 req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                return;
             }
 
             //Validating payment data and creating corresponding transaction
@@ -135,11 +158,11 @@ public class PaymentTransfersServlet extends HttpServlet {
 
                 BankAccountTransaction transaction = CreateTransactionUtil.createBankAccountTransaction(req);
 
-                if (BankAccountDAO.insertBankAccountTransaction(AppUtils.getStoredConnection(req), transaction)){
+                if (BankAccountDAO.insertBankAccountTransaction(connection, transaction)){
 
                     bankAccount.setAccountBalance(bankAccount.getAccountBalance() - transaction.getTransactionAmount());
 
-                    if(BankAccountDAO.updateBankAccount(AppUtils.getStoredConnection(req), bankAccount)){
+                    if(BankAccountDAO.updateBankAccount(connection, bankAccount)){
                         logger.info("payment transaction completed successfully");
                     } else {
                         req.setAttribute("payment", "payment");
@@ -147,15 +170,18 @@ public class PaymentTransfersServlet extends HttpServlet {
                         return;
                     }
 
-                    resp.sendRedirect(req.getContextPath() + "/userPage");
+                    resp.sendRedirect(req.getContextPath() + "/userPage?pageA=1&pageUsO=1&pageYO=1");
+                    return;
                 }
                 else {
                     req.setAttribute("payment", "payment");
                     req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                    return;
                 }
             } else {
                 req.setAttribute("payment", "payment");
                 req.getRequestDispatcher("templates/paymentTransfers.jsp").forward(req, resp);
+                return;
             }
         }
     }
