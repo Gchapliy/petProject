@@ -77,7 +77,7 @@ public class JDBCFilter implements Filter{
     }
 
     /**
-     * Check the target of the request is a controller?
+     * Will check the request to ensure that it only opens JDBC connection  for the necessary request, eg for Servlet
      * @param request
      * @return
      */

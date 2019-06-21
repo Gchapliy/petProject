@@ -18,6 +18,15 @@ public class CookieFilter implements Filter {
 
     }
 
+    /**
+     * In case, the user logined and  remembered information in previous access (for example the day before).
+     * And now the user return, this Filter will check the Cookie information stored by the browser and automatic Login
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
