@@ -59,7 +59,7 @@ public class HistoryBankAccountServlet extends HttpServlet {
         boolean noHistory = false;
 
         if (bankAccountUuid != null) {
-            bankAccount = userAccount.getBankAccountByUuid(bankAccountUuid);
+            bankAccount = BankAccountDAO.findBankAccountByUuid(connection, bankAccountUuid);
 
             if (bankAccount != null) {
 
@@ -81,9 +81,6 @@ public class HistoryBankAccountServlet extends HttpServlet {
                     LocaleUtils.setLocaleHeaderAndFooter(req);
                     LocaleUtils.setLocaleBankAccountHistory(req, noHistory);
                     LocaleUtils.setLocaleManagingInterface(req);
-
-                    req.getRequestDispatcher("templates/bankAccountHistory.jsp").forward(req, resp);
-                    return;
                 }
 
                 req.setAttribute("pageIdHistory", pageHistoryId);
@@ -101,9 +98,11 @@ public class HistoryBankAccountServlet extends HttpServlet {
             return;
         }
 
+        req.setAttribute("uuid", bankAccountUuid);
         req.setAttribute("allHistory", historyPagination.getPagesArray());
         req.setAttribute("link", "bankAccount?uuid=" + bankAccountUuid);
         req.setAttribute("pageIdHistory", pageHistoryId);
+        req.setAttribute("bankAccount", bankAccount);
 
         LocaleUtils.setLocaleHeaderAndFooter(req);
         LocaleUtils.setLocaleBankAccountHistory(req, noHistory);

@@ -26,7 +26,7 @@
         </div>
     </c:forEach>
 
-    <c:if test="${transactionsHistory != null}">
+    <c:if test="${noHistory == null}">
         <%--PAGINATION--%>
         <section id="pagination">
             <div class="row center-lg center-md center-xs center-sm">
