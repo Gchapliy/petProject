@@ -30,7 +30,6 @@ public class CreateTransactionUtil {
 
         if (target != null && !target.isEmpty()) {
             transactionTarget = target;
-
         }
 
         BankAccountTransaction transaction = new BankAccountTransaction();

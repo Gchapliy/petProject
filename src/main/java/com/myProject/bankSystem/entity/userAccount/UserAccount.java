@@ -108,7 +108,6 @@ public class UserAccount implements Serializable{
         return "UserAccount{" +
                 "userAccountName='" + userAccountName + '\'' +
                 ", userAccountGender='" + userAccountGender + '\'' +
-                ", userAccountEncryptedPassword='" + userAccountEncryptedPassword + '\'' +
                 ", accountCreateDate=" + accountCreateDate +
                 ", userAccountRole=" + userAccountRole +
                 ", userAccountEmail='" + userAccountEmail + '\'' +

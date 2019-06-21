@@ -34,6 +34,7 @@ public class TransferValidator {
      */
     public static boolean validate(HttpServletRequest request, HttpServletResponse response) {
 
+        String uuidFrom = request.getParameter("uuid");
         String recepAccount = request.getParameter("recepAccount");
         String recepSum = request.getParameter("recepSum");
 
@@ -74,7 +75,7 @@ public class TransferValidator {
 
         BankAccount bankAccount = BankAccountDAO.findBankAccountByUuid(AppUtils.getStoredConnection(request), recepAccount);
 
-        if (bankAccount == null) {
+        if (bankAccount == null || bankAccount.getAccountUuid().equals(uuidFrom)) {
             hasError = true;
             isTransferSpecifyInvalid = true;
             errors[0] = isTransferSpecifyInvalid;

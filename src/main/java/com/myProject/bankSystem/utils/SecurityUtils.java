@@ -13,7 +13,6 @@ public class SecurityUtils {
 
     final static Logger logger = LogManager.getLogger(SecurityUtils.class);
 
-
     /**
      * Encode password
      *

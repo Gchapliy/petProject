@@ -292,6 +292,7 @@ public class LocaleUtils {
         request.setAttribute("chooseCredTerm", resourceBundle.getString("bankAccount.new.chooseCredTerm"));
         request.setAttribute("credPercent", resourceBundle.getString("bankAccount.new.creditPercent"));
         request.setAttribute("sendOrder", resourceBundle.getString("bankAccount.new.sendOrder"));
+        request.setAttribute("orderCreated", resourceBundle.getString("bankAccount.new.orderCreated"));
 
         if (depSumError) request.setAttribute("depSumError", resourceBundle.getString("bankAccount.new.depSumError"));
         if (credSumError)

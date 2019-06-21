@@ -74,7 +74,6 @@ public class PaymentTransfersServlet extends HttpServlet {
             else if (type == BankAccount.AccountType.DEPOSIT || type == BankAccount.AccountType.CREDIT){
                 req.setAttribute("depositCredit", "depositCredit");
 
-
                 List<BankAccountTransaction> transactions = BankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount, historyPagination.getPageId() - 1, TOTAL_ITEMS_PER_PAGE);
 
                 if(type == BankAccount.AccountType.DEPOSIT)

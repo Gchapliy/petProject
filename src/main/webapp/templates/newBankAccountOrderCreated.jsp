@@ -2,8 +2,10 @@
 
 <%@ include file="header.jsp" %>
 
-<div class="row center-lg center-md center-xs center-sm">
-    Order created successfully
-</div>
+<section id="orderCreated">
+    <div class="row center-lg center-md center-xs center-sm">
+        <h3>${orderCreated}</h3>
+    </div>
+</section>
 
 <%@ include file="footer.jsp" %>

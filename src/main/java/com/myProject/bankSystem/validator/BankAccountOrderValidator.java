@@ -15,7 +15,10 @@ public class BankAccountOrderValidator {
         boolean depSumError = false;
         boolean credSumError = false;
 
-        if (type.equals("deposit")) {
+        if(type.equals("standard")){
+            LocaleUtils.setLocaleNewBankAccount(req, depSumError, credSumError);
+            return true;
+        }else if (type.equals("deposit")) {
 
             String depTerm = req.getParameter("depositTerm");
             String depSum = req.getParameter("depSum");

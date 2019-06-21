@@ -35,6 +35,7 @@ public class PaymentValidator {
      */
     public static boolean validate(HttpServletRequest request, HttpServletResponse response) {
 
+        String uuidFrom = request.getParameter("uuid");
         String recepAccount = request.getParameter("recepAccount");
         String recepSum = request.getParameter("recepSum");
         String target = request.getParameter("target");
@@ -79,7 +80,7 @@ public class PaymentValidator {
 
         BankAccount bankAccount = BankAccountDAO.findBankAccountByUuid(AppUtils.getStoredConnection(request), recepAccount);
 
-        if (bankAccount == null) {
+        if (bankAccount == null || bankAccount.getAccountUuid().equals(uuidFrom)) {
             hasError = true;
             isPaymentSpecifyInvalid = true;
             errors[3] = isPaymentSpecifyInvalid;
