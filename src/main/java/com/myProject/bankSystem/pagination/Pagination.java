@@ -10,12 +10,17 @@ public class Pagination {
 
     public Pagination(int pageId, int allItems, int totalItemsPerPage) {
         this.pageId = pageId;
+        if(pageId < 1) this.pageId = 1;
+
         this.allItems = allItems;
+        if(allItems < 1) this.allItems = 1;
+
         this.totalItemsPerPage = totalItemsPerPage;
+        if(totalItemsPerPage < 1)this.totalItemsPerPage = 1;
 
         calculateAllPages();
         createPagesArr();
-        calculatePageId();
+        updatePageId();
     }
 
     /**
@@ -47,7 +52,7 @@ public class Pagination {
     /**
      * calculating current item number in db
      */
-    private void calculatePageId(){
+    private void updatePageId(){
         if(pageId > 1){
             pageId = pageId - 1;
             pageId = pageId * totalItemsPerPage + 1;
