@@ -1,4 +1,4 @@
-package com.myProject.bankSystem.entity.bankAccount;
+package com.myProject.bankSystem.bean.bankAccount;
 
 import java.io.Serializable;
 import java.util.Date;

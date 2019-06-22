@@ -1,9 +1,9 @@
 package com.myProject.bankSystem.controller;
 
 import com.myProject.bankSystem.dao.BankAccountDAO;
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountTransaction;
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountTransaction;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 import com.myProject.bankSystem.pagination.Pagination;
 import com.myProject.bankSystem.utils.AppUtils;
 import com.myProject.bankSystem.utils.LocaleUtils;

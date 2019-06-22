@@ -1,6 +1,6 @@
 package com.myProject.bankSystem.utils;
 
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;

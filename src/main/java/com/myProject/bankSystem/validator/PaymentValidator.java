@@ -1,7 +1,7 @@
 package com.myProject.bankSystem.validator;
 
 import com.myProject.bankSystem.dao.BankAccountDAO;
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
 import com.myProject.bankSystem.utils.AppUtils;
 import com.myProject.bankSystem.utils.LocaleUtils;
 import org.apache.logging.log4j.LogManager;

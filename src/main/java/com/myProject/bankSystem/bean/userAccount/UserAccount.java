@@ -1,7 +1,7 @@
-package com.myProject.bankSystem.entity.userAccount;
+package com.myProject.bankSystem.bean.userAccount;
 
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountOrder;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountOrder;
 
 import java.io.Serializable;
 import java.util.ArrayList;

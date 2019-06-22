@@ -1,7 +1,7 @@
 package com.myProject.bankSystem.controller;
 
 import com.myProject.bankSystem.dao.UserDAO;
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 import com.myProject.bankSystem.utils.AppUtils;
 import com.myProject.bankSystem.utils.CreateUserAccountUtil;
 import com.myProject.bankSystem.utils.LocaleUtils;

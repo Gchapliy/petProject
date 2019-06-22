@@ -1,6 +1,6 @@
 package com.myProject.bankSystem.utils;
 
-import com.myProject.bankSystem.entity.userAccount.Role;
+import com.myProject.bankSystem.bean.userAccount.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

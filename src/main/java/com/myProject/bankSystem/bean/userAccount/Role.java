@@ -1,8 +1,6 @@
-package com.myProject.bankSystem.entity.userAccount;
+package com.myProject.bankSystem.bean.userAccount;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Role implements Serializable {
 

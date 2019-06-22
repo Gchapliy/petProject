@@ -1,8 +1,8 @@
 package com.myProject.bankSystem.controller;
 
 import com.myProject.bankSystem.dao.BankAccountDAO;
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountOrder;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountOrder;
 import com.myProject.bankSystem.utils.AppUtils;
 import com.myProject.bankSystem.utils.CreateBankAccountUtil;
 import org.apache.logging.log4j.LogManager;

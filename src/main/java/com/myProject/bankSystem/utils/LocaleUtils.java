@@ -1,13 +1,11 @@
 package com.myProject.bankSystem.utils;
 
-import com.myProject.bankSystem.controller.PaymentTransfersServlet;
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

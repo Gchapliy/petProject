@@ -1,6 +1,6 @@
-package com.myProject.bankSystem.entity.bankAccount;
+package com.myProject.bankSystem.bean.bankAccount;
 
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 
 import java.io.Serializable;
 import java.util.Date;

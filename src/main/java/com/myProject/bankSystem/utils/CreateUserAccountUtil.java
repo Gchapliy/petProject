@@ -1,8 +1,8 @@
 package com.myProject.bankSystem.utils;
 
 import com.myProject.bankSystem.dao.UserDAO;
-import com.myProject.bankSystem.entity.userAccount.Role;
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.userAccount.Role;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

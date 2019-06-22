@@ -2,9 +2,9 @@ package com.myProject.bankSystem.controller;
 
 import com.myProject.bankSystem.dao.BankAccountDAO;
 import com.myProject.bankSystem.dao.UserDAO;
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountOrder;
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountOrder;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 import com.myProject.bankSystem.pagination.Pagination;
 import com.myProject.bankSystem.utils.AppUtils;
 import com.myProject.bankSystem.utils.LocaleUtils;
@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 

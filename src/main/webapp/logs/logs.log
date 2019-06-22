@@ -911,4 +911,87 @@
 ""15:50:29.400 [http-nio-8080-exec-58] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your accounts [BankAccount{accountUuid='baec75a6-673f-3641-8e54-e81e68a1f8e4', accountBalance=10859.575342465754, accountCreationDate=Fri Jun 21 14:55:56 EEST 2019, accountExpirationDate=Sat Dec 21 14:55:56 EET 2019, accountOwner=UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'}, accountInterestRate=15.0, accountDebt=0.0, accountLimit=10752.054794520547, accountType=DEPOSIT}, BankAccount{accountUuid='d9e07628-9cfd-3d87-a4f2-d4a20206e3e3', accountBalance=20100.0, accountCreationDate=Fri Jun 21 14:56:19 EEST 2019, accountExpirationDate=Sat Dec 21 14:56:19 EET 2019, accountOwner=UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'}, accountInterestRate=45.0, accountDebt=22525.0, accountLimit=22625.0, accountType=CREDIT}, BankAccount{accountUuid='f57f3576-761e-3503-911e-a39d6e29888d', accountBalance=800.0, accountCreationDate=Fri Jun 21 14:52:18 EEST 2019, accountExpirationDate=Wed Jun 21 14:52:18 EEST 2023, accountOwner=UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'}, accountInterestRate=0.0, accountDebt=0.0, accountLimit=0.0, accountType=PAYMENT}]
 ""15:50:29.400 [http-nio-8080-exec-58] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your orders [BankAccountOrder{orderId=13, orderCreateDate=Fri Jun 21 14:52:18 EEST 2019, orderOwner=grishachapliy1@gmail.com, orderStatus=ALLOWED, accountExpirationDate=Wed Jun 21 14:52:18 EEST 2023, accountBalance=1000.0, accountLimit=0.0, accountInterestRate=0.0, accountType=PAYMENT}, BankAccountOrder{orderId=14, orderCreateDate=Fri Jun 21 14:55:56 EEST 2019, orderOwner=grishachapliy1@gmail.com, orderStatus=ALLOWED, accountExpirationDate=Sat Dec 21 14:55:56 EET 2019, accountBalance=10000.0, accountLimit=10752.054794520547, accountInterestRate=15.0, accountType=DEPOSIT}, BankAccountOrder{orderId=15, orderCreateDate=Fri Jun 21 14:56:19 EEST 2019, orderOwner=grishachapliy1@gmail.com, orderStatus=ALLOWED, accountExpirationDate=Sat Dec 21 14:56:19 EET 2019, accountBalance=20000.0, accountLimit=22625.0, accountInterestRate=45.0, accountType=CREDIT}]
 ""15:50:29.667 [http-nio-8080-exec-58] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:47:50.886 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""09:47:51.386 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:47:52.746 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:47:54.047 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""09:47:54.058 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:47:54.063 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:47:55.368 [http-nio-8080-exec-8] ERROR com.myProject.bankSystem.handler.ErrorHandler - error code 404
+""09:47:57.121 [http-nio-8080-exec-10] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /login
+""09:47:57.128 [http-nio-8080-exec-10] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:47:57.797 [http-nio-8080-exec-10] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:48:16.319 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /login
+""09:48:16.329 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:48:16.412 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.dao.UserDAO - Role{roleID=1, roleName='ROLE_ADMIN'} founded
+""09:48:16.414 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.dao.UserDAO - UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'} founded
+""09:48:16.415 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.validator.LoginValidator - User: grishachapliy1@gmail.com is login
+""09:48:16.417 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:48:16.460 [http-nio-8080-exec-2] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /userPage
+""09:48:16.465 [http-nio-8080-exec-2] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:48:16.480 [http-nio-8080-exec-2] INFO  com.myProject.bankSystem.controller.UserPageServlet - found users orders []
+""09:48:16.493 [http-nio-8080-exec-2] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your accounts []
+""09:48:16.494 [http-nio-8080-exec-2] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your orders []
+""09:48:17.159 [http-nio-8080-exec-2] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:49:50.983 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""09:49:51.322 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:49:51.654 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:49:53.914 [http-nio-8080-exec-3] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""09:49:53.920 [http-nio-8080-exec-3] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:49:53.924 [http-nio-8080-exec-3] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""09:49:55.124 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""09:49:55.131 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""09:49:55.270 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:24.992 [http-nio-8080-exec-11] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""10:10:25.365 [http-nio-8080-exec-11] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:25.722 [http-nio-8080-exec-11] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:27.297 [http-nio-8080-exec-15] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /login
+""10:10:27.304 [http-nio-8080-exec-15] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:27.496 [http-nio-8080-exec-15] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:37.800 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /login
+""10:10:37.809 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:37.921 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.dao.UserDAO - Role{roleID=1, roleName='ROLE_ADMIN'} founded
+""10:10:37.963 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.dao.UserDAO - UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'} founded
+""10:10:37.964 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.validator.LoginValidator - User: grishachapliy1@gmail.com is login
+""10:10:37.964 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:37.987 [http-nio-8080-exec-20] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /userPage
+""10:10:37.991 [http-nio-8080-exec-20] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:38.015 [http-nio-8080-exec-20] INFO  com.myProject.bankSystem.controller.UserPageServlet - found users orders []
+""10:10:38.018 [http-nio-8080-exec-20] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your accounts []
+""10:10:38.019 [http-nio-8080-exec-20] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your orders []
+""10:10:38.497 [http-nio-8080-exec-20] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:46.327 [http-nio-8080-exec-14] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /newBankAccount
+""10:10:46.334 [http-nio-8080-exec-14] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:46.676 [http-nio-8080-exec-14] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:50.013 [http-nio-8080-exec-12] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /newBankAccount
+""10:10:50.021 [http-nio-8080-exec-12] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:50.134 [http-nio-8080-exec-12] INFO  com.myProject.bankSystem.dao.BankAccountDAO - bank account order created
+""10:10:50.311 [http-nio-8080-exec-12] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:51.803 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /userPage
+""10:10:51.824 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:51.840 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.dao.UserDAO - Role{roleID=1, roleName='ROLE_ADMIN'} founded
+""10:10:51.841 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.dao.UserDAO - UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'} founded
+""10:10:51.841 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.controller.UserPageServlet - found users orders [BankAccountOrder{orderId=1, orderCreateDate=Sat Jun 22 10:10:50 EEST 2019, orderOwner=grishachapliy1@gmail.com, orderStatus=IN_PROGRESS, accountExpirationDate=Thu Jun 22 10:10:50 EEST 2023, accountBalance=1000.0, accountLimit=0.0, accountInterestRate=0.0, accountType=PAYMENT}]
+""10:10:51.849 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your accounts []
+""10:10:51.849 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your orders [BankAccountOrder{orderId=1, orderCreateDate=Sat Jun 22 10:10:50 EEST 2019, orderOwner=grishachapliy1@gmail.com, orderStatus=IN_PROGRESS, accountExpirationDate=Thu Jun 22 10:10:50 EEST 2023, accountBalance=1000.0, accountLimit=0.0, accountInterestRate=0.0, accountType=PAYMENT}]
+""10:10:51.978 [http-nio-8080-exec-18] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:56.257 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /success
+""10:10:56.264 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:56.265 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.controller.AccessBankAccountServlet - orderId to success: 1
+""10:10:56.281 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.dao.UserDAO - Role{roleID=1, roleName='ROLE_ADMIN'} founded
+""10:10:56.281 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.dao.UserDAO - UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'} founded
+""10:10:56.339 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.dao.BankAccountDAO - bank account with uuid 3eaf74c7-413a-3180-b487-242da85e60de inserted
+""10:10:56.377 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.dao.BankAccountDAO - bank account order updated
+""10:10:56.377 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.controller.AccessBankAccountServlet - bank account BankAccount{accountUuid='3eaf74c7-413a-3180-b487-242da85e60de', accountBalance=1000.0, accountCreationDate=Sat Jun 22 10:10:50 EEST 2019, accountExpirationDate=Thu Jun 22 10:10:50 EEST 2023, accountOwner=UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'}, accountInterestRate=0.0, accountDebt=0.0, accountLimit=0.0, accountType=PAYMENT} created
+""10:10:56.379 [http-nio-8080-exec-22] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:56.402 [http-nio-8080-exec-23] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /userPage
+""10:10:56.406 [http-nio-8080-exec-23] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:56.411 [http-nio-8080-exec-23] INFO  com.myProject.bankSystem.controller.UserPageServlet - found users orders []
+""10:10:56.420 [http-nio-8080-exec-23] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your accounts [BankAccount{accountUuid='3eaf74c7-413a-3180-b487-242da85e60de', accountBalance=1000.0, accountCreationDate=Sat Jun 22 10:10:50 EEST 2019, accountExpirationDate=Thu Jun 22 10:10:50 EEST 2023, accountOwner=UserAccount{userAccountName='admin', userAccountGender='male', accountCreateDate=Fri Jun 21 11:16:05 EEST 2019, userAccountRole=Role{roleID=1, roleName='ROLE_ADMIN'}, userAccountEmail='grishachapliy1@gmail.com', userAccountPhone='+380674043333'}, accountInterestRate=0.0, accountDebt=0.0, accountLimit=0.0, accountType=PAYMENT}]
+""10:10:56.420 [http-nio-8080-exec-23] INFO  com.myProject.bankSystem.controller.UserPageServlet - found your orders [BankAccountOrder{orderId=1, orderCreateDate=Sat Jun 22 10:10:50 EEST 2019, orderOwner=grishachapliy1@gmail.com, orderStatus=ALLOWED, accountExpirationDate=Thu Jun 22 10:10:50 EEST 2023, accountBalance=1000.0, accountLimit=0.0, accountInterestRate=0.0, accountType=PAYMENT}]
+""10:10:56.435 [http-nio-8080-exec-23] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""10:10:58.358 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /bankAccount
+""10:10:58.363 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""10:10:58.364 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.controller.BankAccountServlet - bank account uuid - 3eaf74c7-413a-3180-b487-242da85e60de found
+""10:10:58.728 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
 "

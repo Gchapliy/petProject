@@ -1,8 +1,8 @@
 package com.myProject.bankSystem.utils;
 
 import com.myProject.bankSystem.dao.BankAccountDAO;
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountOrder;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountOrder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;

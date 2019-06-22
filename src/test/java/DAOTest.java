@@ -1,11 +1,11 @@
 import com.myProject.bankSystem.dao.BankAccountDAO;
 import com.myProject.bankSystem.dao.UserDAO;
-import com.myProject.bankSystem.entity.bankAccount.BankAccount;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountOrder;
-import com.myProject.bankSystem.entity.bankAccount.BankAccountTransaction;
-import com.myProject.bankSystem.entity.userAccount.Role;
+import com.myProject.bankSystem.bean.bankAccount.BankAccount;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountOrder;
+import com.myProject.bankSystem.bean.bankAccount.BankAccountTransaction;
+import com.myProject.bankSystem.bean.userAccount.Role;
 import com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil;
-import com.myProject.bankSystem.entity.userAccount.UserAccount;
+import com.myProject.bankSystem.bean.userAccount.UserAccount;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
