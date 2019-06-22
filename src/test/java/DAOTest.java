@@ -53,7 +53,7 @@ public class DAOTest {
     public void findBankAccountTransactionsByBankAccountUuidTest(){
         String uuid = "82b07ab1-d082-4be4-a9c4-52f959c295cb";
         bankAccount = bankAccountDAO.findBankAccountByUuid(connection, uuid);
-        transactions = bankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount, 0, 100);
+        transactions = bankAccountDAO.findBankAccountTransactionsByUuid(connection, bankAccount, 1, 100);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class DAOTest {
 
             Assert.assertTrue(bankAccountDAO.insertBankAccountOrder(connection, bankAccountOrder));
 
-            List<BankAccountOrder> orders = bankAccountDAO.findBankAccountOrdersByUserAccount(connection, userAccount, 0, 100);
+            List<BankAccountOrder> orders = bankAccountDAO.findBankAccountOrdersByUserAccount(connection, userAccount, 1, 100);
 
             bankAccountOrderRead = orders.get(orders.size() - 1);
 

@@ -994,4 +994,13 @@
 ""10:10:58.363 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
 ""10:10:58.364 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.controller.BankAccountServlet - bank account uuid - 3eaf74c7-413a-3180-b487-242da85e60de found
 ""10:10:58.728 [http-nio-8080-exec-13] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""12:16:30.125 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""12:16:30.519 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""12:16:31.789 [http-nio-8080-exec-1] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""12:16:33.448 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""12:16:33.457 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""12:16:33.477 [http-nio-8080-exec-5] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
+""12:16:38.860 [http-nio-8080-exec-8] INFO  com.myProject.bankSystem.controller.HomeServlet - Open Connection for: /home
+""12:16:38.867 [http-nio-8080-exec-8] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.MySQLConnectionUtil - Connection created successfully
+""12:16:38.883 [http-nio-8080-exec-8] INFO  com.myProject.bankSystem.utils.dbConnectionUtils.ConnectionUtils - Connection closed quietly
 "
