@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Connection;
 
 public class RegisterValidator {
@@ -38,7 +40,7 @@ public class RegisterValidator {
 
         String phoneRegex = "^\\d{4}-\\d{3}-\\d{4}$";
         String emailRegex = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-        String nameRegex = "[A-Z][a-z]*";
+        String nameRegex = "[A-ZА-Я][a-zа-я]*";
         String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$";
         /*
             ^                 # start-of-string
@@ -99,7 +101,7 @@ public class RegisterValidator {
             logger.error("email is invalid");
         }
 
-        if (!name.matches(nameRegex)) {
+        if (!name.matches(nameRegex) || name.length() < 2) {
             hasError = true;
             isNameInvalid = true;
 
