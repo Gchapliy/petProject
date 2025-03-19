@@ -9,3 +9,5 @@ mvn clean install
 ## Usage
 
 mvn tomcat7:run
+
+## P.S.: Don't be too strict. This is my very first independent project at the beginning of my journey in IT
